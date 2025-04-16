@@ -88,7 +88,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
-		popup->setUserData(this);
+		popup->setUserObject(this);
 		popup->show();
 	} // onGroupIdPress
 
@@ -105,7 +105,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 				} // for
 			}
 		);
-		popup->setUserData(this);
+		popup->setUserObject(this);
 		popup->show();
 	} // onOriginalIdPress
 
@@ -120,7 +120,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 					spawnObject->m_remapObjects[i].m_chance = vals[i];
 			}
 		);
-		popup->setUserData(this);
+		popup->setUserObject(this);
 		popup->show();
 	} // onNewIdPress
 

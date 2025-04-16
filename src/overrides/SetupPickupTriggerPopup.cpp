@@ -67,7 +67,7 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onItemIdPress
 
@@ -79,7 +79,7 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 			[](EffectGameObject* obj, std::vector<float> vals) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); pickupTriggerObj->m_pickupCount = vals[0]; },
 			-9999, 9999
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onCountPress
 

@@ -123,7 +123,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onItemId1Press
 
@@ -134,7 +134,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID2 = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onItemId2Press
 
@@ -146,7 +146,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod1 = vals[0]; },
 			-9999, 9999
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onMod1Press
 
@@ -158,7 +158,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod2 = vals[0]; },
 			-9999, 9999
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onMod2Press
 
@@ -169,7 +169,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj) { std::vector<float> trueId = { static_cast<float>(obj->m_targetGroupID) }; return trueId; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onTrueIdPress
 
@@ -180,7 +180,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 			[](EffectGameObject* obj) { std::vector<float> falseId = { static_cast<float>(obj->m_centerGroupID) }; return falseId; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_centerGroupID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onFalseIdPress
 

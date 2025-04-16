@@ -81,7 +81,7 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onItemIdPress
 
@@ -92,7 +92,7 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onTargetIdPress
 
@@ -104,7 +104,7 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 			[](EffectGameObject* obj, std::vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_pickupCount = vals[0]; },
             -9999, 9999
 		);
-        popup->setUserData(this);
+        popup->setUserObject(this);
         popup->show();
 	} // onTargetCountPress
 

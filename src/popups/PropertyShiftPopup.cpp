@@ -18,7 +18,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     } // for
 
     onClose(this);
-    if (getUserData() != NULL) static_cast<SetupTriggerPopup*>(getUserData())->onClose(this);
+    if (getUserObject() != NULL) static_cast<SetupTriggerPopup*>(getUserObject())->onClose(this);
 } // onButtonPress
 
 bool PropertyShiftPopup::setup() {

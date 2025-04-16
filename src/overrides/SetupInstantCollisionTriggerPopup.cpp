@@ -81,72 +81,56 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 
 		// Set button data
 		blockALabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		blockALabelButton->setUserData(self);
 		blockBLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		blockBLabelButton->setUserData(self);
-        trueIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		trueIdLabelButton->setUserData(self);
-        falseIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		falseIdLabelButton->setUserData(self);
-	
+		trueIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		falseIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		
 		return true;
 	} // init
 
 	void onBlockAPress(CCObject* sender) {
-		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
-        auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
         auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
-		popup->setUserData(self);
+		popup->setUserObject(this);
 		popup->show();
 	} // onBlockAPress
 
 	void onBlockBPress(CCObject* sender) {
-		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
-        auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID2 = vals[0]; }
 		);
-		popup->setUserData(self);
+		popup->setUserObject(this);
 		popup->show();
 	} // onBlockBPress
 
     void onTrueIDPress(CCObject* sender) {
-		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
-        auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
-		popup->setUserData(self);
+		popup->setUserObject(this);
 		popup->show();
 	} // onTrueIDPress
 
     void onFalseIDPress(CCObject* sender) {
-		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
-        auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_centerGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_centerGroupID = vals[0]; }
 		);
-		popup->setUserData(self);
+		popup->setUserObject(this);
 		popup->show();
 	} // onFalseIDPress
-
-	void onClose(SetupInstantCollisionTriggerPopup* self) {
-		static tulip::hook::WrapperMetadata metadata;
-        metadata.m_convention = geode::hook::createConvention(tulip::hook::TulipConvention::Fastcall);
-        metadata.m_abstract = tulip::hook::AbstractFunction::from(&onClose_hook);
-        auto original = geode::hook::createWrapper(reinterpret_cast<void*>(geode::base::get() + 0x09b8c0), metadata).unwrap();
-        reinterpret_cast<void(*)(CCObject*)>(original)(self); // SetupInstantCollisionTriggerPopup::onClose
-	} // onClose
 
 }; // SetupInstantCollisionTriggerPopupShift
 

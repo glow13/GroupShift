@@ -40,7 +40,6 @@ class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
 
 		// Set button data
 		blockIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-        blockIdLabelButton->setUserData(this);
 
         return true;
     } // init

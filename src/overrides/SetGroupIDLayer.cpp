@@ -54,7 +54,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 	void onAddGroupIdPress(CCObject* sender) {
 		auto objects = static_cast<GroupShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto shiftPopup = GroupShiftPopup::create(objects->data);
-		shiftPopup->setUserData(this);
+		shiftPopup->setUserObject(this);
 		shiftPopup->show();
 	} // onAddGroupIdPress
 
