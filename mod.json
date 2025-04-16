@@ -6,7 +6,7 @@
 	},
 	"id": "glow12.groupshift",
 	"name": "GroupShift",
-	"version": "v1.0.2",
+	"version": "v1.0.0",
 	"developer": "glow12",
 	"description": "Shifts the groups for all selected objects by a certain amount. Used by me mainly for a personal project, but you might find it useful!"
 }
