@@ -60,10 +60,11 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 	void onAllParentPress(CCObject* sender) {
 		auto objects = static_cast<GroupShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto num = std::to_string(objects->data.size());
 		FLAlertLayer* warning = geode::createQuickPopup(
 			"WARNING",
-			"You are about to set " + std::to_string(objects->data.size()) + " selected objects as a group parent!",
-			"No", "OK",
+			"You are attempting to make each selected object the parent of every group they are in! This will also overwrite any other current group parents if they exist. You currently have " + num + " objects selected, make sure that they all have unique groups and that this action won't overwrite anything you don't want it to!",
+			"Nvmd", "Yep",
 			[objects, this](auto, bool btn2) {
 				if (btn2) {
 					LevelEditorLayer* lel = LevelEditorLayer::get();
