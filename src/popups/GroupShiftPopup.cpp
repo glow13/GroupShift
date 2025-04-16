@@ -32,6 +32,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     } // for
     
     onClose(this);
+    static_cast<SetGroupIDLayer*>(getUserData())->onClose(this);
 } // onButtonPress
 
 bool GroupShiftPopup::setup() {
