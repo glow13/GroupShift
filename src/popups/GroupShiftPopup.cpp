@@ -14,7 +14,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
         for (int i = 0; i < obj->m_groupCount; i++) {
             if (groups[i] > 0 && inBounds(groups[i] + getValue(), 9999)) newGroups[i] = static_cast<short>(groups[i] + getValue());
             else newGroups[i] = static_cast<short>(groups[i]);
-        }
+        } // for
 
         obj->m_groups = reinterpret_cast<decltype(obj->m_groups)>(newGroups);
 
@@ -25,14 +25,14 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
                 for (auto value : CCArrayExt<CCInteger*>(values)) {
                     int num = value->getValue();
                     if (num > 0 && num + getValue() > 0) newValues->addObject(new CCInteger(num + getValue()));
-                }
+                } // for
                 parents[obj->m_uniqueID] = newValues;
-            }
-        }
-    }
-
+            } // if
+        } // for
+    } // for
+    
     onClose(this);
-}
+} // onButtonPress
 
 bool GroupShiftPopup::setup() {
     if (!ShiftPopup::setup()) return false;
@@ -41,7 +41,7 @@ bool GroupShiftPopup::setup() {
     this->setID("GroupShiftPopup"_spr);
 
     return true;
-}
+} // setup
 
 GroupShiftPopup* GroupShiftPopup::create(std::vector<GameObject*> objects) {
     auto ret = new GroupShiftPopup();
@@ -49,8 +49,8 @@ GroupShiftPopup* GroupShiftPopup::create(std::vector<GameObject*> objects) {
         ret->targetedObjects = objects;
         ret->autorelease();
         return ret;
-    }
+    } // if
 
     delete ret;
     return nullptr;
-}
+} // create

@@ -3,6 +3,8 @@
 
 using namespace geode::prelude;
 
+const int initAddress = 0x402270;
+
 class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTriggerPopup) {
 
 	static bool init(SetupInstantCollisionTriggerPopup* self, EffectGameObject* obj, cocos2d::CCArray* objs) {
@@ -74,14 +76,8 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;
-		if (!objs || objs->count() == 0) {
-			objects.push_back(obj);
-		}
-		else {
-			for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) {
-				objects.push_back(obj2);
-			}
-		}
+		if (!objs || objs->count() == 0) objects.push_back(obj);
+		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
 		// Set button data
 		blockALabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
@@ -94,59 +90,51 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 		falseIdLabelButton->setUserData(self);
 	
 		return true;
-	}
+	} // init
 
 	void onBlockAPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		)->show();
-		
 		onClose(self);
-	}
+	} // onBlockAPress
 
 	void onBlockBPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
 		PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID2 = vals[0]; }
 		)->show();
-
 		onClose(self);
-	}
+	} // onBlockBPress
 
     void onTrueIDPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
 		PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		)->show();
-
 		onClose(self);
-	}
+	} // onTrueIDPress
 
     void onFalseIDPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
 		PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_centerGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_centerGroupID = vals[0]; }
 		)->show();
-
 		onClose(self);
-	}
+	} // onFalseIDPress
 
 	void onClose(SetupInstantCollisionTriggerPopup* self) {
 		static tulip::hook::WrapperMetadata metadata;
@@ -154,14 +142,15 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
         metadata.m_abstract = tulip::hook::AbstractFunction::from(&onClose_hook);
         auto original = geode::hook::createWrapper(reinterpret_cast<void*>(geode::base::get() + 0x09b8c0), metadata).unwrap();
         reinterpret_cast<void(*)(CCObject*)>(original)(self); // SetupInstantCollisionTriggerPopup::onClose
-	}
-};
+	} // onClose
+
+}; // SetupInstantCollisionTriggerPopupShift
 
 bool SetupInstantCollisionTriggerPopup_init(SetupInstantCollisionTriggerPopup* self, EffectGameObject* obj, cocos2d::CCArray* objs) {
     tulip::hook::WrapperMetadata metadata;
     metadata.m_convention = geode::hook::createConvention(tulip::hook::TulipConvention::Thiscall);
     metadata.m_abstract = tulip::hook::AbstractFunction::from(&SetupInstantCollisionTriggerPopup_init);
-    auto original = geode::hook::createWrapper(reinterpret_cast<bool*>(geode::base::get() + 0x402270), metadata).unwrap();
+    auto original = geode::hook::createWrapper(reinterpret_cast<bool*>(geode::base::get() + initAddress), metadata).unwrap();
 
     bool success = reinterpret_cast<bool(*)(SetupInstantCollisionTriggerPopup*, EffectGameObject*, cocos2d::CCArray*)>(original)(self, obj, objs);
     if (!success) return false;
@@ -172,9 +161,9 @@ bool SetupInstantCollisionTriggerPopup_init(SetupInstantCollisionTriggerPopup* s
 // Manual hooks are not fun :/
 $execute {
     auto result = Mod::get()->hook(
-        reinterpret_cast<void*>(geode::base::get() + 0x402270), // address
-        &SetupInstantCollisionTriggerPopup_init, // detour
-        "SetupInstantCollisionTriggerPopup::init", // display name, shows up on the console
-        tulip::hook::TulipConvention::Thiscall // calling convention
+        reinterpret_cast<void*>(geode::base::get() + initAddress),
+        &SetupInstantCollisionTriggerPopup_init,
+        "SetupInstantCollisionTriggerPopup::init",
+        tulip::hook::TulipConvention::Thiscall
     );
 }

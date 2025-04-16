@@ -10,15 +10,15 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 		if (!SetupInstantCountPopup::init(obj, objs)) return false;
 
         // Add node ids
-		this->setID("SetupInstantCountPopup");
-		this->getChildByType<CCLayer>(0)->setID("main-layer");
-		this->getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
-        this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("target-id-label");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("target-count-label");
+		setID("SetupInstantCountPopup");
+		getChildByType<CCLayer>(0)->setID("main-layer");
+		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
+        getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("target-id-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("target-count-label");
 
         // Save references
-        auto mainLayer = this->getChildByID("main-layer");
+        auto mainLayer = getChildByID("main-layer");
         auto buttonMenu = mainLayer->getChildByID("button-menu");
         auto itemIdLabel = mainLayer->getChildByID("item-id-label");
         auto targetIdLabel = mainLayer->getChildByID("target-id-label");
@@ -63,14 +63,8 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
-		if (!objs || objs->count() == 0) {
-			objects.push_back(obj);
-		}
-		else {
-			for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) {
-				objects.push_back(obj2);
-			}
-		}
+		if (!objs || objs->count() == 0) objects.push_back(obj);
+		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
 		itemIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
@@ -78,57 +72,36 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
         targetCountLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
-	}
+	} // init
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; },
-            999999
+			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		)->show();
-        
 		onClose(this);
-	}
+	} // onItemIdPress
 
     void onTargetIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		)->show();
-        
 		onClose(this);
-	}
+	} // onTargetIdPress
 
     void onTargetCountPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) {
-                auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj);
-                std::vector<float> group = { static_cast<float>(countTriggerObj->m_pickupCount) }; return group;
-            },
-			[](EffectGameObject* obj, std::vector<float> vals) {
-                auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj);
-                countTriggerObj->m_pickupCount = vals[0];
-            },
-            999999
+			[](EffectGameObject* obj) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); std::vector<float> group = { static_cast<float>(countTriggerObj->m_pickupCount) }; return group; },
+			[](EffectGameObject* obj, std::vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_pickupCount = vals[0]; }
 		)->show();
-        
 		onClose(this);
-	}
+	} // onTargetCountPress
 
-    void onClose(SetupInstantCountPopup* self) {
-		static tulip::hook::WrapperMetadata metadata;
-        metadata.m_convention = geode::hook::createConvention(tulip::hook::TulipConvention::Fastcall);
-        metadata.m_abstract = tulip::hook::AbstractFunction::from(&onClose_hook);
-        auto original = geode::hook::createWrapper(reinterpret_cast<void*>(geode::base::get() + 0x09b8c0), metadata).unwrap();
-        reinterpret_cast<void(*)(CCObject*)>(original)(self); // SetupInstantCountPopup::onClose
-	}
-};
+}; // SetupInstantCountPopupShift

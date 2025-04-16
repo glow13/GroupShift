@@ -19,5 +19,6 @@ class $modify(EditorUIFix, EditorUI) {
         // Show popup
         if (match) SetupInstantCountPopup::create(dynamic_cast<CountTriggerGameObject*>(m_selectedObject), m_selectedObjects)->show();
         else EditorUI::editObject(obj);
-    }
-};
+    } // editObject
+    
+}; // EditorUIFix

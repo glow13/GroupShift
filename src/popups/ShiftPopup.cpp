@@ -5,16 +5,19 @@ using namespace geode::prelude;
 bool ShiftPopup::setup() {
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 
+    // Setup the window
     this->setTitle("Shift Groups");
     this->setID("GroupShiftPopup"_spr);
     this->m_noElasticity = true;
     
+    // Create the slider
     slider->setPosition(winSize.width / 2, winSize.height / 2 - 15);
     slider->setID("shift-slider"_spr);
     slider->setValue(0.5);
     slider->updateBar();
     this->addChild(slider);
 
+    // Create the text input field
     textInput->setPosition(winSize.width / 2, winSize.height / 2 + 15);
     textInput->setID("shift-text"_spr);
     textInput->setString("0");
@@ -22,17 +25,20 @@ bool ShiftPopup::setup() {
     textInput->setCallback([&](std::string const& text) { ShiftPopup::onTextInput(text); });
     this->addChild(textInput);
 
+    // Create the confirm button
     auto okButton = CCMenuItemSpriteExtra::create(ButtonSprite::create("OK"), this, menu_selector(ShiftPopup::onButtonPress));
     m_buttonMenu->addChildAtPosition(okButton, Anchor::Bottom);
     okButton->setID("shift-ok"_spr);
     okButton->setPositionY(25);
 
+    // Create the left arrow selector
     auto leftArrow = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("edit_leftBtn_001.png"), this, menu_selector(ShiftPopup::onLeftArrow));
     leftArrow->setID("left-arrow"_spr);
     leftArrow->setPositionX((m_buttonMenu->getContentWidth() - textInput->getContentWidth()) / 2 - leftArrow->getContentWidth() * 1.5);
     leftArrow->setPositionY(textInput->getPositionY() - m_buttonMenu->getPositionY());
     m_buttonMenu->addChild(leftArrow);
     
+    // Create the right arrow selector
     auto rightArrow = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("edit_rightBtn_001.png"), this, menu_selector(ShiftPopup::onRightArrow));
     rightArrow->setID("right-arrow"_spr);
     rightArrow->setPositionX((m_buttonMenu->getContentWidth() + textInput->getContentWidth()) / 2 +  leftArrow->getContentWidth() * 1.5);
@@ -40,31 +46,31 @@ bool ShiftPopup::setup() {
     m_buttonMenu->addChild(rightArrow);
 
     return true;
-}
+} // setup
 
 int ShiftPopup::getValue() {
     return std::stoi(this->textInput->getString());
-}
+} // getValue
 
 void ShiftPopup::onLeftArrow(CCObject* obj) {
     int value = getValue();
     if (value > -100) {
         this->textInput->setString(std::to_string(value - 1));
         this->slider->setValue((value + 99.0f) / 200.0f);
-    }
-}
+    } // if
+} // onLeftArrow
 
 void ShiftPopup::onRightArrow(CCObject* obj) {
     int value = getValue();
     if (value < 100) {
         this->textInput->setString(std::to_string(value + 1));
         this->slider->setValue((value + 101.0f) / 200.0f);
-    }
-}
+    } // if
+} // onRightArrow
 
 void ShiftPopup::onSlider(CCObject* obj) {
     this->textInput->setString(std::to_string(int(this->slider->getValue() * 200 - 100)));
-}
+} // onSlider
 
 void ShiftPopup::onTextInput(std::string text) {
     int pos = text.find("-");
@@ -81,7 +87,7 @@ void ShiftPopup::onTextInput(std::string text) {
 
     this->textInput->setString(text);
     this->slider->updateBar();
-}
+} // onTextInput
 
 static ShiftPopup* create(std::vector<GameObject*> objects) {
     auto ret = new ShiftPopup();
@@ -89,11 +95,11 @@ static ShiftPopup* create(std::vector<GameObject*> objects) {
         ret->targetedObjects = objects;
         ret->autorelease();
         return ret;
-    }
+    } // if
 
     delete ret;
     return nullptr;
-}
+} // create
 
 static ShiftPopup* create(std::vector<EffectGameObject*> objects) {
     auto ret = new ShiftPopup();
@@ -101,8 +107,8 @@ static ShiftPopup* create(std::vector<EffectGameObject*> objects) {
         ret->targetedTriggerObjects = objects;
         ret->autorelease();
         return ret;
-    }
+    } // if
 
     delete ret;
     return nullptr;
-}
+} // create

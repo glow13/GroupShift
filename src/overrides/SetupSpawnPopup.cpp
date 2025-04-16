@@ -10,15 +10,15 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		if (!SetupSpawnPopup::init(obj, objs)) return false;
 
 		// Add node ids
-		this->setID("SetupSpawnPopup");
-		this->getChildByType<CCLayer>(0)->setID("main-layer");
-		this->getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("group-id-label");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(7)->setID("original-id-label");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(8)->setID("new-id-label");
+		setID("SetupSpawnPopup");
+		getChildByType<CCLayer>(0)->setID("main-layer");
+		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("group-id-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(7)->setID("original-id-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(8)->setID("new-id-label");
 
 		// Save references
-		auto mainLayer = this->getChildByID("main-layer");
+		auto mainLayer = getChildByID("main-layer");
 		auto buttonMenu = mainLayer->getChildByID("button-menu");
 		auto groupIdLabel = mainLayer->getChildByID("group-id-label");
 		auto originalIdLabel = mainLayer->getChildByID("original-id-label");
@@ -64,20 +64,14 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		mainLayer->removeChildByID("new-id-label");
 
 		// Configure pages
-		this->addObjectToPage(groupIdLabelButton, 0);
-		this->addObjectToPage(originalIdLabelButton, 1);
-		this->addObjectToPage(newIdLabelButton, 1);
+		addObjectToPage(groupIdLabelButton, 0);
+		addObjectToPage(originalIdLabelButton, 1);
+		addObjectToPage(newIdLabelButton, 1);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;
-		if (!m_gameObjects || m_gameObjects->count() == 0) {
-			objects.push_back(m_gameObject);
-		}
-		else {
-			for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) {
-				objects.push_back(obj);
-			}
-		}
+		if (!m_gameObjects || m_gameObjects->count() == 0) objects.push_back(m_gameObject);
+		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) objects.push_back(obj);
 
 		// Set button data
 		groupIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
@@ -85,59 +79,46 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		newIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
-	}
+	} // init
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		
 		PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		)->show();
-
 		onClose(this);
-	}
+	} // onGroupIdPress
 
 	void onOriginalIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		
 		PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) {
-				std::vector<float> ids;
-				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_groupID);
-				return ids;
-			},
+			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_groupID); return ids; },
 			[](EffectGameObject* obj, std::vector<float> vals) {
 				auto spawnObject = static_cast<SpawnTriggerGameObject*>(obj);
 				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) {
 					spawnObject->m_remapObjects[i].m_groupID = vals[i];
 					spawnObject->m_remapObjects[i].m_oldGroupID = vals[i];
-				}
+				} // for
 			}
 		)->show();
-
 		onClose(this);
-	}
+	} // onOriginalIdPress
 
 	void onNewIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		
 		PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) {
-				std::vector<float> ids;
-				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_chance);
-				return ids;
-			},
+			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_chance); return ids; },
 			[](EffectGameObject* obj, std::vector<float> vals) {
 				auto spawnObject = static_cast<SpawnTriggerGameObject*>(obj);
-				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) spawnObject->m_remapObjects[i].m_chance = vals[i];
-			},
-			999999
+				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) 
+					spawnObject->m_remapObjects[i].m_chance = vals[i];
+			}
 		)->show();
-
 		onClose(this);
-	}
-};
+	} // onNewIdPress
+
+}; // SetupSpawnPopupShift

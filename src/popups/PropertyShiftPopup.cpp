@@ -11,13 +11,14 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
         for (int i = 0; i < values.size(); i++) {
             if (inBounds(values[i] + num, maxValue)) values[i] += num;
             else success = false;
-        }
+        } // for
         if (success) setProperty(obj, values);
         else log::error("Shifting failed, the values were shifted out of bounds!");
         editor->updateObjectLabel(obj);
-    }
+    } // for
+
     onClose(this);
-}
+} // onButtonPress
 
 bool PropertyShiftPopup::setup() {
     if (!ShiftPopup::setup()) return false;
@@ -26,7 +27,7 @@ bool PropertyShiftPopup::setup() {
     this->setID("PropertyShiftPopup"_spr);
 
     return true;
-}
+} // setup
 
 PropertyShiftPopup* PropertyShiftPopup::create(
 	std::vector<EffectGameObject*> objects,
@@ -42,8 +43,8 @@ PropertyShiftPopup* PropertyShiftPopup::create(
         ret->maxValue = maxValue;
         ret->autorelease();
         return ret;
-    }
+    } // if
 
     delete ret;
     return nullptr;
-}
+} // create

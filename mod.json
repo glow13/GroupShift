@@ -1,14 +1,12 @@
 {
-	"geode": "4.1.0",
+	"geode": "4.3.1",
 	"gd": {
 		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
 		"ios": "2.2074"
 	},
 	"id": "glow12.groupshift",
 	"name": "GroupShift",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "glow12",
 	"description": "Shifts the groups for all selected objects by a certain amount. Used by me mainly for a personal project, but you might find it useful!"
 }

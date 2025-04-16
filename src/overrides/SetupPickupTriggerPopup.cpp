@@ -10,14 +10,14 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		if (!SetupPickupTriggerPopup::init(obj, objs)) return false;
 
         // Add node ids
-		this->setID("SetupPickupTriggerPopup");
-		this->getChildByType<CCLayer>(0)->setID("main-layer");
-		this->getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
-		this->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("count-label");
+		setID("SetupPickupTriggerPopup");
+		getChildByType<CCLayer>(0)->setID("main-layer");
+		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("count-label");
 
         // Save references
-        auto mainLayer = this->getChildByID("main-layer");
+        auto mainLayer = getChildByID("main-layer");
         auto buttonMenu = mainLayer->getChildByID("button-menu");
         auto itemIdLabel = mainLayer->getChildByID("item-id-label");
 		auto countLabel = mainLayer->getChildByID("count-label");
@@ -50,50 +50,34 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
-		if (!objs || objs->count() == 0) {
-			objects.push_back(obj);
-		}
-		else {
-			for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) {
-				objects.push_back(obj2);
-			}
-		}
+		if (!objs || objs->count() == 0) objects.push_back(obj);
+		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
 		itemIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 		countLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
-	}
+	} // init
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; },
-			999999
+			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
 		)->show();
-
 		onClose(this);
-	}
+	} // onItemIdPress
 
     void onCountPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-
         PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) {
-                auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj);
-                std::vector<float> group = { static_cast<float>(pickupTriggerObj->m_pickupCount) }; return group;
-            },
-			[](EffectGameObject* obj, std::vector<float> vals) {
-                auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj);
-                pickupTriggerObj->m_pickupCount = vals[0];
-            }
+			[](EffectGameObject* obj) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); std::vector<float> group = { static_cast<float>(pickupTriggerObj->m_pickupCount) }; return group; },
+			[](EffectGameObject* obj, std::vector<float> vals) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); pickupTriggerObj->m_pickupCount = vals[0]; }
 		)->show();
-
 		onClose(this);
-	}
-};
+	} // onCountPress
+
+}; // SetupPickupTriggerPopupShift
