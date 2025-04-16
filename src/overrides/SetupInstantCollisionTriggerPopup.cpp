@@ -95,45 +95,49 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 	void onBlockAPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        PropertyShiftPopup::create(
+        auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
-		)->show();
-		onClose(self);
+		);
+		popup->setUserData(self);
+		popup->show();
 	} // onBlockAPress
 
 	void onBlockBPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID2 = vals[0]; }
-		)->show();
-		onClose(self);
+		);
+		popup->setUserData(self);
+		popup->show();
 	} // onBlockBPress
 
     void onTrueIDPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
-		)->show();
-		onClose(self);
+		);
+		popup->setUserData(self);
+		popup->show();
 	} // onTrueIDPress
 
     void onFalseIDPress(CCObject* sender) {
 		auto self = static_cast<SetupInstantCollisionTriggerPopup*>(static_cast<CCNode*>(sender)->getUserData());
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_centerGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_centerGroupID = vals[0]; }
-		)->show();
-		onClose(self);
+		);
+		popup->setUserData(self);
+		popup->show();
 	} // onFalseIDPress
 
 	void onClose(SetupInstantCollisionTriggerPopup* self) {

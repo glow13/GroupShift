@@ -76,32 +76,35 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        PropertyShiftPopup::create(
+        auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
-		)->show();
-		onClose(this);
+		);
+        popup->setUserData(this);
+        popup->show();
 	} // onItemIdPress
 
     void onTargetIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        PropertyShiftPopup::create(
+        auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
-		)->show();
-		onClose(this);
+		);
+        popup->setUserData(this);
+        popup->show();
 	} // onTargetIdPress
 
     void onTargetCountPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        PropertyShiftPopup::create(
+        auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); std::vector<float> group = { static_cast<float>(countTriggerObj->m_pickupCount) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_pickupCount = vals[0]; }
-		)->show();
-		onClose(this);
+		);
+        popup->setUserData(this);
+        popup->show();
 	} // onTargetCountPress
 
 }; // SetupInstantCountPopupShift

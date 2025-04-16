@@ -83,17 +83,18 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
-		)->show();
-		onClose(this);
+		);
+		popup->setUserData(this);
+		popup->show();
 	} // onGroupIdPress
 
 	void onOriginalIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_groupID); return ids; },
 			[](EffectGameObject* obj, std::vector<float> vals) {
@@ -103,13 +104,14 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 					spawnObject->m_remapObjects[i].m_oldGroupID = vals[i];
 				} // for
 			}
-		)->show();
-		onClose(this);
+		);
+		popup->setUserData(this);
+		popup->show();
 	} // onOriginalIdPress
 
 	void onNewIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		PropertyShiftPopup::create(
+		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_chance); return ids; },
 			[](EffectGameObject* obj, std::vector<float> vals) {
@@ -117,8 +119,9 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) 
 					spawnObject->m_remapObjects[i].m_chance = vals[i];
 			}
-		)->show();
-		onClose(this);
+		);
+		popup->setUserData(this);
+		popup->show();
 	} // onNewIdPress
 
 }; // SetupSpawnPopupShift
