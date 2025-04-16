@@ -16,7 +16,7 @@ public:
 
     bool setup();
     int getValue();
-    static bool inBounds(int num, int max) { return num > 0 && num <= max; }
+    static bool inBounds(int num, int min, int max) { return num >= min && num <= max; }
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }
     void onSlider(CCObject* obj);
     void onTextInput(std::string text);

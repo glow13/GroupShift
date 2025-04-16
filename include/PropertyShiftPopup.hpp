@@ -9,6 +9,7 @@ public:
 			this->autorelease();
 		}
 	};
+	int minValue;
 	int maxValue;
 	std::function<std::vector<float>(EffectGameObject*)> getProperty;
     std::function<void(EffectGameObject*, std::vector<float>)> setProperty;
@@ -18,11 +19,11 @@ public:
 		std::vector<EffectGameObject*> objects,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
 		std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
-		int maxValue
+		int minValue, int maxValue
 	);
 	static PropertyShiftPopup* create(
 		std::vector<EffectGameObject*> objects,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
 		std::function<void(EffectGameObject*, std::vector<float>)> setProperty
-	) { return create(objects, getProperty, setProperty, 9999); }
+	) { return create(objects, getProperty, setProperty, 0, 9999); }
 };

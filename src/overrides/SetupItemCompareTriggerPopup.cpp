@@ -143,7 +143,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); std::vector<float> mod1 = { triggerObject->m_mod1 }; return mod1; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod1 = vals[0]; }
+			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod1 = vals[0]; },
+			-9999, 9999
 		);
         popup->setUserData(this);
         popup->show();
@@ -154,7 +155,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); std::vector<float> mod2 = { triggerObject->m_mod2 }; return mod2; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod2 = vals[0]; }
+			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod2 = vals[0]; },
+			-9999, 9999
 		);
         popup->setUserData(this);
         popup->show();

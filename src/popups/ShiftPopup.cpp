@@ -78,8 +78,6 @@ void ShiftPopup::onTextInput(std::string text) {
     
     if (text.compare("") != 0 && text.compare("-") != 0) {
         int num = std::stoi(text);
-        //if (num > 100) text = "100";
-        //else if (num < -100) text = "-100";
         if (num > 100) this->slider->setValue(1);
         else if (num < -100) this->slider->setValue(0);
         else this->slider->setValue((std::stoi(text) + 100.0f) / 200.0f);

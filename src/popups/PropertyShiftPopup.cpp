@@ -9,7 +9,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
         std::vector<float> values = getProperty(obj);
         bool success = true;
         for (int i = 0; i < values.size(); i++) {
-            if (inBounds(values[i] + num, maxValue)) values[i] += num;
+            if (inBounds(values[i] + num, minValue, maxValue)) values[i] += num;
             else success = false;
         } // for
         if (success) setProperty(obj, values);
@@ -34,13 +34,14 @@ PropertyShiftPopup* PropertyShiftPopup::create(
 	std::vector<EffectGameObject*> objects,
 	std::function<std::vector<float>(EffectGameObject*)> getProperty,
 	std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
-    int maxValue
+    int minValue, int maxValue
 ) {
     auto ret = new PropertyShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedTriggerObjects = objects;
         ret->getProperty = getProperty;
         ret->setProperty = setProperty;
+        ret->minValue = minValue;
         ret->maxValue = maxValue;
         ret->autorelease();
         return ret;

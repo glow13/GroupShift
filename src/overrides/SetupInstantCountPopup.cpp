@@ -101,7 +101,8 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
         auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); std::vector<float> group = { static_cast<float>(countTriggerObj->m_pickupCount) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_pickupCount = vals[0]; }
+			[](EffectGameObject* obj, std::vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_pickupCount = vals[0]; },
+            -9999, 9999
 		);
         popup->setUserData(this);
         popup->show();

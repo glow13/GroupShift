@@ -12,7 +12,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
         auto newGroups = new short[10];
         memset(newGroups, 0, 10 * sizeof(short));
         for (int i = 0; i < obj->m_groupCount; i++) {
-            if (groups[i] > 0 && inBounds(groups[i] + getValue(), 9999)) newGroups[i] = static_cast<short>(groups[i] + getValue());
+            if (groups[i] > 0 && inBounds(groups[i] + getValue(), 0, 9999)) newGroups[i] = static_cast<short>(groups[i] + getValue());
             else newGroups[i] = static_cast<short>(groups[i]);
         } // for
 

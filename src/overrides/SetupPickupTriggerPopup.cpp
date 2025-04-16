@@ -76,7 +76,8 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
         auto popup = PropertyShiftPopup::create(
 			objects->data,
 			[](EffectGameObject* obj) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); std::vector<float> group = { static_cast<float>(pickupTriggerObj->m_pickupCount) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); pickupTriggerObj->m_pickupCount = vals[0]; }
+			[](EffectGameObject* obj, std::vector<float> vals) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); pickupTriggerObj->m_pickupCount = vals[0]; },
+			-9999, 9999
 		);
         popup->setUserData(this);
         popup->show();
