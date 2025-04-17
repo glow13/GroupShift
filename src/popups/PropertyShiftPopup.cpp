@@ -18,9 +18,14 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     } // for
 
     onClose(this);
-    if (auto popup = dynamic_cast<SetupTriggerPopup*>(getUserObject())) popup->onClose(this);
-    else if (auto popup = dynamic_cast<CollisionBlockPopup*>(getUserObject())) popup->onClose(this);
+    closeParentPopup(this);
 } // onButtonPress
+
+void PropertyShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
+    auto obj = getUserObject();
+    if (auto popup = dynamic_cast<SetupTriggerPopup*>(obj)) popup->onClose(sender);
+    else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
+} // closeParentPopup
 
 bool PropertyShiftPopup::setup() {
     if (!ShiftPopup::setup()) return false;
