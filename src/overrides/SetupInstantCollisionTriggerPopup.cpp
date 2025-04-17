@@ -3,33 +3,33 @@
 
 using namespace geode::prelude;
 
-const int initAddress = 0x402270;
-
 class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTriggerPopup) {
 
-	static bool init(SetupInstantCollisionTriggerPopup* self, EffectGameObject* obj, cocos2d::CCArray* objs) {
+	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
+
+		if (!SetupInstantCollisionTriggerPopup::init(obj, objs)) return false;
 
 		// Add node ids
-		self->setID("SetupInstantCollisionTriggerPopup");
-		self->getChildByType<CCLayer>(0)->setID("main-layer");
-		self->getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		self->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("block-a-label");
-		self->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("block-b-label");
-        self->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("true-id-label");
-		self->getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("false-id-label");
+		setID("SetupInstantCollisionTriggerPopup");
+		getChildByType<CCLayer>(0)->setID("main-layer");
+		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("block-a-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("block-b-label");
+        getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("true-id-label");
+		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("false-id-label");
 		
 		// Save references
-        auto mainLayer = self->getChildByID("main-layer");
+        auto mainLayer = getChildByID("main-layer");
         auto buttonMenu = mainLayer->getChildByID("button-menu");
         auto blockALabel = mainLayer->getChildByID("block-a-label");
 		auto blockBLabel = mainLayer->getChildByID("block-b-label");
         auto trueIdLabel = mainLayer->getChildByID("true-id-label");
         auto falseIdLabel = mainLayer->getChildByID("false-id-label");
-		
+
 		// Create block A button
         auto blockALabelSprite = CCLabelBMFont::create("BlockA ID", "goldFont.fnt");
         blockALabelSprite->setScale(blockALabel->getScale());
-        auto blockALabelButton = CCMenuItemSpriteExtra::create(blockALabelSprite, self, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockAPress));
+        auto blockALabelButton = CCMenuItemSpriteExtra::create(blockALabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockAPress));
         blockALabelButton->setID("block-a-label"_spr);
         blockALabelButton->setPosition(blockALabel->getPositionX() - buttonMenu->getPositionX(), blockALabel->getPositionY() - buttonMenu->getPositionY());
         blockALabelButton->setContentSize({blockALabel->getContentWidth() * blockALabel->getScaleX(), blockALabel->getContentHeight() * blockALabel->getScaleY()});
@@ -38,7 +38,7 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 		// Create block B button
         auto blockBLabelSprite = CCLabelBMFont::create("BlockB ID", "goldFont.fnt");
         blockBLabelSprite->setScale(blockBLabel->getScale());
-        auto blockBLabelButton = CCMenuItemSpriteExtra::create(blockBLabelSprite, self, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
+        auto blockBLabelButton = CCMenuItemSpriteExtra::create(blockBLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
         blockBLabelButton->setID("block-b-label"_spr);
         blockBLabelButton->setPosition(blockBLabel->getPositionX() - buttonMenu->getPositionX(), blockBLabel->getPositionY() - buttonMenu->getPositionY());
         blockBLabelButton->setContentSize({blockBLabel->getContentWidth() * blockBLabel->getScaleX(), blockBLabel->getContentHeight() * blockBLabel->getScaleY()});
@@ -47,7 +47,7 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
         // Create true id button
         auto trueIdLabelSprite = CCLabelBMFont::create("True ID", "goldFont.fnt");
         trueIdLabelSprite->setScale(trueIdLabel->getScale());
-        auto trueIdLabelButton = CCMenuItemSpriteExtra::create(trueIdLabelSprite, self, menu_selector(SetupInstantCollisionTriggerPopupShift::onTrueIDPress));
+        auto trueIdLabelButton = CCMenuItemSpriteExtra::create(trueIdLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onTrueIDPress));
         trueIdLabelButton->setID("true-id-label"_spr);
         trueIdLabelButton->setPosition(trueIdLabel->getPositionX() - buttonMenu->getPositionX(), trueIdLabel->getPositionY() - buttonMenu->getPositionY());
         trueIdLabelButton->setContentSize({trueIdLabel->getContentWidth() * trueIdLabel->getScaleX(), trueIdLabel->getContentHeight() * trueIdLabel->getScaleY()});
@@ -56,7 +56,7 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
         // Create false id button
         auto falseIdLabelSprite = CCLabelBMFont::create("False ID", "goldFont.fnt");
         falseIdLabelSprite->setScale(falseIdLabel->getScale());
-        auto falseIdLabelButton = CCMenuItemSpriteExtra::create(falseIdLabelSprite, self, menu_selector(SetupInstantCollisionTriggerPopupShift::onFalseIDPress));
+        auto falseIdLabelButton = CCMenuItemSpriteExtra::create(falseIdLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onFalseIDPress));
         falseIdLabelButton->setID("false-id-label"_spr);
         falseIdLabelButton->setPosition(falseIdLabel->getPositionX() - buttonMenu->getPositionX(), falseIdLabel->getPositionY() - buttonMenu->getPositionY());
         falseIdLabelButton->setContentSize({falseIdLabel->getContentWidth() * falseIdLabel->getScaleX(), falseIdLabel->getContentHeight() * falseIdLabel->getScaleY()});
@@ -133,25 +133,3 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 	} // onFalseIDPress
 
 }; // SetupInstantCollisionTriggerPopupShift
-
-bool SetupInstantCollisionTriggerPopup_init(SetupInstantCollisionTriggerPopup* self, EffectGameObject* obj, cocos2d::CCArray* objs) {
-    tulip::hook::WrapperMetadata metadata;
-    metadata.m_convention = geode::hook::createConvention(tulip::hook::TulipConvention::Thiscall);
-    metadata.m_abstract = tulip::hook::AbstractFunction::from(&SetupInstantCollisionTriggerPopup_init);
-    auto original = geode::hook::createWrapper(reinterpret_cast<bool*>(geode::base::get() + initAddress), metadata).unwrap();
-
-    bool success = reinterpret_cast<bool(*)(SetupInstantCollisionTriggerPopup*, EffectGameObject*, cocos2d::CCArray*)>(original)(self, obj, objs);
-    if (!success) return false;
-    
-    return SetupInstantCollisionTriggerPopupShift::init(self, obj, objs);
-}
-
-// Manual hooks are not fun :/
-$execute {
-    auto result = Mod::get()->hook(
-        reinterpret_cast<void*>(geode::base::get() + initAddress),
-        &SetupInstantCollisionTriggerPopup_init,
-        "SetupInstantCollisionTriggerPopup::init",
-        tulip::hook::TulipConvention::Thiscall
-    );
-}
