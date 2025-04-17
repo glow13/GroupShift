@@ -45,6 +45,7 @@ PropertyShiftPopup* PropertyShiftPopup::create(
     auto ret = new PropertyShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedTriggerObjects = objects;
+        ret->targetedObjectCount = objects.size();
         ret->getProperty = getProperty;
         ret->setProperty = setProperty;
         ret->minValue = minValue;

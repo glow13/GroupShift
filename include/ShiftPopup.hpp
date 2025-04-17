@@ -13,11 +13,13 @@ public:
 	TextInput* textInput = TextInput::create(50, "num");
     std::vector<GameObject*> targetedObjects;
     std::vector<EffectGameObject*> targetedTriggerObjects;
+    int targetedObjectCount = 0;
 
     bool setup();
     int getValue();
     static bool inBounds(int num, int min, int max) { return num >= min && num <= max; }
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }
+    void onAutoPress(CCObject* obj);
     void onSlider(CCObject* obj);
     void onTextInput(std::string text);
     void onLeftArrow(CCObject* obj);

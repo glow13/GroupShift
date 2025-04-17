@@ -48,6 +48,7 @@ GroupShiftPopup* GroupShiftPopup::create(std::vector<GameObject*> objects) {
     auto ret = new GroupShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedObjects = objects;
+        ret->targetedObjectCount = objects.size();
         ret->autorelease();
         return ret;
     } // if
