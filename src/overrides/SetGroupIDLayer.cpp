@@ -11,12 +11,11 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 		// Save references
 		auto mainLayer = getChildByID("main-layer");
+		auto actionMenu = mainLayer->getChildByID("actions-menu");
 		auto addGroupIdMenu = mainLayer->getChildByID("add-group-id-menu");
 		auto addGroupIdLabel = addGroupIdMenu->getChildByID("add-group-id-label");
 		auto addGroupIdButtonsMenu = mainLayer->getChildByID("add-group-id-buttons-menu");
-		auto addGroupIdButton = addGroupIdButtonsMenu->getChildByID("add-group-id-button");
-		auto addGroupIdButtonSprite = addGroupIdButton->getChildByType<ButtonSprite>(0);
-
+		
 		// Create add group id button
 		auto addGroupIdLabelSprite = CCLabelBMFont::create("Add Group ID", "goldFont.fnt");
 		addGroupIdLabelSprite->setScale(addGroupIdLabel->getScale());
@@ -26,6 +25,11 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		addGroupIdLabelButton->setContentSize({addGroupIdLabel->getContentWidth() * addGroupIdLabel->getScaleX(), addGroupIdLabel->getContentHeight() * addGroupIdLabel->getScaleY()});
 		addGroupIdLabelButton->setAnchorPoint(addGroupIdLabel->getAnchorPoint());
 
+		// Create group shift button
+		auto groupShiftButtonSprite = ButtonSprite::create("Shift", 36, false, "goldFont.fnt", "GJ_button_04.png", 25, 0.28);
+		auto groupShiftButton = CCMenuItemSpriteExtra::create(groupShiftButtonSprite, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
+		groupShiftButton->setID("shift-button"_spr);
+
 		// Create all parent button
 		auto allParentButtonSprite = ButtonSprite::create("A", 30.7, false, "goldFont.fnt", "GJ_button_04.png", 25, 0.7);
 		auto allParentButton = CCMenuItemSpriteExtra::create(allParentButtonSprite, this, menu_selector(SetGroupIDLayerShift::onAllParentPress));
@@ -33,11 +37,23 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 		// Add buttons
 		addGroupIdMenu->addChild(addGroupIdLabelButton);
+		actionMenu->addChild(groupShiftButton);
 		if (objs->count() > 0) addGroupIdButtonsMenu->addChild(allParentButton);
+
+		// Re-order action menu
+		if (auto preview = actionMenu->getChildByID("preview-menu")) {
+			actionMenu->removeChildByID("preview-menu");
+			actionMenu->addChild(preview);
+		} // if
+		if (auto playback = actionMenu->getChildByID("playback-menu")) {
+			actionMenu->removeChildByID("playback-menu");
+			actionMenu->addChild(playback);
+		} // if
 		
-		// Remove old label and update layout
+		// Remove old label and update layouts
 		addGroupIdMenu->removeChildByID("add-group-id-label");
 		addGroupIdButtonsMenu->updateLayout();
+		actionMenu->updateLayout();
 		
 		// Get objects
 		std::vector<GameObject*> objects;
@@ -46,6 +62,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 		// Set button data
 		addGroupIdLabelButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
+		groupShiftButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
 		allParentButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
 		
 		return true;
