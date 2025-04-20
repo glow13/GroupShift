@@ -29,12 +29,6 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     onClose(this);
 } // onButtonPress
 
-void PropertyShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
-    auto obj = getUserObject();
-    if (auto popup = dynamic_cast<SetupTriggerPopup*>(obj)) popup->onClose(sender);
-    else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
-} // closeParentPopup
-
 bool PropertyShiftPopup::setup() {
     if (!ShiftPopup::setup()) return false;
 

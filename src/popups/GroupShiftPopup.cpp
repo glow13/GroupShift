@@ -47,7 +47,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
 
     // Success and close popups
     goodNotification("Shifted the groups of the selected objects by " + std::to_string(val) + "!");
-    static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
+    closeParentPopup(this);
     onClose(this);
 } // onButtonPress
 

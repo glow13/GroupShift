@@ -27,6 +27,7 @@ public:
     void onRightArrow(CCObject* obj);
     void goodNotification(std::string text);
     void badNotification(std::string text);
+    void closeParentPopup(CCObject* sender);
     static ShiftPopup* create(std::vector<GameObject*> objects);
 };
 

@@ -106,6 +106,15 @@ void ShiftPopup::badNotification(std::string text) {
     log::error("{}", text);
 } // errorNotification
 
+void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
+    auto obj = getUserObject();
+    if (obj == NULL) return;
+    
+    if (auto popup = dynamic_cast<SetGroupIDLayer*>(obj)) popup->onClose(sender);
+    else if (auto popup = dynamic_cast<SetupTriggerPopup*>(obj)) popup->onClose(sender);
+    else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
+} // closeParentPopup
+
 static ShiftPopup* create(std::vector<GameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {

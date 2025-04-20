@@ -15,7 +15,6 @@ public:
     std::function<void(EffectGameObject*, std::vector<float>)> setProperty;
 	void onButtonPress(CCObject* obj) override;
 	bool setup() override;
-	void closeParentPopup(CCObject* sender);
 	static PropertyShiftPopup* create(
 		std::vector<EffectGameObject*> objects,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
