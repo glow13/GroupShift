@@ -31,7 +31,7 @@ bool ShiftPopup::setup() {
     okButton->setID("shift-ok"_spr);
 
     // Create the auto button
-    auto autoButtonSprite = CCSprite::createWithSpriteFrameName("accountBtn_settings_001.png");
+    auto autoButtonSprite = CCSprite::createWithSpriteFrameName("difficulty_auto_btn_001.png");
     autoButtonSprite->setScale(0.65);
     auto autoButton = CCMenuItemSpriteExtra::create(autoButtonSprite, this, menu_selector(ShiftPopup::onAutoPress));
     m_buttonMenu->addChildAtPosition(autoButton, Anchor::BottomLeft, CCPointMake(25, 25));
