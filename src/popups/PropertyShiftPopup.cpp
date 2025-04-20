@@ -4,23 +4,34 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
 
     // Initialize variables
     int val = getValue();
-    LevelEditorLayer* editor = LevelEditorLayer::get();
+    bool outOfBounds = false;
+    LevelEditorLayer* lel = LevelEditorLayer::get();
+    auto properties = std::vector<std::vector<float>>(targetedObjectCount);
 
     // Shift the property
-    for (EffectGameObject* obj : targetedTriggerObjects) {
-        std::vector<float> values = getProperty(obj);
-        bool outOfBounds = false;
-        for (int i = 0; i < values.size(); i++) {
-            if (inBounds(values[i] + val, minValue, maxValue)) values[i] += val;
+    for (int i = 0; i < targetedObjectCount; i++) {
+        auto obj = targetedTriggerObjects[i];
+        properties[i] = getProperty(obj);
+        for (int p = 0; p < properties[i].size(); p++) {
+            int newProperty = properties[i][p] + val;
+            if (inBounds(newProperty, minValue, maxValue)) properties[i][p] = newProperty;
             else outOfBounds = true;
         } // for
+    } // for
 
-        // Check if out of bounds
-        if (!outOfBounds) setProperty(obj, values);
-        else badNotification("Failed to shift a property out of bounds!");
+    // Check if any properties were out of bounds
+    if (outOfBounds) {
+        badNotification("Failed to shift a property out of bounds!");
+        closeParentPopup(this);
+        onClose(this);
+        return;
+    } // if
 
-        // Update the label
-        editor->updateObjectLabel(obj);
+    // Reassign all properties
+    for (int i = 0; i < targetedObjectCount; i++) {
+        auto obj = targetedTriggerObjects[i];
+        setProperty(obj, properties[i]);
+        lel->updateObjectLabel(obj);
     } // for
 
     // Success and close popups

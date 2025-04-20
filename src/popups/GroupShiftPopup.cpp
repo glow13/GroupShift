@@ -27,7 +27,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     // Check if any groups were out of bounds
     if (outOfBounds) {
         badNotification("Failed to shift a group out of bounds!");
-        static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
+        closeParentPopup(this);
         onClose(this);
         return;
     } // if

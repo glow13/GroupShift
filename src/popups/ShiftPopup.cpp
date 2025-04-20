@@ -97,12 +97,12 @@ void ShiftPopup::onTextInput(std::string text) {
 } // onTextInput
 
 void ShiftPopup::goodNotification(std::string text) {
-    Notification::create(text, NotificationIcon::Success, 3)->show();
+    Notification::create(text, NotificationIcon::Success, 2)->show();
     log::info("{}", text);
 } // errorNotification
 
 void ShiftPopup::badNotification(std::string text) {
-    Notification::create(text, NotificationIcon::Error, 3)->show();
+    Notification::create(text, NotificationIcon::Error, 2)->show();
     log::error("{}", text);
 } // errorNotification
 
