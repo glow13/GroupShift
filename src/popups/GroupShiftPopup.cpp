@@ -1,36 +1,52 @@
 #include "GroupShiftPopup.hpp"
 
 void GroupShiftPopup::onButtonPress(CCObject* obj) {
-    log::info("Shifting the groups of {} selected objects by {}", targetedObjects.size(), getValue());
 
+    // Initialize variables
+    int val = getValue();
+    bool outOfBounds = false;
     LevelEditorLayer* lel = LevelEditorLayer::get();
+    auto groups = std::vector<std::array<short,10>>(targetedObjectCount);
+    auto parents = std::vector<short>(targetedObjectCount);
 
-    for (GameObject* obj : targetedObjects) {
-        std::vector<int> groups;
-        if (obj->m_groups) groups = std::vector<int>{obj->m_groups->begin(), obj->m_groups->end()};
+    log::info("Shifting the groups of {} selected objects by {}", targetedObjectCount, val);
 
-        auto newGroups = new short[10];
-        memset(newGroups, 0, 10 * sizeof(short));
-        for (int i = 0; i < obj->m_groupCount; i++) {
-            if (groups[i] > 0 && inBounds(groups[i] + getValue(), 0, 9999)) newGroups[i] = static_cast<short>(groups[i] + getValue());
-            else newGroups[i] = static_cast<short>(groups[i]);
-        } // for
-
-        obj->m_groups = reinterpret_cast<decltype(obj->m_groups)>(newGroups);
-
-        auto parents = CCDictionaryExt<int, CCArray*>(lel->m_unknownE40);
-        for (auto [key, values] : parents) {
-            if (key == obj->m_uniqueID && values->count() > 0) {
-                CCArray* newValues = new CCArray();
-                for (auto value : CCArrayExt<CCInteger*>(values)) {
-                    int num = value->getValue();
-                    if (num > 0 && num + getValue() > 0) newValues->addObject(new CCInteger(num + getValue()));
-                } // for
-                parents[obj->m_uniqueID] = newValues;
-            } // if
+    // Find all groups and parents
+    for (int i = 0; i < targetedObjectCount; i++) {
+        auto obj = targetedObjects[i];
+        groups[i] = std::array<short,10>();
+        for (int g = 0; g < obj->m_groupCount; g++) {
+            int group = obj->m_groups->at(g);
+            int newGroup = group + val;
+            if (inBounds(newGroup, 0, 9999)) {
+                groups[i][g] = newGroup;
+                auto parentObj = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict)[group];
+                if (parentObj != NULL && parentObj->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
+            } else outOfBounds = true;
         } // for
     } // for
-    
+
+    // Check if any groups were out of bounds
+    if (outOfBounds) {
+        log::error("Failed to shift a group out of bounds!");
+        static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
+        onClose(this);
+        return;
+    } // if
+
+    // Remove every parent
+    for (short p : parents) lel->removeGroupParent(p);
+
+    // Reassign all groups and parents
+    for (int i = 0; i < targetedObjectCount; i++) {
+        auto obj = targetedObjects[i];
+        lel->setGroupParent(obj, parents[i]);
+        for (int g = 0; g < obj->m_groupCount; g++) {
+            obj->removeFromGroup(groups[i][g] - val);
+            obj->addToGroup(groups[i][g]);
+        } // for
+    } // for
+
     onClose(this);
     static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
 } // onButtonPress
