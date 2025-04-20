@@ -8,5 +8,17 @@
 	"name": "GroupShift",
 	"version": "v1.0.0",
 	"developer": "glow12",
-	"description": "Shifts the groups for all selected objects by a certain amount. Used by me mainly for a personal project, but you might find it useful!"
+	"description": "A mod that makes it easy to copy triggers!",
+	"links": {
+		"source": "https://github.com/glow13/GroupShift"
+	},
+	"issues": {
+		"info": "You can report issues on the mod's Github page!",
+		"url": "https://github.com/glow13/GroupShift/issues"
+	},
+	"tags": [
+		"editor",
+		"enhancement",
+		"utility"
+	]
 }
