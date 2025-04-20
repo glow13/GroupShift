@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include <Geode/ui/Notification.hpp>
 #include <vector>
 
 using namespace geode::prelude;
@@ -24,6 +25,8 @@ public:
     void onTextInput(std::string text);
     void onLeftArrow(CCObject* obj);
     void onRightArrow(CCObject* obj);
+    void goodNotification(std::string text);
+    void badNotification(std::string text);
     static ShiftPopup* create(std::vector<GameObject*> objects);
 };
 

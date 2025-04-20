@@ -26,5 +26,5 @@ public:
 		std::vector<EffectGameObject*> objects,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
 		std::function<void(EffectGameObject*, std::vector<float>)> setProperty
-	) { return create(objects, getProperty, setProperty, 0, 9999); }
+	) { return create(objects, getProperty, setProperty, 1, 9999); }
 };

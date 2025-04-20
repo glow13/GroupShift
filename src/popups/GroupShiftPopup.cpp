@@ -9,8 +9,6 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     auto groups = std::vector<std::array<short,10>>(targetedObjectCount);
     auto parents = std::vector<short>(targetedObjectCount);
 
-    log::info("Shifting the groups of {} selected objects by {}", targetedObjectCount, val);
-
     // Find all groups and parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
@@ -18,7 +16,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
         for (int g = 0; g < obj->m_groupCount; g++) {
             int group = obj->m_groups->at(g);
             int newGroup = group + val;
-            if (inBounds(newGroup, 0, 9999)) {
+            if (inBounds(newGroup, 1, 9999)) {
                 groups[i][g] = newGroup;
                 auto parentObj = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict)[group];
                 if (parentObj != NULL && parentObj->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
@@ -28,7 +26,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
 
     // Check if any groups were out of bounds
     if (outOfBounds) {
-        log::error("Failed to shift a group out of bounds!");
+        badNotification("Failed to shift a group out of bounds!");
         static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
         onClose(this);
         return;
@@ -47,8 +45,10 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
         } // for
     } // for
 
-    onClose(this);
+    // Success and close popups
+    goodNotification("Shifted the groups of the selected objects by " + std::to_string(val) + "!");
     static_cast<SetGroupIDLayer*>(getUserObject())->onClose(this);
+    onClose(this);
 } // onButtonPress
 
 bool GroupShiftPopup::setup() {

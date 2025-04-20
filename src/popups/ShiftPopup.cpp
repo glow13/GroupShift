@@ -96,6 +96,16 @@ void ShiftPopup::onTextInput(std::string text) {
     slider->updateBar();
 } // onTextInput
 
+void ShiftPopup::goodNotification(std::string text) {
+    Notification::create(text, NotificationIcon::Success, 3)->show();
+    log::info("{}", text);
+} // errorNotification
+
+void ShiftPopup::badNotification(std::string text) {
+    Notification::create(text, NotificationIcon::Error, 3)->show();
+    log::error("{}", text);
+} // errorNotification
+
 static ShiftPopup* create(std::vector<GameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {

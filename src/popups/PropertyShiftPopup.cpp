@@ -1,24 +1,32 @@
 #include "PropertyShiftPopup.hpp"
 
 void PropertyShiftPopup::onButtonPress(CCObject*) {
-    log::info("Shifting the selected property of {} objects by {}", targetedTriggerObjects.size(), getValue());
 
-    int num = getValue();
+    // Initialize variables
+    int val = getValue();
     LevelEditorLayer* editor = LevelEditorLayer::get();
+
+    // Shift the property
     for (EffectGameObject* obj : targetedTriggerObjects) {
         std::vector<float> values = getProperty(obj);
-        bool success = true;
+        bool outOfBounds = false;
         for (int i = 0; i < values.size(); i++) {
-            if (inBounds(values[i] + num, minValue, maxValue)) values[i] += num;
-            else success = false;
+            if (inBounds(values[i] + val, minValue, maxValue)) values[i] += val;
+            else outOfBounds = true;
         } // for
-        if (success) setProperty(obj, values);
-        else log::error("Shifting failed, the values were shifted out of bounds!");
+
+        // Check if out of bounds
+        if (!outOfBounds) setProperty(obj, values);
+        else badNotification("Failed to shift a property out of bounds!");
+
+        // Update the label
         editor->updateObjectLabel(obj);
     } // for
 
-    onClose(this);
+    // Success and close popups
+    goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
     closeParentPopup(this);
+    onClose(this);
 } // onButtonPress
 
 void PropertyShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
