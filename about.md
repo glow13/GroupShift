@@ -12,6 +12,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
  * Pickup
  * Instant Count
  * Instant Collision
+ * Item Edit
  * Item Compare
  * Collision Block
  * Item Label
