@@ -26,9 +26,9 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
 
     // Check if any groups were out of bounds
     if (outOfBounds) {
-        badNotification("Failed to shift a group out of bounds!");
         closeParentPopup(this);
         onClose(this);
+        badNotification("Failed to shift a group out of bounds!");
         return;
     } // if
 
@@ -46,9 +46,9 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     } // for
 
     // Success and close popups
-    goodNotification("Shifted the groups of the selected objects by " + std::to_string(val) + "!");
     closeParentPopup(this);
     onClose(this);
+    goodNotification("Shifted the groups of the selected objects by " + std::to_string(val) + "!");
 } // onButtonPress
 
 bool GroupShiftPopup::setup() {

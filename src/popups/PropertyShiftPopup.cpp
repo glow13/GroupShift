@@ -13,7 +13,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
         auto obj = targetedTriggerObjects[i];
         properties[i] = getProperty(obj);
         for (int p = 0; p < properties[i].size(); p++) {
-            int newProperty = properties[i][p] + val;
+            float newProperty = properties[i][p] + val;
             if (inBounds(newProperty, minValue, maxValue)) properties[i][p] = newProperty;
             else outOfBounds = true;
         } // for
@@ -21,9 +21,9 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
 
     // Check if any properties were out of bounds
     if (outOfBounds) {
-        badNotification("Failed to shift a property out of bounds!");
         closeParentPopup(this);
         onClose(this);
+        badNotification("Failed to shift a property out of bounds!");
         return;
     } // if
 
@@ -35,9 +35,9 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     } // for
 
     // Success and close popups
-    goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
     closeParentPopup(this);
     onClose(this);
+    goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
 } // onButtonPress
 
 bool PropertyShiftPopup::setup() {
