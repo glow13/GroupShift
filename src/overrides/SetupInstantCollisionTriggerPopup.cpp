@@ -7,60 +7,22 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
+		// Initialize popup
 		if (!SetupInstantCollisionTriggerPopup::init(obj, objs)) return false;
-
-		// Add node ids
 		setID("SetupInstantCollisionTriggerPopup");
-		getChildByType<CCLayer>(0)->setID("main-layer");
-		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("block-a-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("block-b-label");
-        getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("true-id-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("false-id-label");
 		
 		// Save references
-        auto mainLayer = getChildByID("main-layer");
-        auto buttonMenu = mainLayer->getChildByID("button-menu");
-        auto blockALabel = mainLayer->getChildByID("block-a-label");
-		auto blockBLabel = mainLayer->getChildByID("block-b-label");
-        auto trueIdLabel = mainLayer->getChildByID("true-id-label");
-        auto falseIdLabel = mainLayer->getChildByID("false-id-label");
-
-		// Create block A button
-        auto blockALabelSprite = CCLabelBMFont::create("BlockA ID", "goldFont.fnt");
-        blockALabelSprite->setScale(blockALabel->getScale());
-        auto blockALabelButton = CCMenuItemSpriteExtra::create(blockALabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockAPress));
-        blockALabelButton->setID("block-a-label"_spr);
-        blockALabelButton->setPosition(blockALabel->getPositionX() - buttonMenu->getPositionX(), blockALabel->getPositionY() - buttonMenu->getPositionY());
-        blockALabelButton->setContentSize({blockALabel->getContentWidth() * blockALabel->getScaleX(), blockALabel->getContentHeight() * blockALabel->getScaleY()});
-        blockALabelButton->setAnchorPoint(blockALabel->getAnchorPoint());
-
-		// Create block B button
-        auto blockBLabelSprite = CCLabelBMFont::create("BlockB ID", "goldFont.fnt");
-        blockBLabelSprite->setScale(blockBLabel->getScale());
-        auto blockBLabelButton = CCMenuItemSpriteExtra::create(blockBLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
-        blockBLabelButton->setID("block-b-label"_spr);
-        blockBLabelButton->setPosition(blockBLabel->getPositionX() - buttonMenu->getPositionX(), blockBLabel->getPositionY() - buttonMenu->getPositionY());
-        blockBLabelButton->setContentSize({blockBLabel->getContentWidth() * blockBLabel->getScaleX(), blockBLabel->getContentHeight() * blockBLabel->getScaleY()});
-        blockBLabelButton->setAnchorPoint(blockBLabel->getAnchorPoint());
-
-        // Create true id button
-        auto trueIdLabelSprite = CCLabelBMFont::create("True ID", "goldFont.fnt");
-        trueIdLabelSprite->setScale(trueIdLabel->getScale());
-        auto trueIdLabelButton = CCMenuItemSpriteExtra::create(trueIdLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onTrueIDPress));
-        trueIdLabelButton->setID("true-id-label"_spr);
-        trueIdLabelButton->setPosition(trueIdLabel->getPositionX() - buttonMenu->getPositionX(), trueIdLabel->getPositionY() - buttonMenu->getPositionY());
-        trueIdLabelButton->setContentSize({trueIdLabel->getContentWidth() * trueIdLabel->getScaleX(), trueIdLabel->getContentHeight() * trueIdLabel->getScaleY()});
-        trueIdLabelButton->setAnchorPoint(trueIdLabel->getAnchorPoint());
-
-        // Create false id button
-        auto falseIdLabelSprite = CCLabelBMFont::create("False ID", "goldFont.fnt");
-        falseIdLabelSprite->setScale(falseIdLabel->getScale());
-        auto falseIdLabelButton = CCMenuItemSpriteExtra::create(falseIdLabelSprite, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onFalseIDPress));
-        falseIdLabelButton->setID("false-id-label"_spr);
-        falseIdLabelButton->setPosition(falseIdLabel->getPositionX() - buttonMenu->getPositionX(), falseIdLabel->getPositionY() - buttonMenu->getPositionY());
-        falseIdLabelButton->setContentSize({falseIdLabel->getContentWidth() * falseIdLabel->getScaleX(), falseIdLabel->getContentHeight() * falseIdLabel->getScaleY()});
-        falseIdLabelButton->setAnchorPoint(falseIdLabel->getAnchorPoint());
+		auto buttonMenu = getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
+		auto blockALabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(1);
+		auto blockBLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(2);
+        auto trueIdLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(3);
+		auto falseIdLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(4);
+		
+		// Create the label buttons
+        auto blockALabelButton = ShiftPopup::createLabelButton(blockALabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockAPress));
+		auto blockBLabelButton = ShiftPopup::createLabelButton(blockBLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
+		auto trueIdLabelButton = ShiftPopup::createLabelButton(trueIdLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onTrueIDPress));
+		auto falseIdLabelButton = ShiftPopup::createLabelButton(falseIdLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onFalseIDPress));
 
 		// Add buttons
 		buttonMenu->addChild(blockALabelButton);
@@ -69,10 +31,10 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
         buttonMenu->addChild(falseIdLabelButton);
 
 		// Remove old labels
-		mainLayer->removeChildByID("block-a-label");
-		mainLayer->removeChildByID("block-b-label");
-        mainLayer->removeChildByID("true-id-label");
-        mainLayer->removeChildByID("false-id-label");
+		blockALabel->removeFromParentAndCleanup(true);
+		blockBLabel->removeFromParentAndCleanup(true);
+		trueIdLabel->removeFromParentAndCleanup(true);
+		falseIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

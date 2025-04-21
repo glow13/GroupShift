@@ -29,6 +29,7 @@ public:
     void badNotification(std::string text);
     void closeParentPopup(CCObject* sender);
     static ShiftPopup* create(std::vector<GameObject*> objects);
+    static CCMenuItemSpriteExtra* createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback);
 };
 
 void onClose_hook(CCObject* sender);

@@ -54,6 +54,25 @@ bool ShiftPopup::setup() {
     return true;
 } // setup
 
+CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback) {
+    
+    // Get menu reference
+    auto menu = popup->getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
+
+    // Create button sprite
+    auto labelSprite = CCLabelBMFont::create(label->getString(), label->getFntFile());
+    labelSprite->setScale(label->getScale());
+
+    // Create button
+    auto labelButton = CCMenuItemSpriteExtra::create(labelSprite, popup, callback);
+    labelButton->setPosition(label->getPositionX() - menu->getPositionX(), label->getPositionY() - menu->getPositionY());
+    labelButton->setContentSize(label->getScaledContentSize());
+    labelButton->setAnchorPoint(label->getAnchorPoint());
+    labelButton->setID(label->getID().empty() ? "" : ""_spr + label->getID());
+
+    return labelButton;
+} // createLabelButton
+
 int ShiftPopup::getValue() {
     return std::stoi(textInput->getString());
 } // getValue
