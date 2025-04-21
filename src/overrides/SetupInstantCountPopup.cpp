@@ -7,49 +7,20 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 
 	bool init(CountTriggerGameObject* obj, cocos2d::CCArray* objs) {
 
+        // Initialize popup
 		if (!SetupInstantCountPopup::init(obj, objs)) return false;
 
-        // Add node ids
-		setID("SetupInstantCountPopup");
-		getChildByType<CCLayer>(0)->setID("main-layer");
-		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
-        getChildByID("main-layer")->getChildByType<CCLabelBMFont>(3)->setID("target-id-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(2)->setID("target-count-label");
-
         // Save references
-        auto mainLayer = getChildByID("main-layer");
-        auto buttonMenu = mainLayer->getChildByID("button-menu");
-        auto itemIdLabel = mainLayer->getChildByID("item-id-label");
-        auto targetIdLabel = mainLayer->getChildByID("target-id-label");
-		auto targetCountLabel = mainLayer->getChildByID("target-count-label");
-		
-        // Create item id button
-        auto itemIdLabelSprite = CCLabelBMFont::create("Item ID", "goldFont.fnt");
-        itemIdLabelSprite->setScale(itemIdLabel->getScale());
-        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabelSprite, this, menu_selector(SetupInstantCountPopupShift::onItemIdPress));
-        itemIdLabelButton->setID("item-id-label"_spr);
-        itemIdLabelButton->setPosition(itemIdLabel->getPositionX() - buttonMenu->getPositionX(), itemIdLabel->getPositionY() - buttonMenu->getPositionY());
-        itemIdLabelButton->setContentSize({itemIdLabel->getContentWidth() * itemIdLabel->getScaleX(), itemIdLabel->getContentHeight() * itemIdLabel->getScaleY()});
-        itemIdLabelButton->setAnchorPoint(itemIdLabel->getAnchorPoint());
+		auto mainLayer = getChildByType<CCLayer>(0);
+		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
+		auto itemIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
+        auto targetIdLabel = mainLayer->getChildByType<CCLabelBMFont>(3);
+		auto targetCountLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
 
-        // Create target id button
-        auto targetIdLabelSprite = CCLabelBMFont::create("Target ID", "goldFont.fnt");
-        targetIdLabelSprite->setScale(targetIdLabel->getScale());
-        auto targetIdLabelButton = CCMenuItemSpriteExtra::create(targetIdLabelSprite, this, menu_selector(SetupInstantCountPopupShift::onTargetIdPress));
-        targetIdLabelButton->setID("target-id-label"_spr);
-        targetIdLabelButton->setPosition(targetIdLabel->getPositionX() - buttonMenu->getPositionX(), targetIdLabel->getPositionY() - buttonMenu->getPositionY());
-        targetIdLabelButton->setContentSize({targetIdLabel->getContentWidth() * targetIdLabel->getScaleX(), targetIdLabel->getContentHeight() * targetIdLabel->getScaleY()});
-        targetIdLabelButton->setAnchorPoint(targetIdLabel->getAnchorPoint());
-
-        // Create target count button
-        auto targetCountLabelSprite = CCLabelBMFont::create("Target Count", "goldFont.fnt");
-        targetCountLabelSprite->setScale(targetCountLabel->getScale());
-        auto targetCountLabelButton = CCMenuItemSpriteExtra::create(targetCountLabelSprite, this, menu_selector(SetupInstantCountPopupShift::onTargetCountPress));
-        targetCountLabelButton->setID("target-count-label"_spr);
-        targetCountLabelButton->setPosition(targetCountLabel->getPositionX() - buttonMenu->getPositionX(), targetCountLabel->getPositionY() - buttonMenu->getPositionY());
-        targetCountLabelButton->setContentSize({targetCountLabel->getContentWidth() * targetCountLabel->getScaleX(), targetCountLabel->getContentHeight() * targetCountLabel->getScaleY()});
-        targetCountLabelButton->setAnchorPoint(targetCountLabel->getAnchorPoint());
+        // Create the label buttons
+        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabel, this, menu_selector(SetupInstantCountPopupShift::onItemIdPress));
+        auto targetIdLabelButton = CCMenuItemSpriteExtra::create(targetIdLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetIdPress));
+        auto targetCountLabelButton = CCMenuItemSpriteExtra::create(targetCountLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetCountPress));
 
         // Add buttons
 		buttonMenu->addChild(itemIdLabelButton);
@@ -57,9 +28,9 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
         buttonMenu->addChild(targetCountLabelButton);
 
         // Remove old labels
-		mainLayer->removeChildByID("item-id-label");
-		mainLayer->removeChildByID("target-id-label");
-        mainLayer->removeChildByID("target-count-label");
+		itemIdLabel->removeFromParentAndCleanup(true);
+        targetIdLabel->removeFromParentAndCleanup(true);
+        targetCountLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

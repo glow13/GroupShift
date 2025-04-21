@@ -7,46 +7,26 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
+		// Initialize popup
 		if (!SetupPickupTriggerPopup::init(obj, objs)) return false;
 
-        // Add node ids
-		setID("SetupPickupTriggerPopup");
-		getChildByType<CCLayer>(0)->setID("main-layer");
-		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("item-id-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(4)->setID("count-label");
-
         // Save references
-        auto mainLayer = getChildByID("main-layer");
-        auto buttonMenu = mainLayer->getChildByID("button-menu");
-        auto itemIdLabel = mainLayer->getChildByID("item-id-label");
-		auto countLabel = mainLayer->getChildByID("count-label");
-		
-        // Create item id button
-        auto itemIdLabelSprite = CCLabelBMFont::create("ItemID", "goldFont.fnt");
-        itemIdLabelSprite->setScale(itemIdLabel->getScale());
-        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabelSprite, this, menu_selector(SetupPickupTriggerPopupShift::onItemIdPress));
-        itemIdLabelButton->setID("item-id-label"_spr);
-        itemIdLabelButton->setPosition(itemIdLabel->getPositionX() - buttonMenu->getPositionX(), itemIdLabel->getPositionY() - buttonMenu->getPositionY());
-        itemIdLabelButton->setContentSize({itemIdLabel->getContentWidth() * itemIdLabel->getScaleX(), itemIdLabel->getContentHeight() * itemIdLabel->getScaleY()});
-        itemIdLabelButton->setAnchorPoint(itemIdLabel->getAnchorPoint());
+		auto mainLayer = getChildByType<CCLayer>(0);
+		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
+		auto itemIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
+		auto countLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
 
-        // Create count button
-        auto countLabelSprite = CCLabelBMFont::create("Count", "goldFont.fnt");
-        countLabelSprite->setScale(countLabel->getScale());
-        auto countLabelButton = CCMenuItemSpriteExtra::create(countLabelSprite, this, menu_selector(SetupPickupTriggerPopupShift::onCountPress));
-        countLabelButton->setID("count-label"_spr);
-        countLabelButton->setPosition(countLabel->getPositionX() - buttonMenu->getPositionX(), countLabel->getPositionY() - buttonMenu->getPositionY());
-        countLabelButton->setContentSize({countLabel->getContentWidth() * countLabel->getScaleX(), countLabel->getContentHeight() * countLabel->getScaleY()});
-        countLabelButton->setAnchorPoint(countLabel->getAnchorPoint());
+        // Create the label buttons
+        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabel, this, menu_selector(SetupPickupTriggerPopupShift::onItemIdPress));
+        auto countLabelButton = CCMenuItemSpriteExtra::create(countLabel, this, menu_selector(SetupPickupTriggerPopupShift::onCountPress));
 
         // Add buttons
 		buttonMenu->addChild(itemIdLabelButton);
 		buttonMenu->addChild(countLabelButton);
 
         // Remove old labels
-		mainLayer->removeChildByID("item-id-label");
-		mainLayer->removeChildByID("count-label");
+		itemIdLabel->removeFromParentAndCleanup(true);
+		countLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

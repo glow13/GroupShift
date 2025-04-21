@@ -7,61 +7,30 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
+		// Initialize popup
 		if (!SetupSpawnPopup::init(obj, objs)) return false;
 
-		// Add node ids
-		setID("SetupSpawnPopup");
-		getChildByType<CCLayer>(0)->setID("main-layer");
-		getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("group-id-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(7)->setID("original-id-label");
-		getChildByID("main-layer")->getChildByType<CCLabelBMFont>(8)->setID("new-id-label");
-
 		// Save references
-		auto mainLayer = getChildByID("main-layer");
-		auto buttonMenu = mainLayer->getChildByID("button-menu");
-		auto groupIdLabel = mainLayer->getChildByID("group-id-label");
-		auto originalIdLabel = mainLayer->getChildByID("original-id-label");
-		auto newIdLabel = mainLayer->getChildByID("new-id-label");
+		auto mainLayer = getChildByType<CCLayer>(0);
+		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
+		auto groupIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
+		auto originalIdLabel = mainLayer->getChildByType<CCLabelBMFont>(7);
+		auto newIdLabel = mainLayer->getChildByType<CCLabelBMFont>(8);
 
-		// Create group id button
-		auto groupIdLabelSprite = CCLabelBMFont::create("Group ID", "goldFont.fnt");
-		groupIdLabelSprite->setScale(groupIdLabel->getScale());
-		auto groupIdLabelButton = CCMenuItemSpriteExtra::create(groupIdLabelSprite, this, menu_selector(SetupSpawnPopupShift::onGroupIdPress));
-		groupIdLabelButton->setID("group-id-label"_spr);
-		groupIdLabelButton->setPosition(groupIdLabel->getPositionX() - buttonMenu->getPositionX(), groupIdLabel->getPositionY() - buttonMenu->getPositionY());
-		groupIdLabelButton->setContentSize({groupIdLabel->getContentWidth() * groupIdLabel->getScaleX(), groupIdLabel->getContentHeight() * groupIdLabel->getScaleY()});
-		groupIdLabelButton->setAnchorPoint(groupIdLabel->getAnchorPoint());
-
-		// Create original id button
-		auto originalIdLabelSprite = CCLabelBMFont::create("OriginalID:", "goldFont.fnt");
-		originalIdLabelSprite->setScale(originalIdLabel->getScale());
-		auto originalIdLabelButton = CCMenuItemSpriteExtra::create(originalIdLabelSprite, this, menu_selector(SetupSpawnPopupShift::onOriginalIdPress));
-		originalIdLabelButton->setID("original-id-label"_spr);
-		originalIdLabelButton->setPosition(originalIdLabel->getPositionX() - buttonMenu->getPositionX(), originalIdLabel->getPositionY() - buttonMenu->getPositionY());
-		originalIdLabelButton->setContentSize({originalIdLabel->getContentWidth() * originalIdLabel->getScaleX(), originalIdLabel->getContentHeight() * originalIdLabel->getScaleY()});
-		originalIdLabelButton->setAnchorPoint(originalIdLabel->getAnchorPoint());
-		originalIdLabelButton->setVisible(false);
-
-		// Create new id button
-		auto newIdLabelSprite = CCLabelBMFont::create("NewID:", "goldFont.fnt");
-		newIdLabelSprite->setScale(newIdLabel->getScale());
-		auto newIdLabelButton = CCMenuItemSpriteExtra::create(newIdLabelSprite, this, menu_selector(SetupSpawnPopupShift::onNewIdPress));
-		newIdLabelButton->setID("new-id-label"_spr);
-		newIdLabelButton->setPosition(newIdLabel->getPositionX() - buttonMenu->getPositionX(), newIdLabel->getPositionY() - buttonMenu->getPositionY());
-		newIdLabelButton->setContentSize({newIdLabel->getContentWidth() * newIdLabel->getScaleX(), newIdLabel->getContentHeight() * newIdLabel->getScaleY()});
-		newIdLabelButton->setAnchorPoint(newIdLabel->getAnchorPoint());
-		newIdLabelButton->setVisible(false);
-
+		// Create the label buttons
+		auto groupIdLabelButton = CCMenuItemSpriteExtra::create(groupIdLabel, this, menu_selector(SetupSpawnPopupShift::onGroupIdPress));
+		auto originalIdLabelButton = CCMenuItemSpriteExtra::create(originalIdLabel, this, menu_selector(SetupSpawnPopupShift::onOriginalIdPress));
+		auto newIdLabelButton = CCMenuItemSpriteExtra::create(newIdLabel, this, menu_selector(SetupSpawnPopupShift::onNewIdPress));
+		
 		// Add buttons
 		buttonMenu->addChild(groupIdLabelButton);
 		buttonMenu->addChild(originalIdLabelButton);
 		buttonMenu->addChild(newIdLabelButton);
 
 		// Remove old labels
-		mainLayer->removeChildByID("group-id-label");
-		mainLayer->removeChildByID("original-id-label");
-		mainLayer->removeChildByID("new-id-label");
+		groupIdLabel->removeFromParentAndCleanup(true);
+		originalIdLabel->removeFromParentAndCleanup(true);
+		newIdLabel->removeFromParentAndCleanup(true);
 
 		// Configure pages
 		addObjectToPage(groupIdLabelButton, 0);

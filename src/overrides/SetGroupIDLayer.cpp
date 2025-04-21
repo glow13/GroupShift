@@ -7,6 +7,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 	bool init(GameObject* obj, cocos2d::CCArray* objs) {
 
+		// Initialize popup
 		if (!SetGroupIDLayer::init(obj, objs)) return false;
 
 		// Save references
@@ -17,13 +18,8 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		auto addGroupIdButtonsMenu = mainLayer->getChildByID("add-group-id-buttons-menu");
 		
 		// Create add group id button
-		auto addGroupIdLabelSprite = CCLabelBMFont::create("Add Group ID", "goldFont.fnt");
-		addGroupIdLabelSprite->setScale(addGroupIdLabel->getScale());
-		auto addGroupIdLabelButton = CCMenuItemSpriteExtra::create(addGroupIdLabelSprite, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
-		addGroupIdLabelButton->setID("add-group-id-label"_spr);
+		auto addGroupIdLabelButton = ShiftPopup::createLabelButton((CCLabelBMFont*) addGroupIdLabel, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
 		addGroupIdLabelButton->setPosition(addGroupIdLabel->getPositionX(), addGroupIdLabel->getPositionY());
-		addGroupIdLabelButton->setContentSize({addGroupIdLabel->getContentWidth() * addGroupIdLabel->getScaleX(), addGroupIdLabel->getContentHeight() * addGroupIdLabel->getScaleY()});
-		addGroupIdLabelButton->setAnchorPoint(addGroupIdLabel->getAnchorPoint());
 
 		// Create group shift button
 		auto groupShiftButtonSprite = ButtonSprite::create("Shift", 36, false, "goldFont.fnt", "GJ_button_04.png", 25, 0.28);
@@ -51,7 +47,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		} // if
 		
 		// Remove old label and update layouts
-		addGroupIdMenu->removeChildByID("add-group-id-label");
+		addGroupIdLabel->removeFromParentAndCleanup(true);
 		addGroupIdButtonsMenu->updateLayout();
 		actionMenu->updateLayout();
 		

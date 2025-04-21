@@ -7,31 +7,22 @@ class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
     
     bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
+        // Initialize popup
         if (!CollisionBlockPopup::init(obj, objs)) return false;
-        
-        // Add node ids
-        setID("CollisionBlockPopup");
-        getChildByType<CCLayer>(0)->setID("main-layer");
-        getChildByID("main-layer")->getChildByType<CCMenu>(0)->setID("button-menu");
-        getChildByID("main-layer")->getChildByType<CCLabelBMFont>(1)->setID("block-id-label");
 
         // Save references
-        auto mainLayer = getChildByID("main-layer");
-        auto buttonMenu = mainLayer->getChildByID("button-menu");
-        auto blockIdLabel = mainLayer->getChildByID("block-id-label");
+        auto mainLayer = getChildByType<CCLayer>(0);
+        auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
+        auto blockIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 
-        // Create block id button
-        auto blockIdLabelSprite = CCLabelBMFont::create("Block ID", "goldFont.fnt");
-        blockIdLabelSprite->setScale(blockIdLabel->getScale());
-        auto blockIdLabelButton = CCMenuItemSpriteExtra::create(blockIdLabelSprite, this, menu_selector(CollisionBlockPopupShift::onBlockIdPress));
-        blockIdLabelButton->setID("block-id-label"_spr);
-        blockIdLabelButton->setPosition(blockIdLabel->getPositionX() - buttonMenu->getPositionX(), blockIdLabel->getPositionY() - buttonMenu->getPositionY());
-        blockIdLabelButton->setContentSize({blockIdLabel->getContentWidth() * blockIdLabel->getScaleX(), blockIdLabel->getContentHeight() * blockIdLabel->getScaleY()});
-        blockIdLabelButton->setAnchorPoint(blockIdLabel->getAnchorPoint());
+        // Create the label button
+        auto blockIdLabelButton = ShiftPopup::createLabelButton(blockIdLabel, this, menu_selector(CollisionBlockPopupShift::onBlockIdPress));
 
         // Add button
 		buttonMenu->addChild(blockIdLabelButton);
-		mainLayer->removeChildByID("block-id-label");
+
+        // Remove old label
+		blockIdLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

@@ -9,15 +9,15 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 
 		// Initialize popup
 		if (!SetupInstantCollisionTriggerPopup::init(obj, objs)) return false;
-		setID("SetupInstantCollisionTriggerPopup");
-		
+
 		// Save references
-		auto buttonMenu = getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
-		auto blockALabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(1);
-		auto blockBLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(2);
-        auto trueIdLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(3);
-		auto falseIdLabel = getChildByType<CCLayer>(0)->getChildByType<CCLabelBMFont>(4);
-		
+		auto mainLayer = getChildByType<CCLayer>(0);
+		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
+		auto blockALabel = mainLayer->getChildByType<CCLabelBMFont>(1);
+		auto blockBLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
+        auto trueIdLabel = mainLayer->getChildByType<CCLabelBMFont>(3);
+		auto falseIdLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
+
 		// Create the label buttons
         auto blockALabelButton = ShiftPopup::createLabelButton(blockALabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockAPress));
 		auto blockBLabelButton = ShiftPopup::createLabelButton(blockBLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
@@ -46,7 +46,7 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 		blockBLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 		trueIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 		falseIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		
+
 		return true;
 	} // init
 
