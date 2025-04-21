@@ -18,9 +18,9 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 		auto targetCountLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
 
         // Create the label buttons
-        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabel, this, menu_selector(SetupInstantCountPopupShift::onItemIdPress));
-        auto targetIdLabelButton = CCMenuItemSpriteExtra::create(targetIdLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetIdPress));
-        auto targetCountLabelButton = CCMenuItemSpriteExtra::create(targetCountLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetCountPress));
+        auto itemIdLabelButton = ShiftPopup::createLabelButton(itemIdLabel, this, menu_selector(SetupInstantCountPopupShift::onItemIdPress));
+        auto targetIdLabelButton = ShiftPopup::createLabelButton(targetIdLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetIdPress));
+        auto targetCountLabelButton = ShiftPopup::createLabelButton(targetCountLabel, this, menu_selector(SetupInstantCountPopupShift::onTargetCountPress));
 
         // Add buttons
 		buttonMenu->addChild(itemIdLabelButton);

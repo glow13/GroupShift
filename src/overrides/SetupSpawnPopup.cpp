@@ -18,9 +18,9 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto newIdLabel = mainLayer->getChildByType<CCLabelBMFont>(8);
 
 		// Create the label buttons
-		auto groupIdLabelButton = CCMenuItemSpriteExtra::create(groupIdLabel, this, menu_selector(SetupSpawnPopupShift::onGroupIdPress));
-		auto originalIdLabelButton = CCMenuItemSpriteExtra::create(originalIdLabel, this, menu_selector(SetupSpawnPopupShift::onOriginalIdPress));
-		auto newIdLabelButton = CCMenuItemSpriteExtra::create(newIdLabel, this, menu_selector(SetupSpawnPopupShift::onNewIdPress));
+		auto groupIdLabelButton = ShiftPopup::createLabelButton(groupIdLabel, this, menu_selector(SetupSpawnPopupShift::onGroupIdPress));
+		auto originalIdLabelButton = ShiftPopup::createLabelButton(originalIdLabel, this, menu_selector(SetupSpawnPopupShift::onOriginalIdPress));
+		auto newIdLabelButton = ShiftPopup::createLabelButton(newIdLabel, this, menu_selector(SetupSpawnPopupShift::onNewIdPress));
 		
 		// Add buttons
 		buttonMenu->addChild(groupIdLabelButton);
@@ -36,6 +36,10 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		addObjectToPage(groupIdLabelButton, 0);
 		addObjectToPage(originalIdLabelButton, 1);
 		addObjectToPage(newIdLabelButton, 1);
+
+		// Hide the buttons on the other page
+		originalIdLabelButton->setVisible(false);
+		newIdLabelButton->setVisible(false);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

@@ -21,12 +21,12 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 		auto falseIdLabel = mainLayer->getChildByType<CCLabelBMFont>(19);
 
 		// Create the label buttons
-        auto itemId1LabelButton = CCMenuItemSpriteExtra::create(itemId1Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onItemId1Press));
-        auto itemId2LabelButton = CCMenuItemSpriteExtra::create(itemId2Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onItemId2Press));
-        auto mod1LabelButton = CCMenuItemSpriteExtra::create(mod1Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onMod1Press));
-        auto mod2LabelButton = CCMenuItemSpriteExtra::create(mod2Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onMod2Press));
-        auto trueIdLabelButton = CCMenuItemSpriteExtra::create(trueIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onTrueIdPress));
-        auto falseIdLabelButton = CCMenuItemSpriteExtra::create(falseIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onFalseIdPress));
+        auto itemId1LabelButton = ShiftPopup::createLabelButton(itemId1Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onItemId1Press));
+        auto itemId2LabelButton = ShiftPopup::createLabelButton(itemId2Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onItemId2Press));
+        auto mod1LabelButton = ShiftPopup::createLabelButton(mod1Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onMod1Press));
+        auto mod2LabelButton = ShiftPopup::createLabelButton(mod2Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onMod2Press));
+        auto trueIdLabelButton = ShiftPopup::createLabelButton(trueIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onTrueIdPress));
+        auto falseIdLabelButton = ShiftPopup::createLabelButton(falseIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onFalseIdPress));
         
 		// Add buttons
 		buttonMenu->addChild(itemId1LabelButton);

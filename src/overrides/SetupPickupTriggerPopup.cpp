@@ -17,8 +17,8 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		auto countLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
 
         // Create the label buttons
-        auto itemIdLabelButton = CCMenuItemSpriteExtra::create(itemIdLabel, this, menu_selector(SetupPickupTriggerPopupShift::onItemIdPress));
-        auto countLabelButton = CCMenuItemSpriteExtra::create(countLabel, this, menu_selector(SetupPickupTriggerPopupShift::onCountPress));
+        auto itemIdLabelButton = ShiftPopup::createLabelButton(itemIdLabel, this, menu_selector(SetupPickupTriggerPopupShift::onItemIdPress));
+        auto countLabelButton = ShiftPopup::createLabelButton(countLabel, this, menu_selector(SetupPickupTriggerPopupShift::onCountPress));
 
         // Add buttons
 		buttonMenu->addChild(itemIdLabelButton);
