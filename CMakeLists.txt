@@ -21,6 +21,7 @@ add_library(${PROJECT_NAME} SHARED
     src/overrides/SetupInstantCountPopup.cpp
     src/overrides/SetupItemCompareTriggerPopup.cpp
     src/overrides/SetupItemEditTriggerPopup.cpp
+    src/overrides/SetupMoveCommandPopup.cpp
     src/overrides/SetupPickupTriggerPopup.cpp
     src/overrides/SetupSpawnPopup.cpp
 
