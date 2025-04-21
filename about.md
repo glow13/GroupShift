@@ -9,6 +9,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
 ## Supported Triggers
 
  * Move
+ * Toggle
  * Spawn
  * Pickup
  * Instant Count
