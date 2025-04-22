@@ -14,6 +14,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
  * Toggle
  * Spawn
  * Pickup
+ * Count
  * Instant Count
  * Instant Collision
  * Item Edit
