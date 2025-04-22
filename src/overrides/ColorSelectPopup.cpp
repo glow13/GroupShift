@@ -1,7 +1,7 @@
 #include <Geode/modify/ColorSelectPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-CCMenuItemSpriteExtra* channelId;
+CCMenuItemSpriteExtra* channelIdButton;
 
 class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
@@ -19,14 +19,14 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		auto colorIdLabel = mainLayer->getChildByType<CCLabelBMFont>(11);        
 
         // Create the label buttons
-        auto channelIdButton = ShiftPopup::createLabelButton(channelIdLabel, this, menu_selector(ColorSelectPopupShift::onChannelIdPress));
-        auto fadeTimeButton = ShiftPopup::createLabelButton(fadeTimeLabel, this, menu_selector(ColorSelectPopupShift::onFadeTimePress));
-        auto colorIdButton = ShiftPopup::createLabelButton(colorIdLabel, this, menu_selector(ColorSelectPopupShift::onColorIdPress));
+        auto channelIdLabelButton = ShiftPopup::createLabelButton(channelIdLabel, this, menu_selector(ColorSelectPopupShift::onChannelIdPress));
+        auto fadeTimeLabelButton = ShiftPopup::createLabelButton(fadeTimeLabel, this, menu_selector(ColorSelectPopupShift::onFadeTimePress));
+        auto colorIdLabelButton = ShiftPopup::createLabelButton(colorIdLabel, this, menu_selector(ColorSelectPopupShift::onColorIdPress));
 
         // Add buttons
-		buttonMenu->addChild(channelIdButton);
-		buttonMenu->addChild(fadeTimeButton);
-        buttonMenu->addChild(colorIdButton);
+		buttonMenu->addChild(channelIdLabelButton);
+		buttonMenu->addChild(fadeTimeLabelButton);
+        buttonMenu->addChild(colorIdLabelButton);
 
         // Remove old labels
 		channelIdLabel->removeFromParentAndCleanup(true);
@@ -34,8 +34,8 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
         colorIdLabel->removeFromParentAndCleanup(true);
 
 		// Make sure the channel id behaves correctly
-		channelIdButton->setVisible(m_showCopyObjects);
-		channelId = channelIdButton;
+		channelIdLabelButton->setVisible(m_showCopyObjects);
+		channelIdButton = channelIdLabelButton;
 
         // Get objects
 		vector<EffectGameObject*> objects;
@@ -43,23 +43,23 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
-		channelIdButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		fadeTimeButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-        colorIdButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		channelIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		fadeTimeLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+        colorIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onToggleHSVMode(CCObject* sender) {
 		ColorSelectPopup::onToggleHSVMode(sender);
-		channelId->setVisible(m_showCopyObjects);
+		channelIdButton->setVisible(m_showCopyObjects);
 	} // onToggleHSVMode
 
 	void onChannelIdPress(CCObject* sender) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
         auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_copyColorID) }; return group; },
+			[](EffectGameObject* obj) { vector<float> color = { static_cast<float>(obj->m_copyColorID) }; return color; },
 			[](EffectGameObject* obj, vector<float> vals) { obj->m_copyColorID = vals[0]; },
 			1, 999
 		);
@@ -71,7 +71,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
         auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { vector<float> group = { obj->m_duration }; return group; },
+			[](EffectGameObject* obj) { vector<float> time = { obj->m_duration }; return time; },
 			[](EffectGameObject* obj, vector<float> vals) { obj->m_duration = vals[0]; },
 			0, 10000
 		);
@@ -83,8 +83,8 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
         auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); vector<float> group = { static_cast<float>(countTriggerObj->m_targetColor) }; return group; },
-			[](EffectGameObject* obj, vector<float> vals) { auto countTriggerObj = static_cast<CountTriggerGameObject*>(obj); countTriggerObj->m_targetColor = vals[0]; },
+			[](EffectGameObject* obj) { vector<float> color = { static_cast<float>(obj->m_targetColor) }; return color; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_targetColor = vals[0]; },
 			1, 999
 		);
         popup->setUserObject(this);
