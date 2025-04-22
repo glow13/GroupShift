@@ -1,8 +1,6 @@
 #include <Geode/modify/SetupPickupTriggerPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {

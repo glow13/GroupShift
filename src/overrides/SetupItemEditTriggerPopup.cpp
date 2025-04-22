@@ -1,8 +1,6 @@
 #include <Geode/modify/SetupItemEditTriggerPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetupItemEditTriggerPopupShift, SetupItemEditTriggerPopup) {
 
 	bool init(ItemTriggerGameObject* obj, cocos2d::CCArray* objs) {

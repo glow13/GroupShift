@@ -1,8 +1,6 @@
 #include <Geode/modify/SetupSpawnPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {

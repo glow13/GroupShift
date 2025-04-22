@@ -1,8 +1,6 @@
 #include <Geode/modify/CollisionBlockPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
     
     bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {

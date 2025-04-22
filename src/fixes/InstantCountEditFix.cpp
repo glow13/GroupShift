@@ -1,8 +1,6 @@
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/Geode.hpp>
 
-using namespace geode::prelude;
-
 class $modify(EditorUIFix, EditorUI) {
 
     static const int instantCountTriggerID = 1811;

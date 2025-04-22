@@ -1,8 +1,6 @@
 #include <Geode/modify/SetGroupIDLayer.hpp>
 #include "GroupShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 	bool init(GameObject* obj, cocos2d::CCArray* objs) {
@@ -27,7 +25,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		groupShiftButton->setID("shift-button"_spr);
 
 		// Create all parent button
-		auto allParentButtonSprite = ButtonSprite::create("A", 30.7, false, "goldFont.fnt", "GJ_button_04.png", 25, 0.7);
+		auto allParentButtonSprite = ButtonSprite::create("A", 30, false, "goldFont.fnt", "GJ_button_04.png", 25, 0.7);
 		auto allParentButton = CCMenuItemSpriteExtra::create(allParentButtonSprite, this, menu_selector(SetGroupIDLayerShift::onAllParentPress));
 		allParentButton->setID("all-parent-button"_spr);
 

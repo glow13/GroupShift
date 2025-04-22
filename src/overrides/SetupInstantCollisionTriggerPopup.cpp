@@ -1,8 +1,6 @@
 #include <Geode/modify/SetupInstantCollisionTriggerPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTriggerPopup) {
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {

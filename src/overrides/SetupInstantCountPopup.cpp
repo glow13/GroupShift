@@ -1,8 +1,6 @@
 #include <Geode/modify/SetupInstantCountPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 
 	bool init(CountTriggerGameObject* obj, cocos2d::CCArray* objs) {
