@@ -15,6 +15,9 @@ jobs:
         - name: Windows
           os: windows-latest
 
+        - name: macOS
+          os: macos-latest
+
         - name: Android32
           os: ubuntu-latest
           target: Android32
@@ -28,17 +31,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          cli: 'nightly'
           sdk: 'nightly'
-          bindings: geode-sdk/bindings
-          bindings-ref: main
+          cli: 'nightly'
           combine: true
           target: ${{ matrix.config.target }}
-  
+
   package:
     name: Package builds
     runs-on: ubuntu-latest
