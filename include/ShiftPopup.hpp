@@ -2,9 +2,11 @@
 
 #include <Geode/Geode.hpp>
 #include <Geode/ui/Notification.hpp>
-#include <vector>
 
-using namespace geode::prelude;
+using namespace geode;
+using namespace cocos;
+using namespace cocos2d;
+using namespace std;
 
 class ShiftPopup : public geode::Popup<> {
 public:
@@ -12,8 +14,8 @@ public:
     
     Slider* slider = Slider::create(this, menu_selector(ShiftPopup::onSlider), 0.75);
 	TextInput* textInput = TextInput::create(50, "num");
-    std::vector<GameObject*> targetedObjects;
-    std::vector<EffectGameObject*> targetedTriggerObjects;
+    vector<GameObject*> targetedObjects;
+    vector<EffectGameObject*> targetedTriggerObjects;
     int targetedObjectCount = 0;
 
     bool setup();
@@ -22,14 +24,12 @@ public:
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }
     void onAutoPress(CCObject* obj);
     void onSlider(CCObject* obj);
-    void onTextInput(std::string text);
+    void onTextInput(string text);
     void onLeftArrow(CCObject* obj);
     void onRightArrow(CCObject* obj);
-    void goodNotification(std::string text);
-    void badNotification(std::string text);
+    void goodNotification(string text);
+    void badNotification(string text);
     void closeParentPopup(CCObject* sender);
-    static ShiftPopup* create(std::vector<GameObject*> objects);
+    static ShiftPopup* create(vector<GameObject*> objects);
     static CCMenuItemSpriteExtra* createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback);
 };
-
-void onClose_hook(CCObject* sender);

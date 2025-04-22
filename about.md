@@ -17,7 +17,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
  * Item Edit
  * Item Compare
  * Collision Block
- * Item Label
+ * Item Counter
 
 ## Request Features
 

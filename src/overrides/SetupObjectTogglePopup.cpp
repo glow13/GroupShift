@@ -25,7 +25,7 @@ class $modify(SetupObjectTogglePopupShift, SetupObjectTogglePopup) {
 		groupIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
-		std::vector<EffectGameObject*> objects;
+		vector<EffectGameObject*> objects;
 		if (!m_gameObjects || m_gameObjects->count() == 0) objects.push_back(m_gameObject);
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) objects.push_back(obj);
 
@@ -39,8 +39,8 @@ class $modify(SetupObjectTogglePopupShift, SetupObjectTogglePopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
 		popup->setUserObject(this);
 		popup->show();

@@ -45,7 +45,7 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 		falseIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
-		std::vector<EffectGameObject*> objects;
+		vector<EffectGameObject*> objects;
 		if (!objs || objs->count() == 0) objects.push_back(obj);
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
@@ -64,8 +64,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
         popup->setUserObject(this);
         popup->show();
@@ -75,8 +75,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID2 = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_itemID2) }; return group; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_itemID2 = vals[0]; }
 		);
         popup->setUserObject(this);
         popup->show();
@@ -86,8 +86,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); std::vector<float> mod1 = { triggerObject->m_mod1 }; return mod1; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod1 = vals[0]; },
+			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); vector<float> mod1 = { triggerObject->m_mod1 }; return mod1; },
+			[](EffectGameObject* obj, vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod1 = vals[0]; },
 			-9999, 9999
 		);
         popup->setUserObject(this);
@@ -98,8 +98,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); std::vector<float> mod2 = { triggerObject->m_mod2 }; return mod2; },
-			[](EffectGameObject* obj, std::vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod2 = vals[0]; },
+			[](EffectGameObject* obj) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); vector<float> mod2 = { triggerObject->m_mod2 }; return mod2; },
+			[](EffectGameObject* obj, vector<float> vals) { auto triggerObject = static_cast<ItemTriggerGameObject*>(obj); triggerObject->m_mod2 = vals[0]; },
 			-9999, 9999
 		);
         popup->setUserObject(this);
@@ -110,8 +110,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> trueId = { static_cast<float>(obj->m_targetGroupID) }; return trueId; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> trueId = { static_cast<float>(obj->m_targetGroupID) }; return trueId; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
         popup->setUserObject(this);
         popup->show();
@@ -121,8 +121,8 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> falseId = { static_cast<float>(obj->m_centerGroupID) }; return falseId; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_centerGroupID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> falseId = { static_cast<float>(obj->m_centerGroupID) }; return falseId; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_centerGroupID = vals[0]; }
 		);
         popup->setUserObject(this);
         popup->show();

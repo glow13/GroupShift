@@ -6,13 +6,13 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     int val = getValue();
     bool outOfBounds = false;
     LevelEditorLayer* lel = LevelEditorLayer::get();
-    auto groups = std::vector<std::array<short,10>>(targetedObjectCount);
-    auto parents = std::vector<short>(targetedObjectCount);
+    auto groups = vector<array<short,10>>(targetedObjectCount);
+    auto parents = vector<short>(targetedObjectCount);
 
     // Find all groups and parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
-        groups[i] = std::array<short,10>();
+        groups[i] = array<short,10>();
         for (int g = 0; g < obj->m_groupCount; g++) {
             int group = obj->m_groups->at(g);
             int newGroup = group + val;
@@ -60,7 +60,7 @@ bool GroupShiftPopup::setup() {
     return true;
 } // setup
 
-GroupShiftPopup* GroupShiftPopup::create(std::vector<GameObject*> objects) {
+GroupShiftPopup* GroupShiftPopup::create(vector<GameObject*> objects) {
     auto ret = new GroupShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedObjects = objects;

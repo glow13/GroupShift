@@ -42,7 +42,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		newIdLabelButton->setVisible(false);
 
 		// Get objects
-		std::vector<EffectGameObject*> objects;
+		vector<EffectGameObject*> objects;
 		if (!m_gameObjects || m_gameObjects->count() == 0) objects.push_back(m_gameObject);
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) objects.push_back(obj);
 
@@ -58,8 +58,8 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_targetGroupID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_targetGroupID) }; return group; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_targetGroupID = vals[0]; }
 		);
 		popup->setUserObject(this);
 		popup->show();
@@ -69,8 +69,8 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_groupID); return ids; },
-			[](EffectGameObject* obj, std::vector<float> vals) {
+			[](EffectGameObject* obj) { vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_groupID); return ids; },
+			[](EffectGameObject* obj, vector<float> vals) {
 				auto spawnObject = static_cast<SpawnTriggerGameObject*>(obj);
 				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) {
 					spawnObject->m_remapObjects[i].m_groupID = vals[i];
@@ -86,8 +86,8 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_chance); return ids; },
-			[](EffectGameObject* obj, std::vector<float> vals) {
+			[](EffectGameObject* obj) { vector<float> ids; for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects) ids.push_back(remap.m_chance); return ids; },
+			[](EffectGameObject* obj, vector<float> vals) {
 				auto spawnObject = static_cast<SpawnTriggerGameObject*>(obj);
 				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) 
 					spawnObject->m_remapObjects[i].m_chance = vals[i];

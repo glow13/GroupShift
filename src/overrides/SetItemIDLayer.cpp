@@ -25,7 +25,7 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
 		itemIdLabel->removeFromParentAndCleanup(true);
 
         // Get objects
-		std::vector<EffectGameObject*> objects;
+		vector<EffectGameObject*> objects;
 		if (!objs || objs->count() == 0) objects.push_back(obj);
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj);
 
@@ -39,8 +39,8 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
         auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
         auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_itemID = vals[0]; }
+			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
+			[](EffectGameObject* obj, vector<float> vals) { obj->m_itemID = vals[0]; }
 		);
         popup->setUserObject(this);
         popup->show();

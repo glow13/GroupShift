@@ -3,27 +3,27 @@
 class PropertyShiftPopup : public ShiftPopup {
 public:
     struct ObjectCollection : public CCObject {
-		std::vector<EffectGameObject*> data;
-		ObjectCollection(std::vector<EffectGameObject*> objs) {
+		vector<EffectGameObject*> data;
+		ObjectCollection(vector<EffectGameObject*> objs) {
 			data = objs;
 			this->autorelease();
 		}
 	};
 	int minValue;
 	int maxValue;
-	std::function<std::vector<float>(EffectGameObject*)> getProperty;
-    std::function<void(EffectGameObject*, std::vector<float>)> setProperty;
+	function<vector<float>(EffectGameObject*)> getProperty;
+    function<void(EffectGameObject*, vector<float>)> setProperty;
 	void onButtonPress(CCObject* obj) override;
 	bool setup() override;
 	static PropertyShiftPopup* create(
-		std::vector<EffectGameObject*> objects,
-		std::function<std::vector<float>(EffectGameObject*)> getProperty,
-		std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
+		vector<EffectGameObject*> objects,
+		function<vector<float>(EffectGameObject*)> getProperty,
+		function<void(EffectGameObject*, vector<float>)> setProperty,
 		int minValue, int maxValue
 	);
 	static PropertyShiftPopup* create(
-		std::vector<EffectGameObject*> objects,
-		std::function<std::vector<float>(EffectGameObject*)> getProperty,
-		std::function<void(EffectGameObject*, std::vector<float>)> setProperty
+		vector<EffectGameObject*> objects,
+		function<vector<float>(EffectGameObject*)> getProperty,
+		function<void(EffectGameObject*, vector<float>)> setProperty
 	) { return create(objects, getProperty, setProperty, 1, 9999); }
 };

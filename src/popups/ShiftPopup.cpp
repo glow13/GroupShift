@@ -1,7 +1,5 @@
 #include "ShiftPopup.hpp"
 
-using namespace geode::prelude;
-
 bool ShiftPopup::setup() {
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -22,7 +20,7 @@ bool ShiftPopup::setup() {
     textInput->setID("shift-text"_spr);
     textInput->setString("0");
     textInput->setFilter("-0123456789");
-    textInput->setCallback([&](std::string const& text) { ShiftPopup::onTextInput(text); });
+    textInput->setCallback([&](string const& text) { ShiftPopup::onTextInput(text); });
     addChild(textInput);
 
     // Create the confirm button
@@ -74,13 +72,13 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
 } // createLabelButton
 
 int ShiftPopup::getValue() {
-    return std::stoi(textInput->getString());
+    return stoi(textInput->getString());
 } // getValue
 
 void ShiftPopup::onLeftArrow(CCObject* obj) {
     int value = getValue();
     if (value > -100) {
-        textInput->setString(std::to_string(value - 1));
+        textInput->setString(to_string(value - 1));
         slider->setValue((value + 99.0f) / 200.0f);
     } // if
 } // onLeftArrow
@@ -88,39 +86,39 @@ void ShiftPopup::onLeftArrow(CCObject* obj) {
 void ShiftPopup::onRightArrow(CCObject* obj) {
     int value = getValue();
     if (value < 100) {
-        textInput->setString(std::to_string(value + 1));
+        textInput->setString(to_string(value + 1));
         slider->setValue((value + 101.0f) / 200.0f);
     } // if
 } // onRightArrow
 
 void ShiftPopup::onAutoPress(CCObject* obj) {
-    onTextInput(std::to_string(targetedObjectCount));
+    onTextInput(to_string(targetedObjectCount));
 } // onAutoPress
 
 void ShiftPopup::onSlider(CCObject* obj) {
-    textInput->setString(std::to_string(int(slider->getValue() * 200 - 100)));
+    textInput->setString(to_string(int(slider->getValue() * 200 - 100)));
 } // onSlider
 
-void ShiftPopup::onTextInput(std::string text) {
+void ShiftPopup::onTextInput(string text) {
     if ((int) text.find("-") > 0) text = "0";
     
     if (text != "" && text != "-") {
-        int num = std::stoi(text);
+        int num = stoi(text);
         if (num > 100) slider->setValue(1);
         else if (num < -100) slider->setValue(0);
-        else slider->setValue((std::stoi(text) + 100.0f) / 200.0f);
+        else slider->setValue((stoi(text) + 100.0f) / 200.0f);
     } else slider->setValue(0.5);
 
     textInput->setString(text);
     slider->updateBar();
 } // onTextInput
 
-void ShiftPopup::goodNotification(std::string text) {
+void ShiftPopup::goodNotification(string text) {
     Notification::create(text, NotificationIcon::Success, 2)->show();
     log::info("{}", text);
 } // errorNotification
 
-void ShiftPopup::badNotification(std::string text) {
+void ShiftPopup::badNotification(string text) {
     Notification::create(text, NotificationIcon::Error, 2)->show();
     log::error("{}", text);
 } // errorNotification
@@ -134,7 +132,7 @@ void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
     else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
 } // closeParentPopup
 
-static ShiftPopup* create(std::vector<GameObject*> objects) {
+static ShiftPopup* create(vector<GameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedObjects = objects;
@@ -146,7 +144,7 @@ static ShiftPopup* create(std::vector<GameObject*> objects) {
     return nullptr;
 } // create
 
-static ShiftPopup* create(std::vector<EffectGameObject*> objects) {
+static ShiftPopup* create(vector<EffectGameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedTriggerObjects = objects;
