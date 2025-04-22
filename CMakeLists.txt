@@ -15,6 +15,7 @@ add_library(${PROJECT_NAME} SHARED
     src/popups/PropertyShiftPopup.cpp
 
     src/overrides/CollisionBlockPopup.cpp
+    src/overrides/ColorSelectPopup.cpp
     src/overrides/SetGroupIDLayer.cpp
     src/overrides/SetItemIDLayer.cpp
     src/overrides/SetupInstantCollisionTriggerPopup.cpp
