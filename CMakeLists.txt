@@ -18,6 +18,7 @@ add_library(${PROJECT_NAME} SHARED
     src/overrides/ColorSelectPopup.cpp
     src/overrides/SetGroupIDLayer.cpp
     src/overrides/SetItemIDLayer.cpp
+    src/overrides/SetupCollisionTriggerPopup.cpp
     src/overrides/SetupCountTriggerPopup.cpp
     src/overrides/SetupInstantCollisionTriggerPopup.cpp
     src/overrides/SetupInstantCountPopup.cpp
