@@ -20,7 +20,7 @@ public:
 
     bool setup();
     int getValue();
-    static bool inBounds(int num, int min, int max) { return num >= min && num <= max; }
+    static bool inBounds(float num, int min, int max) { return num >= min && num <= max; }
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }
     void onAutoPress(CCObject* obj);
     void onSlider(CCObject* obj);
