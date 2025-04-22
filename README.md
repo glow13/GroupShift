@@ -10,6 +10,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
 
  * Color
  * Move
+ * Alpha
  * Toggle
  * Spawn
  * Pickup
