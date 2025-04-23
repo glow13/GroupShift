@@ -52,7 +52,7 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> moveX = { obj->m_moveOffset.x / 3 }; return moveX; },
+			[](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.x / 3 }; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.x = vals[0] * 3; },
 			-10000, 10000
 		);
@@ -64,7 +64,7 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { std::vector<float> moveY = { obj->m_moveOffset.y / 3 }; return moveY; },
+			[](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.y / 3 }; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.y = vals[0] * 3; },
 			-10000, 10000
 		);

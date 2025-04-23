@@ -7,7 +7,7 @@
     Definitions to simplify creating the shift popups
     I know they're ugly, but they are sooo helpful so I don't really care lol
 */ 
-#define $get(val) [](EffectGameObject* obj) { std::vector<float> v = { static_cast<float>(val) }; return v; }
+#define $get(val) [](EffectGameObject* obj) -> std::vector<float> { return { static_cast<float>(val) }; }
 #define $set(val) [](EffectGameObject* obj, std::vector<float> vals) { val = vals[0]; }
 #define $objects(val, c) static_cast<c::ObjectCollection*>(static_cast<CCNode*>(val)->getUserObject())
 

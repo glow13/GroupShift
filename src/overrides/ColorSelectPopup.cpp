@@ -1,9 +1,11 @@
 #include <Geode/modify/ColorSelectPopup.hpp>
 #include "PropertyShiftPopup.hpp"
 
-CCMenuItemSpriteExtra* channelIdButton;
-
 class $modify(ColorSelectPopupShift, ColorSelectPopup) {
+
+	struct Fields {
+        CCMenuItemSpriteExtra* channelIdButton = nullptr;
+    };
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs, ColorAction* idk) {
 
@@ -35,7 +37,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 		// Make sure the channel id behaves correctly
 		channelIdLabelButton->setVisible(m_showCopyObjects);
-		channelIdButton = channelIdLabelButton;
+		m_fields->channelIdButton = channelIdLabelButton;
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
@@ -52,7 +54,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	void onToggleHSVMode(CCObject* sender) {
 		ColorSelectPopup::onToggleHSVMode(sender);
-		channelIdButton->setVisible(m_showCopyObjects);
+		m_fields->channelIdButton->setVisible(m_showCopyObjects);
 	} // onToggleHSVMode
 
 	void onChannelIdPress(CCObject* sender) {
