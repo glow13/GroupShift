@@ -2,7 +2,7 @@
 #include "PropertyShiftPopup.hpp"
 
 class $modify(SetItemIDLayerShift, SetItemIDLayer) {
-    
+
     bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
         // Initialize popup
@@ -23,7 +23,7 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
 		itemIdLabel->removeFromParentAndCleanup(true);
 
         // Get objects
-		vector<EffectGameObject*> objects;
+		std::vector<EffectGameObject*> objects;
 		if (!objs || objs->count() == 0) objects.push_back(obj);
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj);
 
@@ -34,14 +34,10 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
     } // init
 
     void onItemIdPress(CCObject* sender) {
-        auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        auto popup = PropertyShiftPopup::create(
-			objects->data,
-			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, vector<float> vals) { obj->m_itemID = vals[0]; }
-		);
+        auto objects = $objects(sender, PropertyShiftPopup);
+        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->setUserObject(this);
         popup->show();
     } // onItemIdPress
-    
+
 }; // SetItemIDLayerShift

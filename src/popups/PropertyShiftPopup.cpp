@@ -6,7 +6,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     int val = getValue();
     bool outOfBounds = false;
     LevelEditorLayer* lel = LevelEditorLayer::get();
-    auto properties = vector<vector<float>>(targetedObjectCount);
+    auto properties = std::vector<std::vector<float>>(targetedObjectCount);
 
     // Shift the property
     for (int i = 0; i < targetedObjectCount; i++) {
@@ -37,24 +37,24 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     // Success and close popups
     closeParentPopup(this);
     onClose(this);
-    goodNotification("Shifted the property of the selected objects by " + to_string(val) + "!");
+    goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
 } // onButtonPress
 
 bool PropertyShiftPopup::setup() {
     if (!ShiftPopup::setup()) return false;
 
-    this->setTitle("Shift Property");
-    this->setID("PropertyShiftPopup"_spr);
+    setTitle("Shift Property");
+    setID("PropertyShiftPopup"_spr);
 
     return true;
 } // setup
 
 PropertyShiftPopup* PropertyShiftPopup::create(
-	vector<EffectGameObject*> objects,
-	function<vector<float>(EffectGameObject*)> getProperty,
-	function<void(EffectGameObject*, vector<float>)> setProperty,
-    int minValue, int maxValue
-) {
+	std::vector<EffectGameObject*> objects,
+	std::function<std::vector<float>(EffectGameObject*)> getProperty,
+	std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
+    int minValue, int maxValue) {
+
     auto ret = new PropertyShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedTriggerObjects = objects;

@@ -3,19 +3,24 @@
 #include <Geode/Geode.hpp>
 #include <Geode/ui/Notification.hpp>
 
-using namespace geode;
-using namespace cocos;
-using namespace cocos2d;
-using namespace std;
+/*
+    Definitions to simplify creating the shift popups
+    I know they're ugly, but they are sooo helpful so I don't really care lol
+*/ 
+#define $get(val) [](EffectGameObject* obj) { std::vector<float> v = { static_cast<float>(val) }; return v; }
+#define $set(val) [](EffectGameObject* obj, std::vector<float> vals) { val = vals[0]; }
+#define $objects(val, c) static_cast<c::ObjectCollection*>(static_cast<CCNode*>(val)->getUserObject())
+
+using namespace geode::prelude;
 
 class ShiftPopup : public geode::Popup<> {
 public:
     using Popup::initAnchored;
-    
+
     Slider* slider = Slider::create(this, menu_selector(ShiftPopup::onSlider), 0.75);
 	TextInput* textInput = TextInput::create(50, "num");
-    vector<GameObject*> targetedObjects;
-    vector<EffectGameObject*> targetedTriggerObjects;
+    std::vector<GameObject*> targetedObjects;
+    std::vector<EffectGameObject*> targetedTriggerObjects;
     int targetedObjectCount = 0;
 
     bool setup();
@@ -24,12 +29,12 @@ public:
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }
     void onAutoPress(CCObject* obj);
     void onSlider(CCObject* obj);
-    void onTextInput(string text);
+    void onTextInput(std::string text);
     void onLeftArrow(CCObject* obj);
     void onRightArrow(CCObject* obj);
-    void goodNotification(string text);
-    void badNotification(string text);
+    void goodNotification(std::string text);
+    void badNotification(std::string text);
     void closeParentPopup(CCObject* sender);
-    static ShiftPopup* create(vector<GameObject*> objects);
+    static ShiftPopup* create(std::vector<GameObject*> objects);
     static CCMenuItemSpriteExtra* createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback);
 };

@@ -27,7 +27,7 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		countLabel->removeFromParentAndCleanup(true);
 
         // Get objects
-		vector<EffectGameObject*> objects;
+		std::vector<EffectGameObject*> objects;
 		if (!objs || objs->count() == 0) objects.push_back(obj);
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
@@ -39,22 +39,18 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 	} // init
 
 	void onItemIdPress(CCObject* sender) {
-		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-        auto popup = PropertyShiftPopup::create(
-			objects->data,
-			[](EffectGameObject* obj) { vector<float> group = { static_cast<float>(obj->m_itemID) }; return group; },
-			[](EffectGameObject* obj, vector<float> vals) { obj->m_itemID = vals[0]; }
-		);
+		auto objects = $objects(sender, PropertyShiftPopup);
+        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->setUserObject(this);
         popup->show();
 	} // onItemIdPress
 
     void onCountPress(CCObject* sender) {
-		auto objects = static_cast<PropertyShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = $objects(sender, PropertyShiftPopup);
         auto popup = PropertyShiftPopup::create(
 			objects->data,
-			[](EffectGameObject* obj) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); vector<float> group = { static_cast<float>(pickupTriggerObj->m_pickupCount) }; return group; },
-			[](EffectGameObject* obj, vector<float> vals) { auto pickupTriggerObj = static_cast<CountTriggerGameObject*>(obj); pickupTriggerObj->m_pickupCount = vals[0]; },
+			$get(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
+			$set(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			-9999, 9999
 		);
         popup->setUserObject(this);

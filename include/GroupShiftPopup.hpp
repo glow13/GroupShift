@@ -3,13 +3,13 @@
 class GroupShiftPopup : public ShiftPopup {
 public:
     struct ObjectCollection : public CCObject {
-		vector<GameObject*> data;
-		ObjectCollection(vector<GameObject*> objs) {
+		std::vector<GameObject*> data;
+		ObjectCollection(std::vector<GameObject*> objs) {
 			data = objs;
 			this->autorelease();
 		}
 	};
     void onButtonPress(CCObject* obj) override;
     bool setup() override;
-    static GroupShiftPopup* create(vector<GameObject*> objects);
+    static GroupShiftPopup* create(std::vector<GameObject*> objects);
 };

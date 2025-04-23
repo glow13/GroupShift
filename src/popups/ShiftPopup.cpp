@@ -7,7 +7,7 @@ bool ShiftPopup::setup() {
     setTitle("Shift Groups");
     setID("GroupShiftPopup"_spr);
     m_noElasticity = true;
-    
+
     // Create the slider
     slider->setPosition(winSize.width / 2, winSize.height / 2 - 15);
     slider->setID("shift-slider"_spr);
@@ -20,7 +20,7 @@ bool ShiftPopup::setup() {
     textInput->setID("shift-text"_spr);
     textInput->setString("0");
     textInput->setFilter("-0123456789");
-    textInput->setCallback([&](string const& text) { ShiftPopup::onTextInput(text); });
+    textInput->setCallback([&](std::string const& text) { ShiftPopup::onTextInput(text); });
     addChild(textInput);
 
     // Create the confirm button
@@ -41,7 +41,7 @@ bool ShiftPopup::setup() {
     leftArrow->setPositionX((m_buttonMenu->getContentWidth() - textInput->getContentWidth()) / 2 - leftArrow->getContentWidth() * 1.5);
     leftArrow->setPositionY(textInput->getPositionY() - m_buttonMenu->getPositionY());
     m_buttonMenu->addChild(leftArrow);
-    
+
     // Create the right arrow selector
     auto rightArrow = CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("edit_rightBtn_001.png"), this, menu_selector(ShiftPopup::onRightArrow));
     rightArrow->setID("right-arrow"_spr);
@@ -53,7 +53,7 @@ bool ShiftPopup::setup() {
 } // setup
 
 CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback) {
-    
+
     // Get menu reference
     auto menu = popup->getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
 
@@ -78,7 +78,7 @@ int ShiftPopup::getValue() {
 void ShiftPopup::onLeftArrow(CCObject* obj) {
     int value = getValue();
     if (value > -100) {
-        textInput->setString(to_string(value - 1));
+        textInput->setString(std::to_string(value - 1));
         slider->setValue((value + 99.0f) / 200.0f);
     } // if
 } // onLeftArrow
@@ -86,22 +86,22 @@ void ShiftPopup::onLeftArrow(CCObject* obj) {
 void ShiftPopup::onRightArrow(CCObject* obj) {
     int value = getValue();
     if (value < 100) {
-        textInput->setString(to_string(value + 1));
+        textInput->setString(std::to_string(value + 1));
         slider->setValue((value + 101.0f) / 200.0f);
     } // if
 } // onRightArrow
 
 void ShiftPopup::onAutoPress(CCObject* obj) {
-    onTextInput(to_string(targetedObjectCount));
+    onTextInput(std::to_string(targetedObjectCount));
 } // onAutoPress
 
 void ShiftPopup::onSlider(CCObject* obj) {
-    textInput->setString(to_string(int(slider->getValue() * 200 - 100)));
+    textInput->setString(std::to_string(int(slider->getValue() * 200 - 100)));
 } // onSlider
 
-void ShiftPopup::onTextInput(string text) {
+void ShiftPopup::onTextInput(std::string text) {
     if ((int) text.find("-") > 0) text = "0";
-    
+
     if (text != "" && text != "-") {
         int num = stoi(text);
         if (num > 100) slider->setValue(1);
@@ -113,12 +113,12 @@ void ShiftPopup::onTextInput(string text) {
     slider->updateBar();
 } // onTextInput
 
-void ShiftPopup::goodNotification(string text) {
+void ShiftPopup::goodNotification(std::string text) {
     Notification::create(text, NotificationIcon::Success, 2)->show();
     log::info("{}", text);
 } // errorNotification
 
-void ShiftPopup::badNotification(string text) {
+void ShiftPopup::badNotification(std::string text) {
     Notification::create(text, NotificationIcon::Error, 2)->show();
     log::error("{}", text);
 } // errorNotification
@@ -126,13 +126,13 @@ void ShiftPopup::badNotification(string text) {
 void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
     auto obj = getUserObject();
     if (obj == NULL) return;
-    
+
     if (auto popup = dynamic_cast<SetGroupIDLayer*>(obj)) popup->onClose(sender);
     else if (auto popup = dynamic_cast<SetupTriggerPopup*>(obj)) popup->onClose(sender);
     else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
 } // closeParentPopup
 
-static ShiftPopup* create(vector<GameObject*> objects) {
+static ShiftPopup* create(std::vector<GameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedObjects = objects;
@@ -144,7 +144,7 @@ static ShiftPopup* create(vector<GameObject*> objects) {
     return nullptr;
 } // create
 
-static ShiftPopup* create(vector<EffectGameObject*> objects) {
+static ShiftPopup* create(std::vector<EffectGameObject*> objects) {
     auto ret = new ShiftPopup();
     if (ret->initAnchored(240.f, 160.f)) {
         ret->targetedTriggerObjects = objects;

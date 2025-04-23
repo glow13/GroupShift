@@ -14,7 +14,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		auto addGroupIdMenu = mainLayer->getChildByID("add-group-id-menu");
 		auto addGroupIdLabel = addGroupIdMenu->getChildByID("add-group-id-label");
 		auto addGroupIdButtonsMenu = mainLayer->getChildByID("add-group-id-buttons-menu");
-		
+
 		// Create add group id button
 		auto addGroupIdLabelButton = ShiftPopup::createLabelButton((CCLabelBMFont*) addGroupIdLabel, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
 		addGroupIdLabelButton->setPosition(addGroupIdLabel->getPositionX(), addGroupIdLabel->getPositionY());
@@ -43,14 +43,14 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 			actionMenu->removeChildByID("playback-menu");
 			actionMenu->addChild(playback);
 		} // if
-		
+
 		// Remove old label and update layouts
 		addGroupIdLabel->removeFromParentAndCleanup(true);
 		addGroupIdButtonsMenu->updateLayout();
 		actionMenu->updateLayout();
-		
+
 		// Get objects
-		vector<GameObject*> objects;
+		std::vector<GameObject*> objects;
 		if (!m_targetObjects || m_targetObjects->count() == 0) objects.push_back(m_targetObject);
 		else for (GameObject* obj : CCArrayExt<GameObject*>(m_targetObjects)) objects.push_back(obj);
 
@@ -58,23 +58,26 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		addGroupIdLabelButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
 		groupShiftButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
 		allParentButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
-		
+
 		return true;
 	} // init
 
 	void onAddGroupIdPress(CCObject* sender) {
-		auto objects = static_cast<GroupShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
+		auto objects = $objects(sender, GroupShiftPopup);
 		auto shiftPopup = GroupShiftPopup::create(objects->data);
 		shiftPopup->setUserObject(this);
 		shiftPopup->show();
 	} // onAddGroupIdPress
 
 	void onAllParentPress(CCObject* sender) {
-		auto objects = static_cast<GroupShiftPopup::ObjectCollection*>(static_cast<CCNode*>(sender)->getUserObject());
-		auto num = to_string(objects->data.size());
+		auto objects = $objects(sender, GroupShiftPopup);
+		auto num = std::to_string(objects->data.size());
 		FLAlertLayer* warning = geode::createQuickPopup(
 			"WARNING",
-			"You are attempting to make each selected object the parent of every group they are in! This will also overwrite any other current group parents if they exist. You currently have " + num + " objects selected, make sure that they all have unique groups and that this action won't overwrite anything you don't want it to!",
+			"You are attempting to make each selected object the parent of every group they are in! "
+			"This will also overwrite any other current group parents if they exist. You currently "
+			"have " + num + " objects selected, make sure that they all have unique groups and that "
+			"this action won't overwrite anything you don't want it to!",
 			"Nvmd", "Yep",
 			[objects, this](auto, bool btn2) {
 				if (btn2) {
@@ -90,5 +93,5 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 			}
 		);
 	} // onAllParentPress
-	
+
 }; // SetGroupIDLayerShift
