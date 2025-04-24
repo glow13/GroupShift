@@ -4,7 +4,6 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
 
     // Initialize variables
     int val = getValue();
-    bool outOfBounds = false;
     LevelEditorLayer* lel = LevelEditorLayer::get();
     auto groups = std::vector<std::array<short,10>>(targetedObjectCount);
     auto parents = std::vector<short>(targetedObjectCount);
@@ -13,36 +12,33 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
         groups[i] = std::array<short,10>();
-        for (int g = 0; g < obj->m_groupCount && !outOfBounds; g++) {
+        for (int g = 0; g < obj->m_groupCount; g++) {
             int group = obj->m_groups->at(g);
             int newGroup = group + val;
-            if (inBounds(newGroup, 1, 9999)) {
-                groups[i][g] = newGroup;
-                auto parentObj = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict)[group];
-                if (parentObj != NULL && parentObj->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
-            } else outOfBounds = true;
+
+            // Check if the new group is out of bounds
+            if (!inBounds(newGroup, 1, 9999)) {
+                closeParentPopup(this);
+                onClose(this);
+                badNotification("Failed to shift a group out of bounds!");
+                return;
+            } // if
+
+            groups[i][g] = newGroup;
+            auto parentObj = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict)[group];
+            if (parentObj != nullptr && parentObj->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
         } // for
     } // for
 
-    // Check if any groups were out of bounds
-    if (outOfBounds) {
-        closeParentPopup(this);
-        onClose(this);
-        badNotification("Failed to shift a group out of bounds!");
-        return;
-    } // if
-
     // Remove every parent
-    for (short p : parents) lel->removeGroupParent(p);
+    for (short p : parents) if (p > 0) lel->removeGroupParent(p - val);
 
     // Reassign all groups and parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
         lel->setGroupParent(obj, parents[i]);
-        for (int g = 0; g < obj->m_groupCount; g++) {
-            obj->removeFromGroup(groups[i][g] - val);
-            obj->addToGroup(groups[i][g]);
-        } // for
+        for (short g : groups[i]) obj->removeFromGroup(g - val);
+        for (short g : groups[i]) obj->addToGroup(g);
     } // for
 
     // Success and close popups

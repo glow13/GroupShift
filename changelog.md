@@ -7,3 +7,6 @@
 # 1.0.2
 - Fixed IOS and Mac support.
 - More source code styling and use best practices.
+
+# 1.0.3
+- Fixed a bug that would sometimes erase some of an object's groups when shifting.
