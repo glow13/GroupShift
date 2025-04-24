@@ -40,14 +40,12 @@ class $modify(SetupOpacityPopupShift, SetupOpacityPopup) {
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID))->show();
 	} // onGroupIdPress
 
     void onFadeTimePress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000)->show();
 	} // onFadeTimePress
 
 }; // SetupOpacityPopupShift

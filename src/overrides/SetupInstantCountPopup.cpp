@@ -45,26 +45,22 @@ class $modify(SetupInstantCountPopupShift, SetupInstantCountPopup) {
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID))->show();
 	} // onItemIdPress
 
     void onTargetIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID))->show();
 	} // onTargetIdPress
 
     void onTargetCountPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(
-			objects->data,
-			this,
+        PropertyShiftPopup::create(
+			objects->data, this,
 			$get(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			$set(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			-9999, 9999
-		);
-        popup->show();
+		)->show();
 	} // onTargetCountPress
 
 }; // SetupInstantCountPopupShift

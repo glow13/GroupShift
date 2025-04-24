@@ -45,20 +45,17 @@ class $modify(SetupCollisionTriggerPopupShift, SetupCollisionTriggerPopup) {
 
 	void onBlockAPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
-		popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID))->show();
 	} // onBlockAPress
 
 	void onBlockBPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2));
-		popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2))->show();
 	} // onBlockBPress
 
     void onTargetIDPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID))->show();
 	} // onTargetIDPress
 
 }; // SetupCollisionTriggerPopupShift

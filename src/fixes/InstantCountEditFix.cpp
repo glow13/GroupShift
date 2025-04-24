@@ -12,7 +12,7 @@ class $modify(EditorUIFix, EditorUI) {
         // Make sure all selected objects are instant count triggers
         bool match = m_selectedObjects->count() > 0;
         for (int i = 0; i < m_selectedObjects->count() && match; i++) {
-            GameObject* selectedObject = static_cast<GameObject*>(m_selectedObjects->objectAtIndex(i));
+            auto selectedObject = static_cast<GameObject*>(m_selectedObjects->objectAtIndex(i));
             if (selectedObject->m_objectID != s_instantCountTriggerID) match = false;
         } // for
 

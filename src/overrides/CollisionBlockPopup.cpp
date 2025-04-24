@@ -35,8 +35,7 @@ class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
 
     void onBlockIdPress(CCObject* sender) {
         auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID))->show();
     } // onBlockIdPress
 
 }; // CollisionBlockPopupShift

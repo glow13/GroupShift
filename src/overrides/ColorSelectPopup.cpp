@@ -59,20 +59,17 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	void onChannelIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_copyColorID), $set(obj->m_copyColorID), 1, 999);
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_copyColorID), $set(obj->m_copyColorID), 1, 999)->show();
 	} // onChannelIdPress
 
     void onFadeTimePress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000)->show();
 	} // onFadeTimePress
 
     void onColorIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetColor), $set(obj->m_targetColor), 1, 999);
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetColor), $set(obj->m_targetColor), 1, 999)->show();
 	} // onColorIdPress
 
 }; // ColorSelectPopupShift

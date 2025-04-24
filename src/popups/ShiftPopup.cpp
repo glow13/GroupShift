@@ -7,7 +7,7 @@ bool ShiftPopup::setup(FLAlertLayer* popup) {
 
     // Setup the window
     setTitle("Shift Groups");
-    setID("GroupShiftPopup"_spr);
+    setID("ShiftPopup"_spr);
     m_noElasticity = true;
 
     // Create the slider

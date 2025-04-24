@@ -54,15 +54,13 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID))->show();
 	} // onGroupIdPress
 
 	void onOriginalIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(
-			objects->data,
-			this,
+		PropertyShiftPopup::create(
+			objects->data, this,
 			[](EffectGameObject* obj) {
 				std::vector<float> ids;
 				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects)
@@ -76,15 +74,13 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 					spawnObject->m_remapObjects[i].m_oldGroupID = vals[i];
 				} // for
 			}
-		);
-		popup->show();
+		)->show();
 	} // onOriginalIdPress
 
 	void onNewIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(
-			objects->data,
-			this,
+		PropertyShiftPopup::create(
+			objects->data, this,
 			[](EffectGameObject* obj) {
 				std::vector<float> ids;
 				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects)
@@ -96,8 +92,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 				for (int i = 0; i < spawnObject->m_remapObjects.size(); i++) 
 					spawnObject->m_remapObjects[i].m_chance = vals[i];
 			}
-		);
-		popup->show();
+		)->show();
 	} // onNewIdPress
 
 }; // SetupSpawnPopupShift

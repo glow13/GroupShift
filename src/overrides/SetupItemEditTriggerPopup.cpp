@@ -50,32 +50,27 @@ class $modify(SetupItemEditTriggerPopupShift, SetupItemEditTriggerPopup) {
 
 	void onItemId1Press(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID))->show();
 	} // onItemId1Press
 
 	void onItemId2Press(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2));
-        popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2))->show();
 	} // onItemId2Press
 
 	void onModPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(
-			objects->data,
-			this,
+		PropertyShiftPopup::create(
+			objects->data, this,
 			$get(static_cast<ItemTriggerGameObject*>(obj)->m_mod1),
 			$set(static_cast<ItemTriggerGameObject*>(obj)->m_mod1),
 			-9999, 9999
-		);
-        popup->show();
+		)->show();
 	} // onModPress
 
 	void onTargetIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-        popup->show();
+		PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID))->show();
 	} // onTargetIdPress
 
 }; // SetupItemEditTriggerPopupShift

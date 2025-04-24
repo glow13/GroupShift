@@ -40,20 +40,17 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->show();
+        PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID))->show();
 	} // onItemIdPress
 
     void onCountPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(
-			objects->data,
-			this,
+        PropertyShiftPopup::create(
+			objects->data, this,
 			$get(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			$set(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			-9999, 9999
-		);
-        popup->show();
+		)->show();
 	} // onCountPress
 
 }; // SetupPickupTriggerPopupShift

@@ -9,7 +9,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     auto properties = std::vector<std::vector<float>>(targetedObjectCount);
 
     // Shift the property
-    for (int i = 0; i < targetedObjectCount; i++) {
+    for (int i = 0; i < targetedObjectCount && !outOfBounds; i++) {
         auto obj = targetedTriggerObjects[i];
         properties[i] = getProperty(obj);
         for (int p = 0; p < properties[i].size(); p++) {

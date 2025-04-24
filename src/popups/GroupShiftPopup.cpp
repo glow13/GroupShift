@@ -13,7 +13,7 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
         groups[i] = std::array<short,10>();
-        for (int g = 0; g < obj->m_groupCount; g++) {
+        for (int g = 0; g < obj->m_groupCount && !outOfBounds; g++) {
             int group = obj->m_groups->at(g);
             int newGroup = group + val;
             if (inBounds(newGroup, 1, 9999)) {
