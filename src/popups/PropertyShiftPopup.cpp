@@ -4,28 +4,27 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
 
     // Initialize variables
     int val = getValue();
-    bool outOfBounds = false;
     LevelEditorLayer* lel = LevelEditorLayer::get();
     auto properties = std::vector<std::vector<float>>(targetedObjectCount);
 
     // Shift the property
-    for (int i = 0; i < targetedObjectCount && !outOfBounds; i++) {
+    for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedTriggerObjects[i];
         properties[i] = getProperty(obj);
         for (int p = 0; p < properties[i].size(); p++) {
             float newProperty = properties[i][p] + val;
-            if (inBounds(newProperty, minValue, maxValue)) properties[i][p] = newProperty;
-            else outOfBounds = true;
+
+            // Check if any properties were out of bounds
+            if (!inBounds(newProperty, minValue, maxValue)) {
+                closeParentPopup(this);
+                onClose(this);
+                badNotification("Failed to shift a property out of bounds!");
+                return;
+            } // if
+
+            properties[i][p] = newProperty;
         } // for
     } // for
-
-    // Check if any properties were out of bounds
-    if (outOfBounds) {
-        closeParentPopup(this);
-        onClose(this);
-        badNotification("Failed to shift a property out of bounds!");
-        return;
-    } // if
 
     // Reassign all properties
     for (int i = 0; i < targetedObjectCount; i++) {
