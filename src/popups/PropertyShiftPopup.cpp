@@ -36,7 +36,7 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     // Success and close popups
     closeParentPopup(this);
     onClose(this);
-    goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
+    goodNotification("Shifted the property of the selected triggers by " + std::to_string(val) + "!");
 } // onButtonPress
 
 bool PropertyShiftPopup::setup(FLAlertLayer* popup) {

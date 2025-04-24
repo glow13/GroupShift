@@ -69,23 +69,24 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 
 	void onAllParentPress(CCObject* sender) {
 		auto objects = $objects(sender, GroupShiftPopup);
-		auto num = std::to_string(objects->data.size());
 		FLAlertLayer* warning = geode::createQuickPopup(
 			"WARNING",
 			"You are attempting to make each selected object the parent of every group they are in! "
 			"This will also overwrite any other current group parents if they exist. You currently "
-			"have " + num + " objects selected, make sure that they all have unique groups and that "
-			"this action won't overwrite anything you don't want it to!",
+			"have " + std::to_string(objects->data.size()) + " objects selected, make sure that they "
+			"all have unique groups and that this action won't overwrite anything you don't want it to!",
 			"Nvmd", "Yep",
 			[objects, this](auto, bool btn2) {
 				if (btn2) {
 					LevelEditorLayer* lel = LevelEditorLayer::get();
-					int groupCount = 0;
 					for (GameObject* obj : objects->data) if (obj->m_groups != NULL) {
 						for (short group : *(obj->m_groups)) lel->setGroupParent(obj, group);
-						groupCount += obj->m_groupCount;
 					} // for
-					log::info("Setting {} selected objects the parent of {} groups", objects->data.size(), groupCount);
+
+					// Success and close popup
+					std::string notif = "Set " + std::to_string(objects->data.size()) + " selected objects as the parent of their groups!";
+					Notification::create(notif, NotificationIcon::Success, 2)->show();
+    				log::info("{}", notif);
 					onClose(this);
 				} // if
 			}

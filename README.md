@@ -1,12 +1,16 @@
 # GroupShift
 
-This mod adds a simple utility to the editor that makes it really easy to copy+paste large amounts of repetitive triggers! It works by SHIFTING the groups of all selected objects/triggers by either adding or subtracting a specified amount, making once repetitive tasks go by extremely quickly! This mod was developed for a personal project and its use cases are very niche, but I found it very useful so I hope someone else can benefit from its functionality!
+This mod adds a simple utility to the editor that makes it really easy to copy+paste large amounts of repetitive triggers! It works by adding or subtracting a specified amount to the desired property, essentially <cj>SHIFTING</c> the values in either the positive or negative direction. By selecting multiple triggers/objects, pressing copy+paste, then <cj>SHIFTING</c> the values over, you can duplicate the original triggers while keeping the same pattern! This mod was developed for a personal project and its use cases are very niche, but I found it extremely useful so I hope someone else can benefit from its functionality!
 
 ## Usage
 
-To change the selected objects' groups, press the SHIFT button in the Edit Group screen, or click the "Add Group ID" label above the input field. This mod also lets you SHIFT any property of the selected triggers, such as the target group of a Move trigger or the count of a Pickup trigger. Just click the label of the property you want to SHIFT to open the popup!
+To change the selected objects' groups, press the <cj>SHIFT</c> button in the Edit Group screen, or press the "Add Group ID" <cg>label</c> above the input field. This mod also lets you <cj>SHIFT</c> any property of the selected triggers, such as the target group of a Move trigger or the count of a Pickup trigger. Just click the <cg>label</c> next to the input of the property you want to <cj>SHIFT</c> to open the popup!
 
 ## Supported Triggers
+
+***
+
+This mod lets you <cj>SHIFT</c> any property of these triggers:
 
  * Color
  * Move
