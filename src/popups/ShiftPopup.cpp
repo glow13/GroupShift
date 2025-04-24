@@ -22,6 +22,7 @@ bool ShiftPopup::setup(FLAlertLayer* popup) {
     textInput->setID("shift-text"_spr);
     textInput->setString("0");
     textInput->setFilter("-0123456789");
+    textInput->setMaxCharCount(8);
     textInput->setCallback([&](std::string const& text) { ShiftPopup::onTextInput(text); });
     addChild(textInput);
 
@@ -74,23 +75,20 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
 } // createLabelButton
 
 int ShiftPopup::getValue() {
-    return stoi(textInput->getString());
+    auto text = textInput->getString();
+    return (text != "-") ? stoi(text) : 0;
 } // getValue
 
 void ShiftPopup::onLeftArrow(CCObject* obj) {
     int value = getValue();
-    if (value > -100) {
-        textInput->setString(std::to_string(value - 1));
-        slider->setValue((value + 99.0f) / 200.0f);
-    } // if
+    if (value > -100 && value < 100) onTextInput(std::to_string(value - 1));
+    else onTextInput((value <= -100) ? "-100" : "99");
 } // onLeftArrow
 
 void ShiftPopup::onRightArrow(CCObject* obj) {
     int value = getValue();
-    if (value < 100) {
-        textInput->setString(std::to_string(value + 1));
-        slider->setValue((value + 101.0f) / 200.0f);
-    } // if
+    if (value > -100 && value < 100) onTextInput(std::to_string(value + 1));
+    else onTextInput((value >= 100) ? "100" : "-99");
 } // onRightArrow
 
 void ShiftPopup::onAutoPress(CCObject* obj) {
@@ -108,7 +106,7 @@ void ShiftPopup::onTextInput(std::string text) {
         int num = stoi(text);
         if (num > 100) slider->setValue(1);
         else if (num < -100) slider->setValue(0);
-        else slider->setValue((stoi(text) + 100.0f) / 200.0f);
+        else slider->setValue((num + 100.0f) / 200.0f);
     } else slider->setValue(0.5);
 
     textInput->setString(text);
