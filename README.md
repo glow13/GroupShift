@@ -25,4 +25,4 @@ To change the selected objects' groups, press the SHIFT button in the Edit Group
 
 ## Request Features
 
-Please create an issue on this [GitHub](https://github.com/glow13/GroupShift/issues) page if you want to request another feature or support for another trigger that I haven't implemented yet, and I will try to add it in the next update!
+Please create an issue on the mod's [GitHub](https://github.com/glow13/GroupShift/issues) page if you want to request another feature or support for another trigger that I haven't implemented yet, and I will try to add it in the next update!
