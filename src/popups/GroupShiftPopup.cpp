@@ -25,8 +25,8 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
             } // if
 
             groups[i][g] = newGroup;
-            auto parentObj = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict)[group];
-            if (parentObj != nullptr && parentObj->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
+            auto parentDict = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
+            if (parentDict.contains(group) && parentDict[group]->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
         } // for
     } // for
 

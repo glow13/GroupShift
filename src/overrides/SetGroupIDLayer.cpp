@@ -71,16 +71,35 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		auto objects = $objects(sender, GroupShiftPopup);
 		FLAlertLayer* warning = geode::createQuickPopup(
 			"WARNING",
-			"You are attempting to make each selected object the parent of every group they are in! "
-			"This will also overwrite any other current group parents if they exist. You currently "
-			"have " + std::to_string(objects->data.size()) + " objects selected, make sure that they "
-			"all have unique groups and that this action won't overwrite anything you don't want it to!",
+			"You are about to make each selected object the parent of all of their groups! You "
+			"currently have " + std::to_string(objects->data.size()) + " objects selected, make sure that "
+			"they all have unique groups and that this action won't overwrite any existing group parents!",
 			"Nvmd", "Yep",
 			[objects, this](auto, bool btn2) {
 				if (btn2) {
 					LevelEditorLayer* lel = LevelEditorLayer::get();
+
+					// Make sure that we won't overwrite an existing parent
+					auto parents = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
 					for (GameObject* obj : objects->data) if (obj->m_groups != NULL) {
-						for (short group : *(obj->m_groups)) lel->setGroupParent(obj, group);
+						for (int g = 0; g < obj->m_groupCount; g++) {
+							short group = obj->m_groups->at(g);
+							if (parents.contains(group)) {
+								std::string notif = "Failed to overwrite an existing parent of group " + std::to_string(group) + "!";
+								Notification::create(notif, NotificationIcon::Error, 2)->show();
+								log::error("{}", notif);
+								onClose(this);
+								return;
+							} // if
+						} // for
+					} // for
+
+					// Set the group parents
+					for (GameObject* obj : objects->data) if (obj->m_groups != NULL) {
+						for (int g = 0; g < obj->m_groupCount; g++) {
+							short group = obj->m_groups->at(g);
+							lel->setGroupParent(obj, group);
+						} // for
 					} // for
 
 					// Success and close popup
