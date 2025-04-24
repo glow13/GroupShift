@@ -40,8 +40,8 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     goodNotification("Shifted the property of the selected objects by " + std::to_string(val) + "!");
 } // onButtonPress
 
-bool PropertyShiftPopup::setup() {
-    if (!ShiftPopup::setup()) return false;
+bool PropertyShiftPopup::setup(FLAlertLayer* popup) {
+    if (!ShiftPopup::setup(popup)) return false;
 
     setTitle("Shift Property");
     setID("PropertyShiftPopup"_spr);
@@ -51,12 +51,13 @@ bool PropertyShiftPopup::setup() {
 
 PropertyShiftPopup* PropertyShiftPopup::create(
 	std::vector<EffectGameObject*> objects,
+    FLAlertLayer* popup,
 	std::function<std::vector<float>(EffectGameObject*)> getProperty,
 	std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
     int minValue, int maxValue) {
 
     auto ret = new PropertyShiftPopup();
-    if (ret->initAnchored(240.f, 160.f)) {
+    if (ret->initAnchored(240.f, 160.f, popup)) {
         ret->targetedTriggerObjects = objects;
         ret->targetedObjectCount = objects.size();
         ret->getProperty = getProperty;

@@ -32,23 +32,21 @@ class $modify(SetupOpacityPopupShift, SetupOpacityPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
-		groupIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		fadeTimeLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		groupIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		fadeTimeLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
         popup->show();
 	} // onGroupIdPress
 
     void onFadeTimePress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
         popup->show();
 	} // onFadeTimePress
 

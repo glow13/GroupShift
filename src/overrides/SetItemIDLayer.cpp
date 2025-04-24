@@ -28,15 +28,14 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj);
 
 		// Set button data
-		itemIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		itemIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
         return true;
     } // init
 
     void onItemIdPress(CCObject* sender) {
         auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->show();
     } // onItemIdPress
 

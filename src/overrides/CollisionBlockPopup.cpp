@@ -28,15 +28,14 @@ class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj);
 
 		// Set button data
-		blockIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		blockIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
         return true;
     } // init
 
     void onBlockIdPress(CCObject* sender) {
         auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->show();
     } // onBlockIdPress
 

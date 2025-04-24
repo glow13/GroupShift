@@ -28,15 +28,14 @@ class $modify(SetupObjectTogglePopupShift, SetupObjectTogglePopup) {
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) objects.push_back(obj);
 
 		// Set button data
-		groupIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		groupIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
 		popup->show();
 	} // onGroupIdPress
 
