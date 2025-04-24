@@ -45,17 +45,16 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		else for (EffectGameObject* obj : CCArrayExt<EffectGameObject*>(m_gameObjects)) objects.push_back(obj);
 
 		// Set button data
-		groupIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		originalIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		newIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		groupIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		originalIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		newIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
 		popup->show();
 	} // onGroupIdPress
 
@@ -63,6 +62,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			[](EffectGameObject* obj) {
 				std::vector<float> ids;
 				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects)
@@ -77,7 +77,6 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 				} // for
 			}
 		);
-		popup->setUserObject(this);
 		popup->show();
 	} // onOriginalIdPress
 
@@ -85,6 +84,7 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			[](EffectGameObject* obj) {
 				std::vector<float> ids;
 				for (ChanceObject remap : static_cast<SpawnTriggerGameObject*>(obj)->m_remapObjects)
@@ -97,7 +97,6 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 					spawnObject->m_remapObjects[i].m_chance = vals[i];
 			}
 		);
-		popup->setUserObject(this);
 		popup->show();
 	} // onNewIdPress
 

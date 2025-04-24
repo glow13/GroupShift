@@ -45,9 +45,9 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
-		channelIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		fadeTimeLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-        colorIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		channelIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		fadeTimeLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+        colorIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
@@ -59,22 +59,19 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	void onChannelIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_copyColorID), $set(obj->m_copyColorID), 1, 999);
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_copyColorID), $set(obj->m_copyColorID), 1, 999);
         popup->show();
 	} // onChannelIdPress
 
     void onFadeTimePress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
         popup->show();
 	} // onFadeTimePress
 
     void onColorIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetColor), $set(obj->m_targetColor), 1, 999);
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetColor), $set(obj->m_targetColor), 1, 999);
         popup->show();
 	} // onColorIdPress
 

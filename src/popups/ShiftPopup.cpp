@@ -1,7 +1,9 @@
 #include "ShiftPopup.hpp"
 
-bool ShiftPopup::setup() {
+bool ShiftPopup::setup(FLAlertLayer* popup) {
     auto winSize = CCDirector::sharedDirector()->getWinSize();
+
+    m_popup = popup;
 
     // Setup the window
     setTitle("Shift Groups");
@@ -124,17 +126,14 @@ void ShiftPopup::badNotification(std::string text) {
 } // errorNotification
 
 void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
-    auto obj = getUserObject();
-    if (obj == NULL) return;
-
-    if (auto popup = dynamic_cast<SetGroupIDLayer*>(obj)) popup->onClose(sender);
-    else if (auto popup = dynamic_cast<SetupTriggerPopup*>(obj)) popup->onClose(sender);
-    else if (auto popup = dynamic_cast<CollisionBlockPopup*>(obj)) popup->onClose(sender);
+    if (auto popup = typeinfo_cast<SetGroupIDLayer*>(m_popup)) popup->onClose(sender);
+    else if (auto popup = typeinfo_cast<SetupTriggerPopup*>(m_popup)) popup->onClose(sender);
+    else if (auto popup = typeinfo_cast<CollisionBlockPopup*>(m_popup)) popup->onClose(sender);
 } // closeParentPopup
 
-static ShiftPopup* create(std::vector<GameObject*> objects) {
+static ShiftPopup* create(std::vector<GameObject*> objects, FLAlertLayer* popup) {
     auto ret = new ShiftPopup();
-    if (ret->initAnchored(240.f, 160.f)) {
+    if (ret->initAnchored(240.f, 160.f, popup)) {
         ret->targetedObjects = objects;
         ret->autorelease();
         return ret;
@@ -144,9 +143,9 @@ static ShiftPopup* create(std::vector<GameObject*> objects) {
     return nullptr;
 } // create
 
-static ShiftPopup* create(std::vector<EffectGameObject*> objects) {
+static ShiftPopup* create(std::vector<EffectGameObject*> objects, FLAlertLayer* popup) {
     auto ret = new ShiftPopup();
-    if (ret->initAnchored(240.f, 160.f)) {
+    if (ret->initAnchored(240.f, 160.f, popup)) {
         ret->targetedTriggerObjects = objects;
         ret->autorelease();
         return ret;

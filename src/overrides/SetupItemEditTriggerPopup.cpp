@@ -40,25 +40,23 @@ class $modify(SetupItemEditTriggerPopupShift, SetupItemEditTriggerPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
 		// Set button data
-		itemId1LabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		itemId2LabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		modLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		targetIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		itemId1LabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		itemId2LabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		modLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		targetIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onItemId1Press(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->show();
 	} // onItemId1Press
 
 	void onItemId2Press(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID2), $set(obj->m_itemID2));
-        popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2));
         popup->show();
 	} // onItemId2Press
 
@@ -66,18 +64,17 @@ class $modify(SetupItemEditTriggerPopupShift, SetupItemEditTriggerPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			$get(static_cast<ItemTriggerGameObject*>(obj)->m_mod1),
 			$set(static_cast<ItemTriggerGameObject*>(obj)->m_mod1),
 			-9999, 9999
 		);
-		popup->setUserObject(this);
         popup->show();
 	} // onModPress
 
 	void onTargetIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-        popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
         popup->show();
 	} // onTargetIdPress
 

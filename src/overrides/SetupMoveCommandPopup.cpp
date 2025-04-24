@@ -40,10 +40,10 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
-		moveXButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		moveYButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		moveTimeButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		targetIdButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		moveXButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		moveYButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		moveTimeButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		targetIdButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
@@ -52,11 +52,11 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			[](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.x / 3 }; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.x = vals[0] * 3; },
 			-10000, 10000
 		);
-		popup->setUserObject(this);
 		popup->show();
 	} // onMoveXPress
 
@@ -64,25 +64,23 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
 		auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			[](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.y / 3 }; },
 			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.y = vals[0] * 3; },
 			-10000, 10000
 		);
-		popup->setUserObject(this);
 		popup->show();
 	} // onMoveYPress
 
 	void onMoveTimePress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_duration), $set(obj->m_duration), 0, 10000);
 		popup->show();
 	} // onMoveTimePress
 
 	void onTargetIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
 		popup->show();
 	} // onTargetIdPress
 

@@ -36,31 +36,28 @@ class $modify(SetupCollisionTriggerPopupShift, SetupCollisionTriggerPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
 		// Set button data
-		blockALabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		blockBLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		targetIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		blockALabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		blockBLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		targetIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onBlockAPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
-		popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
 		popup->show();
 	} // onBlockAPress
 
 	void onBlockBPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID2), $set(obj->m_itemID2));
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID2), $set(obj->m_itemID2));
 		popup->show();
 	} // onBlockBPress
 
     void onTargetIDPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-		auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
-		popup->setUserObject(this);
+		auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_targetGroupID), $set(obj->m_targetGroupID));
 		popup->show();
 	} // onTargetIDPress
 

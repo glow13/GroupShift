@@ -55,17 +55,16 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		else for (GameObject* obj : CCArrayExt<GameObject*>(m_targetObjects)) objects.push_back(obj);
 
 		// Set button data
-		addGroupIdLabelButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
-		groupShiftButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
-		allParentButton->setUserObject(new GroupShiftPopup::ObjectCollection(objects));
+		addGroupIdLabelButton->setUserObject("collection"_spr, new GroupShiftPopup::ObjectCollection(objects));
+		groupShiftButton->setUserObject("collection"_spr, new GroupShiftPopup::ObjectCollection(objects));
+		allParentButton->setUserObject("collection"_spr, new GroupShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onAddGroupIdPress(CCObject* sender) {
 		auto objects = $objects(sender, GroupShiftPopup);
-		auto shiftPopup = GroupShiftPopup::create(objects->data);
-		shiftPopup->setUserObject(this);
+		auto shiftPopup = GroupShiftPopup::create(objects->data, this);
 		shiftPopup->show();
 	} // onAddGroupIdPress
 

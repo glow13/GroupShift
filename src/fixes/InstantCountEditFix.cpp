@@ -12,12 +12,12 @@ class $modify(EditorUIFix, EditorUI) {
         // Make sure all selected objects are instant count triggers
         bool match = m_selectedObjects->count() > 0;
         for (int i = 0; i < m_selectedObjects->count() && match; i++) {
-            GameObject* selectedObject = dynamic_cast<GameObject*>(m_selectedObjects->objectAtIndex(i));
+            GameObject* selectedObject = static_cast<GameObject*>(m_selectedObjects->objectAtIndex(i));
             if (selectedObject->m_objectID != s_instantCountTriggerID) match = false;
         } // for
 
         // Show popup
-        if (match) SetupInstantCountPopup::create(dynamic_cast<CountTriggerGameObject*>(m_selectedObject), m_selectedObjects)->show();
+        if (match) SetupInstantCountPopup::create(static_cast<CountTriggerGameObject*>(m_selectedObject), m_selectedObjects)->show();
         else EditorUI::editObject(obj);
     } // editObject
 

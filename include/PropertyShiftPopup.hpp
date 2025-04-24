@@ -14,15 +14,17 @@ public:
 	std::function<std::vector<float>(EffectGameObject*)> getProperty;
     std::function<void(EffectGameObject*, std::vector<float>)> setProperty;
 	void onButtonPress(CCObject* obj) override;
-	bool setup() override;
+	bool setup(FLAlertLayer*) override;
 	static PropertyShiftPopup* create(
 		std::vector<EffectGameObject*> objects,
+		FLAlertLayer* popup,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
 		std::function<void(EffectGameObject*, std::vector<float>)> setProperty,
 		int minValue, int maxValue);
 	static PropertyShiftPopup* create(
 		std::vector<EffectGameObject*> objects,
+		FLAlertLayer* popup,
 		std::function<std::vector<float>(EffectGameObject*)> getProperty,
 		std::function<void(EffectGameObject*, std::vector<float>)> setProperty
-	) { return create(objects, getProperty, setProperty, 1, 9999); }
+	) { return create(objects, popup, getProperty, setProperty, 1, 9999); }
 };

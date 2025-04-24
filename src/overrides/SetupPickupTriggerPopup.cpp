@@ -32,16 +32,15 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		else for (EffectGameObject* obj2 : CCArrayExt<EffectGameObject*>(objs)) objects.push_back(obj2);
 
         // Set button data
-		itemIdLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
-		countLabelButton->setUserObject(new PropertyShiftPopup::ObjectCollection(objects));
+		itemIdLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
+		countLabelButton->setUserObject("collection"_spr, new PropertyShiftPopup::ObjectCollection(objects));
 
 		return true;
 	} // init
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
-        auto popup = PropertyShiftPopup::create(objects->data, $get(obj->m_itemID), $set(obj->m_itemID));
-        popup->setUserObject(this);
+        auto popup = PropertyShiftPopup::create(objects->data, this, $get(obj->m_itemID), $set(obj->m_itemID));
         popup->show();
 	} // onItemIdPress
 
@@ -49,11 +48,11 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		auto objects = $objects(sender, PropertyShiftPopup);
         auto popup = PropertyShiftPopup::create(
 			objects->data,
+			this,
 			$get(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			$set(static_cast<CountTriggerGameObject*>(obj)->m_pickupCount),
 			-9999, 9999
 		);
-        popup->setUserObject(this);
         popup->show();
 	} // onCountPress
 
