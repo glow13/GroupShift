@@ -10,5 +10,6 @@
 
 # 1.0.3
 - Fixed a bug that would sometimes erase some of an object's groups when shifting.
+- Fixed a bug where shifting groups would keep only one parent group per object.
 - Fixed a few crashes and incorrect values in the shift popup.
 - Changed the mod description to hopefully make it easier to use.

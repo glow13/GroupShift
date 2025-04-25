@@ -5,13 +5,14 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     // Initialize variables
     int val = getValue();
     LevelEditorLayer* lel = LevelEditorLayer::get();
-    auto groups = std::vector<std::array<short,10>>(targetedObjectCount);
-    auto parents = std::vector<short>(targetedObjectCount);
+    auto parentDict = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
+    auto groups = std::vector<std::vector<short>>(targetedObjectCount);
+    auto parents = std::map<short, int>(); // map<group, objIndex>
 
     // Find all groups and parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
-        groups[i] = std::array<short,10>();
+        groups[i] = std::vector<short>(obj->m_groupCount);
         for (int g = 0; g < obj->m_groupCount; g++) {
             int group = obj->m_groups->at(g);
             int newGroup = group + val;
@@ -25,20 +26,22 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
             } // if
 
             groups[i][g] = newGroup;
-            auto parentDict = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
-            if (parentDict.contains(group) && parentDict[group]->m_uniqueID == obj->m_uniqueID) parents[i] = newGroup;
+            if (parentDict.contains(group) && parentDict[group]->m_uniqueID == obj->m_uniqueID) parents[newGroup] = i;
+            else if (i == 0) parents[newGroup] = -1; // avoid bug with the first index
         } // for
     } // for
 
     // Remove every parent
-    for (short p : parents) if (p > 0) lel->removeGroupParent(p - val);
+    for (std::pair<short, int> p : parents) lel->removeGroupParent(p.first - val);
 
     // Reassign all groups and parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
-        lel->setGroupParent(obj, parents[i]);
         for (short g : groups[i]) obj->removeFromGroup(g - val);
-        for (short g : groups[i]) obj->addToGroup(g);
+        for (short g : groups[i]) {
+            obj->addToGroup(g);
+            if (parents[g] == i) lel->setGroupParent(obj, g);
+        } // for
     } // for
 
     // Success and close popups
