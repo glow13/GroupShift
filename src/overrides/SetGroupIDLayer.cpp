@@ -78,13 +78,13 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 			[objects, this](auto, bool btn2) {
 				if (btn2) {
 					LevelEditorLayer* lel = LevelEditorLayer::get();
+					auto parents = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
 
 					// Make sure that we won't overwrite an existing parent
-					auto parents = CCDictionaryExt<int, GameObject*>(lel->m_parentGroupsDict);
 					for (GameObject* obj : objects->data) if (obj->m_groups != NULL) {
 						for (int g = 0; g < obj->m_groupCount; g++) {
 							short group = obj->m_groups->at(g);
-							if (parents.contains(group)) {
+							if (parents.contains(group) && parents[group]->m_uniqueID != obj->m_uniqueID) {
 								std::string notif = "Failed to overwrite an existing parent of group " + std::to_string(group) + "!";
 								Notification::create(notif, NotificationIcon::Error, 2)->show();
 								log::error("{}", notif);

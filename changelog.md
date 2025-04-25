@@ -9,6 +9,7 @@
 - More source code styling and use best practices.
 
 # 1.0.3
+- Added protections when shifting groups that would overwrite another group parent.
 - Fixed a bug that would sometimes erase some of an object's groups when shifting.
 - Fixed a bug where shifting groups would keep only one parent group per object.
 - Fixed a few crashes and incorrect values in the shift popup.

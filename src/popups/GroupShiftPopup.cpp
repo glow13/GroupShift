@@ -31,10 +31,30 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
         } // for
     } // for
 
-    // Remove every parent
+    // Check if this will overwrite an existing group parent
+    for (std::pair<short, int> p : parents) if (p.second > -1 && parentDict.contains(p.first)) {
+        GameObject* parentObj = parentDict[p.first];
+
+        // If a group parent will be overwritten, is it an already selected object?
+        auto parentIsSelected = false;
+        for (std::pair<short, int> g : parents)  if (g.second > -1) {
+            auto obj = targetedObjects[g.second];
+            if (obj->m_uniqueID == parentObj->m_uniqueID) parentIsSelected = true;
+        } // for
+
+        // If it isn't selected, we will overwrite it if we don't stop
+        if (!parentIsSelected) {
+            closeParentPopup(this);
+            onClose(this);
+            badNotification("Failed to overwrite an existing parent of group " + std::to_string(p.first) + "!");
+            return;
+        } // if
+    } // for
+
+    // Remove every group parent
     for (std::pair<short, int> p : parents) lel->removeGroupParent(p.first - val);
 
-    // Reassign all groups and parents
+    // Reassign all groups and group parents
     for (int i = 0; i < targetedObjectCount; i++) {
         auto obj = targetedObjects[i];
         for (short g : groups[i]) obj->removeFromGroup(g - val);
