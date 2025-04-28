@@ -1,3 +1,6 @@
+# 1.1.1
+- Fixed a stupid crash when opening the color picker.
+
 # 1.1.0
 - Added protections when shifting groups that would overwrite another group parent.
 - Fixed a bug that would sometimes erase some of an object's groups when shifting.
