@@ -7,10 +7,11 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
         CCMenuItemSpriteExtra* channelIdButton = nullptr;
     };
 
-	bool init(EffectGameObject* obj, cocos2d::CCArray* objs, ColorAction* idk) {
+	bool init(EffectGameObject* obj, cocos2d::CCArray* objs, ColorAction* action) {
 
         // Initialize popup
-		if (!ColorSelectPopup::init(obj, objs, idk)) return false;
+		if (!ColorSelectPopup::init(obj, objs, action)) return false;
+		if (action != nullptr) return true;
 
         // Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
@@ -18,7 +19,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		auto channelIdLabel = getChildByType<CCLabelBMFont>(1);
 		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto fadeTimeLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
-		auto colorIdLabel = mainLayer->getChildByType<CCLabelBMFont>(11);        
+		auto colorIdLabel = mainLayer->getChildByType<CCLabelBMFont>(11);
 
         // Create the label buttons
         auto channelIdLabelButton = ShiftPopup::createLabelButton(channelIdLabel, this, menu_selector(ColorSelectPopupShift::onChannelIdPress));
