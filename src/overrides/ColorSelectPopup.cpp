@@ -26,16 +26,6 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
         auto fadeTimeLabelButton = ShiftPopup::createLabelButton(fadeTimeLabel, this, menu_selector(ColorSelectPopupShift::onFadeTimePress));
         auto colorIdLabelButton = ShiftPopup::createLabelButton(colorIdLabel, this, menu_selector(ColorSelectPopupShift::onColorIdPress));
 
-        // Add buttons
-		buttonMenu->addChild(channelIdLabelButton);
-		buttonMenu->addChild(fadeTimeLabelButton);
-		buttonMenu->addChild(colorIdLabelButton);
-
-        // Remove old labels
-		channelIdLabel->removeFromParentAndCleanup(true);
-        fadeTimeLabel->removeFromParentAndCleanup(true);
-        colorIdLabel->removeFromParentAndCleanup(true);
-
 		// Set fields
 		m_fields->m_channelIdButton = channelIdLabelButton;
 

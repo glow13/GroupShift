@@ -10,10 +10,9 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 
 		// Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto blockALabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto blockBLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
-        auto trueIdLabel = mainLayer->getChildByType<CCLabelBMFont>(3);
+		auto trueIdLabel = mainLayer->getChildByType<CCLabelBMFont>(3);
 		auto falseIdLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
 
 		// Create the label buttons
@@ -21,18 +20,6 @@ class $modify(SetupInstantCollisionTriggerPopupShift, SetupInstantCollisionTrigg
 		auto blockBLabelButton = ShiftPopup::createLabelButton(blockBLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onBlockBPress));
 		auto trueIdLabelButton = ShiftPopup::createLabelButton(trueIdLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onTrueIDPress));
 		auto falseIdLabelButton = ShiftPopup::createLabelButton(falseIdLabel, this, menu_selector(SetupInstantCollisionTriggerPopupShift::onFalseIDPress));
-
-		// Add buttons
-		buttonMenu->addChild(blockALabelButton);
-		buttonMenu->addChild(blockBLabelButton);
-        buttonMenu->addChild(trueIdLabelButton);
-        buttonMenu->addChild(falseIdLabelButton);
-
-		// Remove old labels
-		blockALabel->removeFromParentAndCleanup(true);
-		blockBLabel->removeFromParentAndCleanup(true);
-		trueIdLabel->removeFromParentAndCleanup(true);
-		falseIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

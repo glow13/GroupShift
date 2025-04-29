@@ -15,17 +15,12 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
         // Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto itemIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto countLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
 
         // Create the label buttons
         auto itemIdLabelButton = ShiftPopup::createLabelButton(itemIdLabel, this, menu_selector(SetupPickupTriggerPopupShift::onItemIdPress));
         auto countLabelButton = ShiftPopup::createLabelButton(countLabel, this, menu_selector(SetupPickupTriggerPopupShift::onCountPress));
-
-        // Add buttons
-		buttonMenu->addChild(itemIdLabelButton);
-		buttonMenu->addChild(countLabelButton);
 
 		// Set fields
 		m_fields->m_countLabel = countLabel;

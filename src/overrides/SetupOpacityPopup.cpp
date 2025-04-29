@@ -10,21 +10,12 @@ class $modify(SetupOpacityPopupShift, SetupOpacityPopup) {
 
         // Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto groupIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto fadeTimeLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
 
         // Create the label buttons
         auto groupIdLabelButton = ShiftPopup::createLabelButton(groupIdLabel, this, menu_selector(SetupOpacityPopupShift::onGroupIdPress));
         auto fadeTimeLabelButton = ShiftPopup::createLabelButton(fadeTimeLabel, this, menu_selector(SetupOpacityPopupShift::onFadeTimePress));
-
-        // Add buttons
-		buttonMenu->addChild(groupIdLabelButton);
-		buttonMenu->addChild(fadeTimeLabelButton);
-
-        // Remove old labels
-		groupIdLabel->removeFromParentAndCleanup(true);
-		fadeTimeLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

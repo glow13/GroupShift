@@ -10,7 +10,6 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 
 		// Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto groupIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto originalIdLabel = mainLayer->getChildByType<CCLabelBMFont>(7);
 		auto newIdLabel = mainLayer->getChildByType<CCLabelBMFont>(8);
@@ -19,16 +18,6 @@ class $modify(SetupSpawnPopupShift, SetupSpawnPopup) {
 		auto groupIdLabelButton = ShiftPopup::createLabelButton(groupIdLabel, this, menu_selector(SetupSpawnPopupShift::onGroupIdPress));
 		auto originalIdLabelButton = ShiftPopup::createLabelButton(originalIdLabel, this, menu_selector(SetupSpawnPopupShift::onOriginalIdPress));
 		auto newIdLabelButton = ShiftPopup::createLabelButton(newIdLabel, this, menu_selector(SetupSpawnPopupShift::onNewIdPress));
-		
-		// Add buttons
-		buttonMenu->addChild(groupIdLabelButton);
-		buttonMenu->addChild(originalIdLabelButton);
-		buttonMenu->addChild(newIdLabelButton);
-
-		// Remove old labels
-		groupIdLabel->removeFromParentAndCleanup(true);
-		originalIdLabel->removeFromParentAndCleanup(true);
-		newIdLabel->removeFromParentAndCleanup(true);
 
 		// Configure pages
 		addObjectToPage(groupIdLabelButton, 0);

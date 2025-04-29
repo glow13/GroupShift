@@ -10,7 +10,6 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
 
 		// Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto itemId1Label = mainLayer->getChildByType<CCLabelBMFont>(4);
 		auto itemId2Label = mainLayer->getChildByType<CCLabelBMFont>(10);
 		auto mod1Label = mainLayer->getChildByType<CCLabelBMFont>(16);
@@ -25,22 +24,6 @@ class $modify(SetupItemCompareTriggerPopupShift, SetupItemCompareTriggerPopup) {
         auto mod2LabelButton = ShiftPopup::createLabelButton(mod2Label, this, menu_selector(SetupItemCompareTriggerPopupShift::onMod2Press));
         auto trueIdLabelButton = ShiftPopup::createLabelButton(trueIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onTrueIdPress));
         auto falseIdLabelButton = ShiftPopup::createLabelButton(falseIdLabel, this, menu_selector(SetupItemCompareTriggerPopupShift::onFalseIdPress));
-
-		// Add buttons
-		buttonMenu->addChild(itemId1LabelButton);
-		buttonMenu->addChild(itemId2LabelButton);
-		buttonMenu->addChild(mod1LabelButton);
-		buttonMenu->addChild(mod2LabelButton);
-		buttonMenu->addChild(trueIdLabelButton);
-		buttonMenu->addChild(falseIdLabelButton);
-
-		// Remove old labels
-		itemId1Label->removeFromParentAndCleanup(true);
-		itemId2Label->removeFromParentAndCleanup(true);
-		mod1Label->removeFromParentAndCleanup(true);
-		mod2Label->removeFromParentAndCleanup(true);
-		trueIdLabel->removeFromParentAndCleanup(true);
-		falseIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

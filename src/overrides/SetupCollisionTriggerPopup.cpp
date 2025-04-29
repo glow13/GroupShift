@@ -10,7 +10,6 @@ class $modify(SetupCollisionTriggerPopupShift, SetupCollisionTriggerPopup) {
 
 		// Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto blockALabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto blockBLabel = mainLayer->getChildByType<CCLabelBMFont>(2);
         auto targetIdLabel = mainLayer->getChildByType<CCLabelBMFont>(3);
@@ -19,16 +18,6 @@ class $modify(SetupCollisionTriggerPopupShift, SetupCollisionTriggerPopup) {
         auto blockALabelButton = ShiftPopup::createLabelButton(blockALabel, this, menu_selector(SetupCollisionTriggerPopupShift::onBlockAPress));
 		auto blockBLabelButton = ShiftPopup::createLabelButton(blockBLabel, this, menu_selector(SetupCollisionTriggerPopupShift::onBlockBPress));
 		auto targetIdLabelButton = ShiftPopup::createLabelButton(targetIdLabel, this, menu_selector(SetupCollisionTriggerPopupShift::onTargetIDPress));
-
-		// Add buttons
-		buttonMenu->addChild(blockALabelButton);
-		buttonMenu->addChild(blockBLabelButton);
-        buttonMenu->addChild(targetIdLabelButton);
-
-		// Remove old labels
-		blockALabel->removeFromParentAndCleanup(true);
-		blockBLabel->removeFromParentAndCleanup(true);
-		targetIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

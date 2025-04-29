@@ -10,17 +10,10 @@ class $modify(SetItemIDLayerShift, SetItemIDLayer) {
 
         // Save references
         auto mainLayer = getChildByType<CCLayer>(0);
-        auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
         auto itemIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 
         // Create the label button
         auto itemIdLabelButton = ShiftPopup::createLabelButton(itemIdLabel, this, menu_selector(SetItemIDLayerShift::onItemIdPress));
-
-        // Add button
-		buttonMenu->addChild(itemIdLabelButton);
-
-        // Remove old label
-		itemIdLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

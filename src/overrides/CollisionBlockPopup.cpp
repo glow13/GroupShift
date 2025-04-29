@@ -10,17 +10,10 @@ class $modify(CollisionBlockPopupShift, CollisionBlockPopup) {
 
         // Save references
         auto mainLayer = getChildByType<CCLayer>(0);
-        auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
         auto blockIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 
         // Create the label button
         auto blockIdLabelButton = ShiftPopup::createLabelButton(blockIdLabel, this, menu_selector(CollisionBlockPopupShift::onBlockIdPress));
-
-        // Add button
-		buttonMenu->addChild(blockIdLabelButton);
-
-        // Remove old label
-		blockIdLabel->removeFromParentAndCleanup(true);
 
         // Get objects
 		std::vector<EffectGameObject*> objects;

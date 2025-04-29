@@ -30,6 +30,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		allParentButton->setID("all-parent-button"_spr);
 
 		// Add buttons
+		addGroupIdLabelButton->removeFromParent();
 		addGroupIdMenu->addChild(addGroupIdLabelButton);
 		actionMenu->addChild(groupShiftButton);
 		if (objs->count() > 0) addGroupIdButtonsMenu->addChild(allParentButton);
@@ -44,8 +45,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 			actionMenu->addChild(playback);
 		} // if
 
-		// Remove old label and update layouts
-		addGroupIdLabel->removeFromParentAndCleanup(true);
+		// Update menu layouts
 		addGroupIdButtonsMenu->updateLayout();
 		actionMenu->updateLayout();
 

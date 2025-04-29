@@ -10,17 +10,10 @@ class $modify(SetupObjectTogglePopupShift, SetupObjectTogglePopup) {
 
 		// Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto groupIdLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 
 		// Create the label button
 		auto groupIdLabelButton = ShiftPopup::createLabelButton(groupIdLabel, this, menu_selector(SetupObjectTogglePopupShift::onGroupIdPress));
-
-		// Add button
-		buttonMenu->addChild(groupIdLabelButton);
-
-		// Remove old label
-		groupIdLabel->removeFromParentAndCleanup(true);
 
 		// Get objects
 		std::vector<EffectGameObject*> objects;

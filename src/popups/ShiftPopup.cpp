@@ -60,6 +60,15 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     // Get menu reference
     auto menu = popup->getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
 
+    // Check for errors, this should hopefully prevent more crashes
+    if (!menu || !label) {
+        log::error("Failed to create shift button, this is probably due to a mod incompatibility!");
+        auto fail = CCMenuItemSpriteExtra::create(CCLabelBMFont::create("error", "chatFont.fnt"), popup, callback);
+        fail->setVisible(false);
+        fail->setScale(0);
+        return fail;
+    } // if
+
     // Create button sprite
     auto labelSprite = CCLabelBMFont::create(label->getString(), label->getFntFile());
     labelSprite->setScale(label->getScale());
@@ -70,10 +79,15 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     labelButton->setContentSize(label->getScaledContentSize());
     labelButton->setAnchorPoint(label->getAnchorPoint());
     labelButton->setVisible(label->isVisible());
-    labelButton->setID(label->getID().empty() ? "" : ""_spr + label->getID());
 
-    // Hide old label
+    // Set button id
+    std::string id = "shift-button-"_spr + std::to_string(menu->getChildrenCount());
+    labelButton->setID(label->getID().empty() ? id : ""_spr + label->getID());
+
+    // Hide old label and add the new button
     label->setScale(0);
+    label->setVisible(false);
+    menu->addChild(labelButton);
 
     return labelButton;
 } // createLabelButton
@@ -124,7 +138,7 @@ void ShiftPopup::goodNotification(std::string text) {
 
 void ShiftPopup::badNotification(std::string text) {
     Notification::create(text, NotificationIcon::Error, 2)->show();
-    log::error("{}", text);
+    log::warn("{}", text);
 } // errorNotification
 
 void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {

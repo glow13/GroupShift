@@ -17,7 +17,6 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 
         // Save references
 		auto mainLayer = getChildByType<CCLayer>(0);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto moveXLabel = mainLayer->getChildByType<CCLabelBMFont>(4);
 		auto moveYLabel = mainLayer->getChildByType<CCLabelBMFont>(5);
 		auto moveTimeLabel = mainLayer->getChildByType<CCLabelBMFont>(25);
@@ -28,12 +27,6 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		auto moveYButton = ShiftPopup::createLabelButton(moveYLabel, this, menu_selector(SetupMoveCommandPopupShift::onMoveYPress));
 		auto moveTimeButton = ShiftPopup::createLabelButton(moveTimeLabel, this, menu_selector(SetupMoveCommandPopupShift::onMoveTimePress));
         auto targetIdButton = ShiftPopup::createLabelButton(targetIdLabel, this, menu_selector(SetupMoveCommandPopupShift::onTargetIdPress));
-
-        // Add buttons
-		buttonMenu->addChild(moveXButton);
-		buttonMenu->addChild(moveYButton);
-		buttonMenu->addChild(moveTimeButton);
-		buttonMenu->addChild(targetIdButton);
 
 		// Set fields
 		m_fields->m_moveXLabel = moveXLabel;
