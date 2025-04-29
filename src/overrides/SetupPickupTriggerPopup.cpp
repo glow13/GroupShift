@@ -38,8 +38,8 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		return true;
 	} // init
 
-	void updateState() {
-		SetupPickupTriggerPopup::updateState();
+	void onCustomToggleTriggerValue(cocos2d::CCObject* sender) {
+		SetupPickupTriggerPopup::onCustomToggleTriggerValue(sender);
 		if (m_fields->m_countLabel) m_fields->m_countButton->setVisible(m_fields->m_countLabel->isVisible());
 	} // updateState
 
