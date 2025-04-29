@@ -10,7 +10,7 @@ To change the selected objects' groups, press the <cj>SHIFT</c> button in the Ed
 
 ***
 
-This mod lets you <cj>SHIFT</c> any property of these triggers:
+This mod lets you <cj>SHIFT</c> almost any property of these triggers:
 
  * Color
  * Move

@@ -3,6 +3,13 @@
 
 class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 
+	struct Fields {
+		CCLabelBMFont* m_moveXLabel;
+		CCLabelBMFont* m_moveYLabel;
+		CCMenuItemSpriteExtra* m_moveXButton;
+		CCMenuItemSpriteExtra* m_moveYButton;
+    };
+
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
 		// Initialize popup
@@ -28,11 +35,11 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		buttonMenu->addChild(moveTimeButton);
 		buttonMenu->addChild(targetIdButton);
 
-        // Remove old labels
-		moveXLabel->removeFromParentAndCleanup(true);
-		moveYLabel->removeFromParentAndCleanup(true);
-		moveTimeLabel->removeFromParentAndCleanup(true);
-		targetIdLabel->removeFromParentAndCleanup(true);
+		// Set fields
+		m_fields->m_moveXLabel = moveXLabel;
+		m_fields->m_moveYLabel = moveYLabel;
+		m_fields->m_moveXButton = moveXButton;
+		m_fields->m_moveYButton = moveYButton;
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
@@ -48,12 +55,19 @@ class $modify(SetupMoveCommandPopupShift, SetupMoveCommandPopup) {
 		return true;
 	} // init
 
+	void updateControlVisibility() {
+		SetupMoveCommandPopup::updateControlVisibility();
+		if (m_fields->m_moveXLabel) m_fields->m_moveXButton->setVisible(m_fields->m_moveXLabel->isVisible());
+		if (m_fields->m_moveYLabel) m_fields->m_moveYButton->setVisible(m_fields->m_moveYLabel->isVisible());
+	} // updateControlVisibility
+
 	void onMoveXPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);
+		int val = m_smallStep ? 1 : 3;
 		PropertyShiftPopup::create(
 			objects->data, this,
-			[](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.x / 3 }; },
-			[](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.x = vals[0] * 3; },
+			[val](EffectGameObject* obj) -> std::vector<float> { return { obj->m_moveOffset.x / val }; },
+			[val](EffectGameObject* obj, std::vector<float> vals) { obj->m_moveOffset.x = vals[0] * val; },
 			-10000, 10000
 		)->show();
 	} // onMoveXPress

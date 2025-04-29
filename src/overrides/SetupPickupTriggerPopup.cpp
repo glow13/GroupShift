@@ -3,6 +3,11 @@
 
 class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
+	struct Fields {
+		CCLabelBMFont* m_countLabel;
+		CCMenuItemSpriteExtra* m_countButton;
+    };
+
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs) {
 
 		// Initialize popup
@@ -22,9 +27,9 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 		buttonMenu->addChild(itemIdLabelButton);
 		buttonMenu->addChild(countLabelButton);
 
-        // Remove old labels
-		itemIdLabel->removeFromParentAndCleanup(true);
-		countLabel->removeFromParentAndCleanup(true);
+		// Set fields
+		m_fields->m_countLabel = countLabel;
+		m_fields->m_countButton = countLabelButton;
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
@@ -37,6 +42,11 @@ class $modify(SetupPickupTriggerPopupShift, SetupPickupTriggerPopup) {
 
 		return true;
 	} // init
+
+	void updateState() {
+		SetupPickupTriggerPopup::updateState();
+		if (m_fields->m_countLabel) m_fields->m_countButton->setVisible(m_fields->m_countLabel->isVisible());
+	} // updateState
 
 	void onItemIdPress(CCObject* sender) {
 		auto objects = $objects(sender, PropertyShiftPopup);

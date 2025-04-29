@@ -69,7 +69,11 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     labelButton->setPosition(label->getPositionX() - menu->getPositionX(), label->getPositionY() - menu->getPositionY());
     labelButton->setContentSize(label->getScaledContentSize());
     labelButton->setAnchorPoint(label->getAnchorPoint());
+    labelButton->setVisible(label->isVisible());
     labelButton->setID(label->getID().empty() ? "" : ""_spr + label->getID());
+
+    // Hide old label
+    label->setScale(0);
 
     return labelButton;
 } // createLabelButton

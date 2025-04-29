@@ -4,7 +4,7 @@
 class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	struct Fields {
-        CCMenuItemSpriteExtra* channelIdButton = nullptr;
+        CCMenuItemSpriteExtra* m_channelIdButton = nullptr;
     };
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs, ColorAction* action) {
@@ -36,9 +36,8 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
         fadeTimeLabel->removeFromParentAndCleanup(true);
         colorIdLabel->removeFromParentAndCleanup(true);
 
-		// Make sure the channel id behaves correctly
-		channelIdLabelButton->setVisible(m_showCopyObjects);
-		m_fields->channelIdButton = channelIdLabelButton;
+		// Set fields
+		m_fields->m_channelIdButton = channelIdLabelButton;
 
         // Get objects
 		std::vector<EffectGameObject*> objects;
@@ -55,7 +54,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	void onToggleHSVMode(CCObject* sender) {
 		ColorSelectPopup::onToggleHSVMode(sender);
-		m_fields->channelIdButton->setVisible(m_showCopyObjects);
+		m_fields->m_channelIdButton->setVisible(m_showCopyObjects);
 	} // onToggleHSVMode
 
 	void onChannelIdPress(CCObject* sender) {
