@@ -4,6 +4,7 @@
 class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	struct Fields {
+		CCLabelBMFont* m_channelIdLabel;
         CCMenuItemSpriteExtra* m_channelIdButton = nullptr;
     };
 
@@ -27,6 +28,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
         auto colorIdLabelButton = ShiftPopup::createLabelButton(colorIdLabel, this, menu_selector(ColorSelectPopupShift::onColorIdPress));
 
 		// Set fields
+		m_fields->m_channelIdLabel = channelIdLabel;
 		m_fields->m_channelIdButton = channelIdLabelButton;
 
         // Get objects
@@ -44,7 +46,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	void onToggleHSVMode(CCObject* sender) {
 		ColorSelectPopup::onToggleHSVMode(sender);
-		m_fields->m_channelIdButton->setVisible(m_showCopyObjects);
+		if (m_fields->m_channelIdLabel) m_fields->m_channelIdButton->setVisible(m_fields->m_channelIdLabel->isVisible());
 	} // onToggleHSVMode
 
 	void onChannelIdPress(CCObject* sender) {

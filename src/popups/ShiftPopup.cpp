@@ -62,7 +62,7 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
 
     // Check for errors, this should hopefully prevent more crashes
     if (!menu || !label) {
-        log::error("Failed to create shift button, this is probably due to a mod incompatibility!");
+        log::error("Failed to create shift button, this could cause a crash, please report this issue!");
         auto fail = CCMenuItemSpriteExtra::create(CCLabelBMFont::create("error", "chatFont.fnt"), popup, callback);
         fail->setVisible(false);
         fail->setScale(0);
