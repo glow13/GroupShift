@@ -1,3 +1,8 @@
+# 1.1.2
+- Added safeguards to prevent more crashes.
+- Hopefully improved mod compatibility.
+- General bugfixes.
+
 # 1.1.1
 - Fixed a stupid crash when opening the color picker.
 
