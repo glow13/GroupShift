@@ -1,6 +1,7 @@
-# 1.1.2
+# 1.1.3
 - Added safeguards to prevent more crashes.
 - Hopefully improved mod compatibility.
+- Update to Geode v4.4.0.
 - General bugfixes.
 
 # 1.1.1
