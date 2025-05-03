@@ -5,7 +5,7 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 
 	struct Fields {
 		CCLabelBMFont* m_channelIdLabel;
-        CCMenuItemSpriteExtra* m_channelIdButton = nullptr;
+        CCMenuItemSpriteExtra* m_channelIdButton;
     };
 
 	bool init(EffectGameObject* obj, cocos2d::CCArray* objs, ColorAction* action) {
@@ -18,7 +18,6 @@ class $modify(ColorSelectPopupShift, ColorSelectPopup) {
 		auto mainLayer = getChildByType<CCLayer>(0);
 		auto hsvWidget = getChildByType<ConfigureHSVWidget>(0);
 		auto channelIdLabel = getChildByType<CCLabelBMFont>(1);
-		auto buttonMenu = mainLayer->getChildByType<CCMenu>(0);
 		auto fadeTimeLabel = mainLayer->getChildByType<CCLabelBMFont>(1);
 		auto colorIdLabel = mainLayer->getChildByType<CCLabelBMFont>(11);
 
