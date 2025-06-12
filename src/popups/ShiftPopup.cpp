@@ -74,7 +74,9 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool 
     } // if
 
     // Create button sprite
-    auto labelSprite = CCLabelBMFont::create(label->getString(), label->getFntFile());
+    std::string labelString = label->getString();
+    labelString.erase(labelString.find_last_not_of(' ') + 1);
+    auto labelSprite = CCLabelBMFont::create(labelString.c_str(), label->getFntFile());
     labelSprite->setScale(label->getScale());
 
     // Create button
@@ -87,10 +89,10 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool 
     // Create underline sprite
     if (underline && Mod::get()->getSettingValue<bool>("show-underlines")) {
         auto underlineSprite = CCSprite::createWithSpriteFrameName("gridLine01_001.png");
-        underlineSprite->setScaleX(label->getScaledContentWidth() / underlineSprite->getContentWidth() - 0.1f);
+        underlineSprite->setScaleX(labelSprite->getScaledContentWidth() / underlineSprite->getContentWidth() * 0.93f);
         underlineSprite->setPositionX(labelSprite->getPositionX());
         underlineSprite->setAnchorPoint(CCPoint(0.5f, 0.0f));
-        underlineSprite->setScaleY(0.6f);
+        underlineSprite->setScaleY(0.7f);
         underlineSprite->setZOrder(-1);
         underlineSprite->setColor(
             (std::strcmp(label->getFntFile(), "goldFont.fnt") == 0) ?
