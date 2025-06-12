@@ -56,6 +56,10 @@ bool ShiftPopup::setup(FLAlertLayer* popup) {
 } // setup
 
 CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback) {
+    return createLabelButton(label, true, popup, callback);
+} // createLabelButton
+
+CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool underline, FLAlertLayer* popup, SEL_MenuHandler callback) {
 
     // Get menu reference
     auto menu = popup->getChildByType<CCLayer>(0)->getChildByType<CCMenu>(0);
@@ -73,25 +77,28 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     auto labelSprite = CCLabelBMFont::create(label->getString(), label->getFntFile());
     labelSprite->setScale(label->getScale());
 
-    // Create underline sprite
-    auto underlineSprite = CCSprite::createWithSpriteFrameName("gridLine01_001.png");
-    underlineSprite->setScaleX(label->getScaledContentWidth() / underlineSprite->getContentWidth());
-    underlineSprite->setAnchorPoint(CCPoint(0, 0));
-    underlineSprite->setScaleY(0.6f);
-    underlineSprite->setZOrder(-1);
-    underlineSprite->setColor(
-        (std::strcmp(label->getFntFile(), "goldFont.fnt") == 0) ?
-        ccColor3B(255, 218, 64) :
-        ccColor3B(255, 255, 255)
-    );
-
     // Create button
     auto labelButton = CCMenuItemSpriteExtra::create(labelSprite, popup, callback);
     labelButton->setPosition(label->getPositionX() - menu->getPositionX(), label->getPositionY() - menu->getPositionY());
     labelButton->setContentSize(label->getScaledContentSize());
     labelButton->setAnchorPoint(label->getAnchorPoint());
     labelButton->setVisible(label->isVisible());
-    labelButton->addChild(underlineSprite);
+    
+    // Create underline sprite
+    if (underline) {
+        auto underlineSprite = CCSprite::createWithSpriteFrameName("gridLine01_001.png");
+        underlineSprite->setScaleX(label->getScaledContentWidth() / underlineSprite->getContentWidth() - 0.1f);
+        underlineSprite->setPositionX(labelSprite->getPositionX());
+        underlineSprite->setAnchorPoint(CCPoint(0.5f, 0.0f));
+        underlineSprite->setScaleY(0.6f);
+        underlineSprite->setZOrder(-1);
+        underlineSprite->setColor(
+            (std::strcmp(label->getFntFile(), "goldFont.fnt") == 0) ?
+            ccColor3B(255, 218, 64) :
+            ccColor3B(255, 255, 255)
+        );
+        labelButton->addChild(underlineSprite);
+    } // if
 
     // Set button id
     std::string id = "shift-button-"_spr + std::to_string(menu->getChildrenCount());

@@ -38,4 +38,5 @@ public:
     void closeParentPopup(CCObject* sender);
     static ShiftPopup* create(std::vector<GameObject*> objects, FLAlertLayer* popup);
     static CCMenuItemSpriteExtra* createLabelButton(CCLabelBMFont* label, FLAlertLayer* popup, SEL_MenuHandler callback);
+    static CCMenuItemSpriteExtra* createLabelButton(CCLabelBMFont* label, bool underline, FLAlertLayer* popup, SEL_MenuHandler callback);
 };

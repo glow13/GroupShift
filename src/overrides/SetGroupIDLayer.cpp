@@ -16,7 +16,7 @@ class $modify(SetGroupIDLayerShift, SetGroupIDLayer) {
 		auto addGroupIdButtonsMenu = mainLayer->getChildByID("add-group-id-buttons-menu");
 
 		// Create add group id button
-		auto addGroupIdLabelButton = ShiftPopup::createLabelButton((CCLabelBMFont*) addGroupIdLabel, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
+		auto addGroupIdLabelButton = ShiftPopup::createLabelButton((CCLabelBMFont*) addGroupIdLabel, false, this, menu_selector(SetGroupIDLayerShift::onAddGroupIdPress));
 		addGroupIdLabelButton->setPosition(addGroupIdLabel->getPositionX(), addGroupIdLabel->getPositionY());
 
 		// Create group shift button
