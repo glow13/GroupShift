@@ -24,6 +24,8 @@ This mod lets you <cj>SHIFT</c> almost any property of these triggers:
  * Instant Collision
  * Item Edit
  * Item Compare
+ * Random
+ * Advanced Random
  * Collision Block
  * Item Counter
 

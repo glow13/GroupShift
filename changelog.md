@@ -1,3 +1,8 @@
+# 1.2.0
+- Added new support for Random and Advanced Random triggers.
+- Underlined the labels in the popups of every supported trigger.
+- Added mod settings for the underlines and for notifications.
+
 # 1.1.3
 - Added safeguards to prevent more crashes.
 - Hopefully improved mod compatibility.

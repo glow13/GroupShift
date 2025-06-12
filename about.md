@@ -24,9 +24,11 @@ This mod lets you <cj>SHIFT</c> almost any property of these triggers:
  * Instant Collision
  * Item Edit
  * Item Compare
+ * Random
+ * Advanced Random
  * Collision Block
  * Item Counter
 
 ## Request Features
 
-Please create an issue on the mod's [GitHub](https://github.com/glow13/GroupShift) page if you want to request another feature or support for another trigger that I haven't implemented yet, and I will try to add it in the next update!
+Please create an issue on the mod's [GitHub](https://github.com/glow13/GroupShift/issues) page if you want to request another feature or support for another trigger that I haven't implemented yet, and I will try to add it in the next update!
