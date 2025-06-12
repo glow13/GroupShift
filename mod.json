@@ -25,5 +25,23 @@
 		"editor",
 		"enhancement",
 		"utility"
-	]
+	],
+	"settings": {
+        "settings-title": {
+            "type": "title",
+            "name": "GroupShift Settings"
+        },
+        "show-underlines": {
+			"type": "bool",
+			"name": "Show Label Underlines",
+			"description": "Disables the underlines beneath trigger property labels.",
+			"default": true
+		},
+		"show-notifications": {
+			"type": "bool",
+			"name": "Show Notifications",
+			"description": "Disables the success notifications when shifting groups or properties. Does not affect the error notifications.",
+			"default": true
+		}
+    }
 }

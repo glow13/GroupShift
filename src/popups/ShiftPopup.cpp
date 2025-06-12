@@ -83,9 +83,9 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool 
     labelButton->setContentSize(label->getScaledContentSize());
     labelButton->setAnchorPoint(label->getAnchorPoint());
     labelButton->setVisible(label->isVisible());
-    
+
     // Create underline sprite
-    if (underline) {
+    if (underline && Mod::get()->getSettingValue<bool>("show-underlines")) {
         auto underlineSprite = CCSprite::createWithSpriteFrameName("gridLine01_001.png");
         underlineSprite->setScaleX(label->getScaledContentWidth() / underlineSprite->getContentWidth() - 0.1f);
         underlineSprite->setPositionX(labelSprite->getPositionX());
@@ -94,8 +94,8 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool 
         underlineSprite->setZOrder(-1);
         underlineSprite->setColor(
             (std::strcmp(label->getFntFile(), "goldFont.fnt") == 0) ?
-            ccColor3B(255, 218, 64) :
-            ccColor3B(255, 255, 255)
+            ccc3(255, 218, 64) :
+            ccc3(255, 255, 255)
         );
         labelButton->addChild(underlineSprite);
     } // if
@@ -152,14 +152,15 @@ void ShiftPopup::onTextInput(std::string text) {
 } // onTextInput
 
 void ShiftPopup::goodNotification(std::string text) {
+    if (!Mod::get()->getSettingValue<bool>("show-notifications")) return;
     Notification::create(text, NotificationIcon::Success, 2)->show();
     log::info("{}", text);
-} // errorNotification
+} // goodNotification
 
 void ShiftPopup::badNotification(std::string text) {
     Notification::create(text, NotificationIcon::Error, 2)->show();
     log::warn("{}", text);
-} // errorNotification
+} // badNotification
 
 void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
     if (auto popup = typeinfo_cast<SetGroupIDLayer*>(m_popup)) popup->onClose(sender);
