@@ -63,7 +63,7 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     // Check for errors, this should hopefully prevent more crashes
     if (!menu || !label) {
         log::error("Failed to create shift button, this could cause a crash, please report this issue!");
-        auto fail = CCMenuItemSpriteExtra::create(CCLabelBMFont::create("error", "chatFont.fnt"), popup, callback);
+        auto fail = CCMenuItemSpriteExtra::create(CCLabelBMFont::create("error", "chatFont.fnt"), popup, nullptr);
         fail->setVisible(false);
         fail->setScale(0);
         return fail;
@@ -73,12 +73,25 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, FLAle
     auto labelSprite = CCLabelBMFont::create(label->getString(), label->getFntFile());
     labelSprite->setScale(label->getScale());
 
+    // Create underline sprite
+    auto underlineSprite = CCSprite::createWithSpriteFrameName("gridLine01_001.png");
+    underlineSprite->setScaleX(label->getScaledContentWidth() / underlineSprite->getContentWidth());
+    underlineSprite->setAnchorPoint(CCPoint(0, 0));
+    underlineSprite->setScaleY(0.6f);
+    underlineSprite->setZOrder(-1);
+    underlineSprite->setColor(
+        (std::strcmp(label->getFntFile(), "goldFont.fnt") == 0) ?
+        ccColor3B(255, 218, 64) :
+        ccColor3B(255, 255, 255)
+    );
+
     // Create button
     auto labelButton = CCMenuItemSpriteExtra::create(labelSprite, popup, callback);
     labelButton->setPosition(label->getPositionX() - menu->getPositionX(), label->getPositionY() - menu->getPositionY());
     labelButton->setContentSize(label->getScaledContentSize());
     labelButton->setAnchorPoint(label->getAnchorPoint());
     labelButton->setVisible(label->isVisible());
+    labelButton->addChild(underlineSprite);
 
     // Set button id
     std::string id = "shift-button-"_spr + std::to_string(menu->getChildrenCount());
