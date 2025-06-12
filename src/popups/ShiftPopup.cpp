@@ -154,14 +154,14 @@ void ShiftPopup::onTextInput(std::string text) {
 } // onTextInput
 
 void ShiftPopup::goodNotification(std::string text) {
+    log::info("{}", text);
     if (!Mod::get()->getSettingValue<bool>("show-notifications")) return;
     Notification::create(text, NotificationIcon::Success, 2)->show();
-    log::info("{}", text);
 } // goodNotification
 
 void ShiftPopup::badNotification(std::string text) {
-    Notification::create(text, NotificationIcon::Error, 2)->show();
     log::warn("{}", text);
+    Notification::create(text, NotificationIcon::Error, 2)->show();
 } // badNotification
 
 void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {

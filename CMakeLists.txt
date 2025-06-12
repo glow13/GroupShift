@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME} SHARED
     src/overrides/SetupObjectTogglePopup.cpp
     src/overrides/SetupOpacityPopup.cpp
     src/overrides/SetupPickupTriggerPopup.cpp
+    src/overrides/SetupRandAdvTriggerPopup.cpp
     src/overrides/SetupRandTriggerPopup.cpp
     src/overrides/SetupSpawnPopup.cpp
 
