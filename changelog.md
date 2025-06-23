@@ -1,6 +1,10 @@
+# 1.2.1
+- Added JIT-less iOS support.
+- Bumped Geode version to v4.6.1.
+
 # 1.2.0
 - Added new support for Random and Advanced Random triggers.
-- Underlined the labels in the popups of every supported trigger.
+- Added underlines to the property labels of every supported trigger.
 - Added mod settings for the underlines and for notifications.
 
 # 1.1.3
