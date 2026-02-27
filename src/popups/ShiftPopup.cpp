@@ -116,8 +116,8 @@ CCMenuItemSpriteExtra* ShiftPopup::createLabelButton(CCLabelBMFont* label, bool 
 } // createLabelButton
 
 int ShiftPopup::getValue() {
-    auto text = textInput->getString();
-    return (text != "-") ? stoi(text) : 0;
+    std::string text = textInput->getString();
+    return (text != "-") ? geode::utils::numFromString<int>(text).unwrapOrDefault() : 0;
 } // getValue
 
 void ShiftPopup::onLeftArrow(CCObject* obj) {
