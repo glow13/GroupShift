@@ -1,3 +1,7 @@
+# 1.2.2
+- Added 2.2081 support.
+- Updated for Geode v5.
+
 # 1.2.1
 - Added JIT-less iOS support.
 - Bumped Geode version to v4.6.1.
