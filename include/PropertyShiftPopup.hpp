@@ -14,7 +14,7 @@ public:
 	std::function<std::vector<float>(EffectGameObject*)> getProperty;
     std::function<void(EffectGameObject*, std::vector<float>)> setProperty;
 	void onButtonPress(CCObject* obj) override;
-	bool setup(FLAlertLayer*) override;
+	bool init(FLAlertLayer*);
 	static PropertyShiftPopup* create(
 		std::vector<EffectGameObject*> objects,
 		FLAlertLayer* popup,

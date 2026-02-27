@@ -70,8 +70,8 @@ void GroupShiftPopup::onButtonPress(CCObject* obj) {
     goodNotification("Shifted the groups of the selected objects by " + std::to_string(val) + "!");
 } // onButtonPress
 
-bool GroupShiftPopup::setup(FLAlertLayer* popup) {
-    if (!ShiftPopup::setup(popup)) return false;
+bool GroupShiftPopup::init(FLAlertLayer* popup) {
+    if (!ShiftPopup::init(popup)) return false;
 
     this->setTitle("Shift Groups");
     this->setID("GroupShiftPopup"_spr);
@@ -81,7 +81,7 @@ bool GroupShiftPopup::setup(FLAlertLayer* popup) {
 
 GroupShiftPopup* GroupShiftPopup::create(std::vector<GameObject*> objects, FLAlertLayer* popup) {
     auto ret = new GroupShiftPopup();
-    if (ret->initAnchored(240.f, 160.f, popup)) {
+    if (ret->init(popup)) {
         ret->targetedObjects = objects;
         ret->targetedObjectCount = objects.size();
         ret->autorelease();

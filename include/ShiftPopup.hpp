@@ -13,10 +13,8 @@
 
 using namespace geode::prelude;
 
-class ShiftPopup : public geode::Popup<FLAlertLayer*> {
+class ShiftPopup : public geode::Popup {
 public:
-    using Popup::initAnchored;
-
     FLAlertLayer* m_popup;
     Slider* slider = Slider::create(this, menu_selector(ShiftPopup::onSlider), 0.75);
 	TextInput* textInput = TextInput::create(50, "num");
@@ -24,7 +22,7 @@ public:
     std::vector<EffectGameObject*> targetedTriggerObjects;
     int targetedObjectCount = 0;
 
-    bool setup(FLAlertLayer* popup) override;
+    bool init(FLAlertLayer* popup);
     int getValue();
     static bool inBounds(float num, int min, int max) { return num >= min && num <= max; }
     virtual void onButtonPress(CCObject* obj) { log::info("value = {}", getValue()); onClose(this); }

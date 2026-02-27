@@ -10,6 +10,6 @@ public:
 		}
 	};
     void onButtonPress(CCObject* obj) override;
-    bool setup(FLAlertLayer*) override;
+    bool init(FLAlertLayer*);
     static GroupShiftPopup* create(std::vector<GameObject*> objects, FLAlertLayer* popup);
 };

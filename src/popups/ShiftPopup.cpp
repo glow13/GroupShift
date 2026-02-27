@@ -1,6 +1,7 @@
 #include "ShiftPopup.hpp"
 
-bool ShiftPopup::setup(FLAlertLayer* popup) {
+bool ShiftPopup::init(FLAlertLayer* popup) {
+    if (!Popup::init(240.f, 160.f)) return false;
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 
     m_popup = popup;
@@ -172,7 +173,7 @@ void ShiftPopup::closeParentPopup(cocos2d::CCObject* sender) {
 
 static ShiftPopup* create(std::vector<GameObject*> objects, FLAlertLayer* popup) {
     auto ret = new ShiftPopup();
-    if (ret->initAnchored(240.f, 160.f, popup)) {
+    if (ret->init(popup)) {
         ret->targetedObjects = objects;
         ret->autorelease();
         return ret;
@@ -184,7 +185,7 @@ static ShiftPopup* create(std::vector<GameObject*> objects, FLAlertLayer* popup)
 
 static ShiftPopup* create(std::vector<EffectGameObject*> objects, FLAlertLayer* popup) {
     auto ret = new ShiftPopup();
-    if (ret->initAnchored(240.f, 160.f, popup)) {
+    if (ret->init(popup)) {
         ret->targetedTriggerObjects = objects;
         ret->autorelease();
         return ret;

@@ -39,8 +39,8 @@ void PropertyShiftPopup::onButtonPress(CCObject*) {
     goodNotification("Shifted the property of the selected triggers by " + std::to_string(val) + "!");
 } // onButtonPress
 
-bool PropertyShiftPopup::setup(FLAlertLayer* popup) {
-    if (!ShiftPopup::setup(popup)) return false;
+bool PropertyShiftPopup::init(FLAlertLayer* popup) {
+    if (!ShiftPopup::init(popup)) return false;
 
     setTitle("Shift Property");
     setID("PropertyShiftPopup"_spr);
@@ -56,7 +56,7 @@ PropertyShiftPopup* PropertyShiftPopup::create(
     int minValue, int maxValue) {
 
     auto ret = new PropertyShiftPopup();
-    if (ret->initAnchored(240.f, 160.f, popup)) {
+    if (ret->init(popup)) {
         ret->targetedTriggerObjects = objects;
         ret->targetedObjectCount = objects.size();
         ret->getProperty = getProperty;
